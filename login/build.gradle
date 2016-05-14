@@ -7,7 +7,7 @@ buildscript {
     }
 }
 
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
@@ -15,21 +15,14 @@ android {
     buildToolsVersion commonBuildToolsVersion()
 
     defaultConfig {
-        applicationId "com.safechat"
         minSdkVersion commonMinSdkVersion()
         targetSdkVersion commonTargetSdkVersion()
         versionCode commonVersionCode()
         versionName commonVersionName()
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
 }
 
 dependencies {
-    compile project(":login")
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

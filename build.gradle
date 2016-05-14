@@ -1,6 +1,6 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
+    ext.support_version = '23.4.0'
+    ext.kotlin_version = '1.0.2'
     repositories {
         jcenter()
     }
@@ -20,4 +20,28 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+int commonVersionCode() {
+    return 1
+}
+
+String commonVersionName() {
+    return '0.0.1'
+}
+
+int commonCompileSdkVersion() {
+    return 23
+}
+
+int commonTargetSdkVersion() {
+    return commonCompileSdkVersion()
+}
+
+int commonMinSdkVersion() {
+    return 16
+}
+
+String commonBuildToolsVersion() {
+    return '24.0.0 rc1'
 }
