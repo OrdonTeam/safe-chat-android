@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    compile project(':login-core')
+    compile project(':select-conversation-core')
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

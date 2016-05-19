@@ -15,7 +15,7 @@ android {
     buildToolsVersion commonBuildToolsVersion()
 
     defaultConfig {
-        applicationId "com.safechat"
+        applicationId "com.secure.messenger"
         minSdkVersion commonMinSdkVersion()
         targetSdkVersion commonTargetSdkVersion()
         versionCode commonVersionCode()
@@ -29,7 +29,7 @@ android {
 }
 
 dependencies {
-    compile project(':login-view')
+    compile project(':select-conversation-view')
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
