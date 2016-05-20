@@ -20,6 +20,7 @@ android {
         targetSdkVersion commonTargetSdkVersion()
         versionCode commonVersionCode()
         versionName commonVersionName()
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -33,4 +34,13 @@ dependencies {
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso_version") {
+        exclude group: 'com.android.support'
+    }
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$espresso_version") {
+        exclude group: 'com.android.support'
+    }
+    androidTestCompile("com.android.support.test.espresso:espresso-intents:$espresso_version") {
+        exclude group: 'com.android.support'
+    }
 }

@@ -3,6 +3,7 @@ buildscript {
     ext.kotlin_version = '1.0.2'
     ext.junit_version = '4.12'
     ext.mockito_version = '1.10.19'
+    ext.espresso_version = '2.2.2'
     repositories {
         jcenter()
     }
