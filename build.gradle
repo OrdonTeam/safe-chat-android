@@ -43,5 +43,5 @@ int commonMinSdkVersion() {
 }
 
 String commonBuildToolsVersion() {
-    return '24.0.0 rc1'
+    return '23.0.3'
 }
