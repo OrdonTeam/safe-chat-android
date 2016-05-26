@@ -1,3 +1,8 @@
 package com.safechat.register
 
-class RegisterController
+class RegisterController(val registerView: RegisterView) {
+
+    fun onViewCreated() {
+        registerView.successLogIn()
+    }
+}
