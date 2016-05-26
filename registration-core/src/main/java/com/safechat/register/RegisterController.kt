@@ -16,5 +16,6 @@ class RegisterController(
         } else {
             registerView.successLogIn()
         }
+        registerView.hideRegisterLoader()
     }
 }

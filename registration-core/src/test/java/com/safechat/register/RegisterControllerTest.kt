@@ -80,4 +80,10 @@ class RegisterControllerTest {
         registerController.onViewCreated()
         verify(registerView, times(1)).showRegisterLoader()
     }
+
+    @Test
+    fun shouldHideLoader() {
+        registerController.onViewCreated()
+        verify(registerView, times(1)).hideRegisterLoader()
+    }
 }

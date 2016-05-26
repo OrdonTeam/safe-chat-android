@@ -6,4 +6,6 @@ interface RegisterView {
     fun showKeyRegisterError()
 
     fun showRegisterLoader()
+
+    fun hideRegisterLoader()
 }
