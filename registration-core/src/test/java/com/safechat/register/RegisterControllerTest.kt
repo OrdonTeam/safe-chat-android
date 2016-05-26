@@ -2,12 +2,12 @@ package com.safechat.register
 
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.`when` as on
 import org.mockito.Mockito.*
-import rx.Observable
 import rx.Observable.error
+import rx.Observable.just
 import java.security.KeyPair
 import java.security.PublicKey
+import org.mockito.Mockito.`when` as on
 
 class RegisterControllerTest {
 
@@ -21,7 +21,7 @@ class RegisterControllerTest {
     @Before
     fun setUp() {
         on(registerService.registerNewKey(newKey.public)).thenReturn(error(RuntimeException()))
-        on(keyGenerator.generateNewKey()).thenReturn(newKey)
+        on(keyGenerator.generateNewKey()).thenReturn(just(newKey))
     }
 
     @Test
