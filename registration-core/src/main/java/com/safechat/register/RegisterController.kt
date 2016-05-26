@@ -6,8 +6,9 @@ class RegisterController(
         val keyGenerator: KeyGenerator) {
 
     fun onViewCreated() {
-        keyGenerator.generateNewKey()
-        registerRepository.isKeySaved()
+        if(!registerRepository.isKeySaved()) {
+            keyGenerator.generateNewKey()
+        }
         registerView.successLogIn()
     }
 }

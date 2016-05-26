@@ -30,4 +30,11 @@ class RegisterControllerTest {
         registerController.onViewCreated()
         verify(keyGenerator, times(1)).generateNewKey()
     }
+
+    @Test
+    fun shouldNotGenerateNewKeyIfKeyAlreadyExists() {
+        on(registerRepository.isKeySaved()).thenReturn(true)
+        registerController.onViewCreated()
+        verify(keyGenerator, never()).generateNewKey()
+    }
 }
