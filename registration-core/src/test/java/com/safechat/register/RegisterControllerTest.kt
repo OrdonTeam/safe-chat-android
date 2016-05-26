@@ -4,6 +4,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.`when` as on
 import org.mockito.Mockito.*
+import rx.Observable
 import rx.Observable.error
 import java.security.KeyPair
 import java.security.PublicKey
@@ -85,5 +86,12 @@ class RegisterControllerTest {
     fun shouldHideLoader() {
         registerController.onViewCreated()
         verify(registerView, times(1)).hideRegisterLoader()
+    }
+
+    @Test
+    fun shouldNotHideLoaderUntilCallEnds() {
+        on(registerService.registerNewKey(newKey.public)).thenReturn(Observable.never())
+        registerController.onViewCreated()
+        verify(registerView, never()).hideRegisterLoader()
     }
 }

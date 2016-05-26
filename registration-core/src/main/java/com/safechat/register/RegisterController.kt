@@ -12,10 +12,10 @@ class RegisterController(
             val newKey = keyGenerator.generateNewKey()
             registerRepository.saveNewKey(newKey)
             registerService.registerNewKey(newKey.public)
+                    .doOnTerminate { registerView.hideRegisterLoader() }
                     .subscribe({ registerView.successLogIn() }, { registerView.showKeyRegisterError() })
         } else {
             registerView.successLogIn()
         }
-        registerView.hideRegisterLoader()
     }
 }
