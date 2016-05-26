@@ -1,1 +1,1 @@
-include ':app', ':select-conversation-view', ':select-conversation-core', ':encription', ':registration-core'
+include ':app', ':select-conversation-view', ':select-conversation-core', ':encription', ':registration-core', ':repository'
