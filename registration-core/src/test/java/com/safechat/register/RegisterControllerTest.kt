@@ -4,6 +4,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.`when` as on
 import org.mockito.Mockito.*
+import rx.Observable.error
 import java.security.KeyPair
 import java.security.PublicKey
 
@@ -18,11 +19,13 @@ class RegisterControllerTest {
 
     @Before
     fun setUp() {
+        on(registerService.registerNewKey(newKey.public)).thenReturn(error(RuntimeException()))
         on(keyGenerator.generateNewKey()).thenReturn(newKey)
     }
 
     @Test
     fun shouldCallOnLogInWhenKeyAlreadyExists() {
+        on(registerRepository.isKeySaved()).thenReturn(true)
         registerController.onViewCreated()
         verify(registerView, times(1)).successLogIn()
     }
@@ -35,7 +38,6 @@ class RegisterControllerTest {
 
     @Test
     fun shouldGenerateNewKeyIfKeyDoesNotExist() {
-        on(registerRepository.isKeySaved()).thenReturn(false)
         registerController.onViewCreated()
         verify(keyGenerator, times(1)).generateNewKey()
     }
@@ -49,15 +51,20 @@ class RegisterControllerTest {
 
     @Test
     fun shouldSaveNewKey() {
-        on(registerRepository.isKeySaved()).thenReturn(false)
         registerController.onViewCreated()
         verify(registerRepository, times(1)).saveNewKey(newKey)
     }
 
     @Test
     fun shouldRegisterNewKeyOnServer() {
-        on(registerRepository.isKeySaved()).thenReturn(false)
         registerController.onViewCreated()
         verify(registerService, times(1)).registerNewKey(newKey.public)
+    }
+
+    @Test
+    fun shouldNotCallOnLogInWhenCallFails() {
+        on(registerService.registerNewKey(newKey.public)).thenReturn(error(RuntimeException()))
+        registerController.onViewCreated()
+        verify(registerView, never()).successLogIn()
     }
 }

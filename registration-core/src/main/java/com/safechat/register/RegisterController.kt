@@ -7,11 +7,13 @@ class RegisterController(
         val registerService: RegisterService) {
 
     fun onViewCreated() {
-        if(!registerRepository.isKeySaved()) {
+        if (!registerRepository.isKeySaved()) {
             val newKey = keyGenerator.generateNewKey()
             registerRepository.saveNewKey(newKey)
             registerService.registerNewKey(newKey.public)
+                    .subscribe({ registerView.successLogIn() }, {})
+        } else {
+            registerView.successLogIn()
         }
-        registerView.successLogIn()
     }
 }
