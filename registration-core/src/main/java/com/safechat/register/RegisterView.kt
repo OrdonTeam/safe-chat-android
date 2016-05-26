@@ -4,4 +4,6 @@ interface RegisterView {
     fun successLogIn()
 
     fun showKeyRegisterError()
+
+    fun showRegisterLoader()
 }

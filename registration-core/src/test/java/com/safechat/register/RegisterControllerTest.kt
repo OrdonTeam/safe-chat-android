@@ -74,4 +74,10 @@ class RegisterControllerTest {
         registerController.onViewCreated()
         verify(registerView, times(1)).showKeyRegisterError()
     }
+
+    @Test
+    fun shouldShowLoader() {
+        registerController.onViewCreated()
+        verify(registerView, times(1)).showRegisterLoader()
+    }
 }

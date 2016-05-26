@@ -7,6 +7,7 @@ class RegisterController(
         val registerService: RegisterService) {
 
     fun onViewCreated() {
+        registerView.showRegisterLoader()
         if (!registerRepository.isKeySaved()) {
             val newKey = keyGenerator.generateNewKey()
             registerRepository.saveNewKey(newKey)
