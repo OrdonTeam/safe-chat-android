@@ -89,9 +89,10 @@ class RegisterControllerTest {
     }
 
     @Test
-    fun shouldNotHideLoaderUntilCallEnds() {
-        on(registerService.registerNewKey(newKey.public)).thenReturn(Observable.never())
+    fun shouldNotShowLoaderWhenKeyAlreadyExists() {
+        on(registerRepository.isKeySaved()).thenReturn(true)
         registerController.onViewCreated()
+        verify(registerView, never()).showRegisterLoader()
         verify(registerView, never()).hideRegisterLoader()
     }
 }
