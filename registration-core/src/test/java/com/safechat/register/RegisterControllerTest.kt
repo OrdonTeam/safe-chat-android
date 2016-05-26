@@ -3,6 +3,7 @@ package com.safechat.register
 import org.junit.Test
 import org.mockito.Mockito.`when` as on
 import org.mockito.Mockito.*
+import java.security.KeyPair
 
 class RegisterControllerTest {
 
@@ -36,5 +37,14 @@ class RegisterControllerTest {
         on(registerRepository.isKeySaved()).thenReturn(true)
         registerController.onViewCreated()
         verify(keyGenerator, never()).generateNewKey()
+    }
+
+    @Test
+    fun shouldSaveNewKey() {
+        val newKey = KeyPair(null, null)
+        on(registerRepository.isKeySaved()).thenReturn(false)
+        on(keyGenerator.generateNewKey()).thenReturn(newKey)
+        registerController.onViewCreated()
+        verify(registerRepository, times(1)).saveNewKey(newKey)
     }
 }
