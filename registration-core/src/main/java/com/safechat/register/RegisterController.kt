@@ -11,7 +11,7 @@ class RegisterController(
             val newKey = keyGenerator.generateNewKey()
             registerRepository.saveNewKey(newKey)
             registerService.registerNewKey(newKey.public)
-                    .subscribe({ registerView.successLogIn() }, {})
+                    .subscribe({ registerView.successLogIn() }, { registerView.showKeyRegisterError() })
         } else {
             registerView.successLogIn()
         }

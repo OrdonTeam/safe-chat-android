@@ -67,4 +67,11 @@ class RegisterControllerTest {
         registerController.onViewCreated()
         verify(registerView, never()).successLogIn()
     }
+
+    @Test
+    fun shouldShowKeyRegisterErrorWhenCallFails() {
+        on(registerService.registerNewKey(newKey.public)).thenReturn(error(RuntimeException()))
+        registerController.onViewCreated()
+        verify(registerView, times(1)).showKeyRegisterError()
+    }
 }
