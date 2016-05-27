@@ -10,14 +10,9 @@ class KeyGeneratorImpl : KeyGenerator {
     override fun generateNewKey(): Observable<KeyPair> {
         return Observable.create {
             it.onStart()
-            it.onNext(newKeyPair())
+            it.onNext(Encryptor.newKeyPair())
             it.onCompleted()
         }
     }
 
-    private fun newKeyPair(): KeyPair {
-        val keyPairGenerator = KeyPairGenerator.getInstance("RSA")
-        keyPairGenerator.initialize(1024)
-        return keyPairGenerator.genKeyPair()
-    }
 }
