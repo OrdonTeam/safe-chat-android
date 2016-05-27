@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "888897017190",
+    "firebase_url": "https://secure-messenger-3621d.firebaseio.com",
+    "project_id": "secure-messenger-3621d",
+    "storage_bucket": "secure-messenger-3621d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888897017190:android:63f4589848efb0e5",
+        "android_client_info": {
+          "package_name": "com.secure.messenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "888897017190-qq8gccvvfnatt55jf4gcoaal46ol98q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk2xfkeTsuVcCIY2vn8081ri0gHTuCLgQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
