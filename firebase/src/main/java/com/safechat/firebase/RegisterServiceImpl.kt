@@ -28,7 +28,7 @@ class RegisterServiceImpl : RegisterService {
                     .addOnFailureListener(onError)
         }
 
-        val onSuccess: (Void) -> Unit = {
+        val onSuccess: (Void?) -> Unit = {
             subscriber.onNext(Unit)
             subscriber.onCompleted()
         }
