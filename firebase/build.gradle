@@ -24,7 +24,10 @@ android {
 }
 
 dependencies {
+    compile project(":registration-core")
+    compile project(":encription")
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.google.firebase:firebase-database:9.0.0'
     androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso_version") {
         exclude group: 'com.android.support'
     }
