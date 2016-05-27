@@ -7,7 +7,7 @@ buildscript {
     }
 }
 
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
@@ -15,25 +15,15 @@ android {
     buildToolsVersion commonBuildToolsVersion()
 
     defaultConfig {
-        applicationId "com.secure.messenger"
         minSdkVersion commonMinSdkVersion()
         targetSdkVersion commonTargetSdkVersion()
         versionCode commonVersionCode()
         versionName commonVersionName()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
 }
 
 dependencies {
-    compile project(':firebase')
-    compile project(':select-conversation-view')
-    compile "com.android.support:appcompat-v7:$support_version"
-    compile "com.android.support:recyclerview-v7:$support_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso_version") {
         exclude group: 'com.android.support'
