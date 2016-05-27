@@ -3,7 +3,6 @@ package com.safechat.encryption
 import java.security.*
 import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
-import java.util.*
 import javax.crypto.Cipher
 
 object Encryptor {
@@ -27,12 +26,12 @@ object Encryptor {
     }
 
     fun publicKeyFromBase64String(base64String: String): PublicKey {
-        return KeyFactory.getInstance("RSA").generatePublic(X509EncodedKeySpec(Base64.getDecoder().decode(base64String)))
+        return KeyFactory.getInstance("RSA").generatePublic(X509EncodedKeySpec(Base64Encoder.decode(base64String)))
     }
 
     fun privateKeyFromBase64String(base64String: String): PrivateKey {
-        return KeyFactory.getInstance("RSA").generatePrivate(PKCS8EncodedKeySpec(Base64.getDecoder().decode(base64String)))
+        return KeyFactory.getInstance("RSA").generatePrivate(PKCS8EncodedKeySpec(Base64Encoder.decode(base64String)))
     }
 }
 
-fun Key.toBase64String() = String(Base64.getEncoder().encode(this.encoded))
+fun Key.toBase64String() = String(Base64Encoder.encode(this.encoded))
