@@ -1,15 +1,16 @@
 {
   "users": {
-    "RSA1": {
-      "timestamp_1": "timestamp",
+    "uid": {
+      "rsa": "RSA1",
       "conversations": {
         "RSA2": "conversation_id",
         "RSA3": "unique_conversation_id"
       },
       "pending_requests": {
-        "RSA2": {
-          "key" : "ENCRYPTED SYMMETRIC KEY",
-          "conversation_id" : "conversation_id"
+        "uid": {
+          "rsa": "RSA2",
+          "key": "ENCRYPTED SYMMETRIC KEY",
+          "conversation_id": "conversation_id"
         }
       }
     }
