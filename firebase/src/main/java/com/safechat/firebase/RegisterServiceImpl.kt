@@ -6,6 +6,7 @@ import com.safechat.register.RegisterService
 import rx.Observable
 import rx.Subscriber
 import java.security.PublicKey
+import java.util.*
 
 class RegisterServiceImpl : RegisterService {
 
@@ -23,7 +24,7 @@ class RegisterServiceImpl : RegisterService {
                     .reference
                     .child("users")
                     .child(publicKey.toBase64String())
-                    .setValue(true)
+                    .setValue(EmptyUser(Date().time.toString()))
                     .addOnSuccessListener(onSuccess)
                     .addOnFailureListener(onError)
         }
@@ -37,4 +38,6 @@ class RegisterServiceImpl : RegisterService {
             subscriber.onCompleted()
         }
     }
+
+    private data class EmptyUser(val timestamp: String)
 }
