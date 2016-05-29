@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        "rsa": {
+          ".write": "auth !== null && auth.uid === $uid",
+          ".read": "auth !== null"
+        },
+        "conversations": {
+          ".write": "auth !== null && auth.uid === $uid",
+          ".read": "auth !== null && auth.uid === $uid"
+        },
+        "pending_requests": {
+          ".write": "auth !== null && auth.uid === $uid",
+          ".read": "auth !== null && auth.uid === $uid",
+          "$uid2": {
+            ".write": "auth !== null && (auth.uid === $uid || auth.uid === $uid2)",
+            ".read": "auth !== null && (auth.uid === $uid || auth.uid === $uid2)"
+          }
+        }
+      }
+    }
+  }
+}
