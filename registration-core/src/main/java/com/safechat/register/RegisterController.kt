@@ -6,7 +6,8 @@ class RegisterController(
         val registerView: RegisterView,
         val registerRepository: RegisterRepository,
         val keyGenerator: KeyGenerator,
-        val registerService: RegisterService) {
+        val registerService: RegisterService,
+        val onRegistrationCompletedListener: OnRegistrationCompletedListener) {
 
     fun onViewCreated() {
         if (!registerRepository.isKeySaved()) {
@@ -16,6 +17,7 @@ class RegisterController(
                     .subscribe({ registerView.successLogIn() }, { registerView.showKeyRegisterError() })
         } else {
             registerView.successLogIn()
+            onRegistrationCompletedListener.onRegistrationCompleted()
         }
     }
 

@@ -16,7 +16,8 @@ class RegisterControllerTest {
     val registerRepository = mock(RegisterRepository::class.java)
     val keyGenerator = mock(KeyGenerator::class.java)
     val registerService = mock(RegisterService::class.java)
-    val registerController = RegisterController(registerView, registerRepository, keyGenerator, registerService)
+    val onRegisterCompletedListener = mock(OnRegistrationCompletedListener::class.java)
+    val registerController = RegisterController(registerView, registerRepository, keyGenerator, registerService, onRegisterCompletedListener)
 
     @Before
     fun setUp() {
@@ -94,5 +95,12 @@ class RegisterControllerTest {
         registerController.onViewCreated()
         verify(registerView, never()).showRegisterLoader()
         verify(registerView, never()).hideRegisterLoader()
+    }
+
+    @Test
+    fun shouldCallOnRegisterCompletedAfterRegistrationPassed() {
+        on(registerRepository.isKeySaved()).thenReturn(true)
+        registerController.onViewCreated()
+        verify(onRegisterCompletedListener, times(1)).onRegistrationCompleted()
     }
 }
