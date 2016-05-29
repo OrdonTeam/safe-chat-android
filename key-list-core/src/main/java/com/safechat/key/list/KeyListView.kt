@@ -5,7 +5,7 @@ interface KeyListView {
 
     fun hideLoader()
 
-    fun showKeys(it: List<String>?)
+    fun showKeys(it: List<String>)
 
     fun showKeysError()
 }
