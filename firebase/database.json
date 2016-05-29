@@ -1,0 +1,27 @@
+{
+  "users": {
+    "RSA1": {
+      "timestamp_1": "timestamp",
+      "conversations": {
+        "RSA2": "conversation_id",
+        "RSA3": "unique_conversation_id"
+      },
+      "pending_requests": {
+        "RSA2": {
+          "key" : "ENCRYPTED SYMMETRIC KEY",
+          "conversation_id" : "conversation_id"
+        }
+      }
+    }
+  },
+  "conversations": {
+    "conversation_id": {
+      "timestamp_1": "ENCODED MESSAGE",
+      "timestamp_2": "ENCODED MESSAGE"
+    },
+    "unique_conversation_id": {
+      "timestamp_3": "ENCODED MESSAGE",
+      "timestamp_4": "ENCODED MESSAGE"
+    }
+  }
+}
