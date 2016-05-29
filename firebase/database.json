@@ -3,8 +3,8 @@
     "uid": {
       "rsa": "RSA1",
       "conversations": {
-        "RSA2": "conversation_id",
-        "RSA3": "unique_conversation_id"
+        "conversation_id": "RSA2",
+        "unique_conversation_id": "RSA3"
       },
       "pending_requests": {
         "uid": {
