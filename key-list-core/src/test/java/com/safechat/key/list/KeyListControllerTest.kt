@@ -36,7 +36,7 @@ class KeyListControllerTest {
     fun shouldHideLoaderAfterCallForListOfKeysComplete() {
         controller.start()
 
-        verify(view).showLoader()
+        verify(view).hideLoader()
     }
 
     @Test
