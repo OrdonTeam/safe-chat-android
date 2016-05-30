@@ -4,7 +4,7 @@
       "$uid": {
         "rsa": {
           ".write": "auth !== null && auth.uid === $uid",
-          ".read": "auth !== null"
+          ".read": "auth !== null && auth.uid === $uid"
         },
         "conversations": {
           ".write": "auth !== null && auth.uid === $uid",
@@ -24,6 +24,12 @@
       "$conversation_id": {
         ".write": "auth !== null && root.child('users').child(auth.uid).child('conversations').val().hasChild($conversation_id)",
         ".read": "auth !== null && root.child('users').child(auth.uid).child('conversations').val().hasChild($conversation_id)"
+      }
+    },
+    "pub_keys": {
+      "$rsa" : {
+        ".write": "auth !== null && root.child('users').child(auth.uid).child('rsa').val() === $rsa",
+        ".read": "auth !== null"
       }
     }
   }
