@@ -14,11 +14,15 @@ class RegisterController(
             registerNewKey()
                     .doOnSubscribe { registerView.showRegisterLoader() }
                     .doOnTerminate { registerView.hideRegisterLoader() }
-                    .subscribe({ registerView.successLogIn() }, { registerView.showKeyRegisterError() })
+                    .subscribe({ onRegistrationSuccess() }, { registerView.showKeyRegisterError() })
         } else {
-            registerView.successLogIn()
-            onRegistrationCompletedListener.onRegistrationCompleted()
+            onRegistrationSuccess()
         }
+    }
+
+    private fun onRegistrationSuccess() {
+        registerView.successLogIn()
+        onRegistrationCompletedListener.onRegistrationCompleted()
     }
 
     private fun registerNewKey(): Observable<Unit> {
