@@ -19,6 +19,12 @@
           }
         }
       }
+    },
+    "conversations": {
+      "$conversation_id": {
+        ".write": "auth !== null && root.child('users').child(auth.uid).child('conversations').val().hasChild($conversation_id)",
+        ".read": "auth !== null && root.child('users').child(auth.uid).child('conversations').val().hasChild($conversation_id)"
+      }
     }
   }
 }
