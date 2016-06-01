@@ -20,10 +20,13 @@ class RegisterController(
     }
 
     private fun registerNewKey(): Observable<Unit> {
-        return keyGenerator.generateNewKey()
+        return keyGenerator
+                .generateNewKey()
                 .flatMap { newKey ->
-                    registerRepository.saveNewKey(newKey)
-                    registerService.registerNewKey(newKey.public)
+                    registerService.registerNewKey(newKey.public).map { newKey }
+                }
+                .map {
+                    registerRepository.saveNewKey(it)
                 }
     }
 }

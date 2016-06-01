@@ -52,6 +52,7 @@ class RegisterControllerTest {
 
     @Test
     fun shouldSaveNewKey() {
+        on(registerService.registerNewKey(newKey.public)).thenReturn(just(Unit))
         registerController.onViewCreated()
         verify(registerRepository, times(1)).saveNewKey(newKey)
     }
@@ -94,5 +95,12 @@ class RegisterControllerTest {
         registerController.onViewCreated()
         verify(registerView, never()).showRegisterLoader()
         verify(registerView, never()).hideRegisterLoader()
+    }
+
+    @Test
+    fun shouldNotSaveKeyIfServiceFails() {
+        on(registerService.registerNewKey(newKey.public)).thenReturn(error(RuntimeException()))
+        registerController.onViewCreated()
+        verify(registerRepository, never()).saveNewKey(newKey)
     }
 }
