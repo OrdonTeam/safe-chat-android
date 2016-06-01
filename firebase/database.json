@@ -24,8 +24,5 @@
       "timestamp_3": "ENCODED MESSAGE",
       "timestamp_4": "ENCODED MESSAGE"
     }
-  },
-  "pub_keys": {
-    "rsa1" : "uid"
   }
 }
