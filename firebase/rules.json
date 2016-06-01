@@ -2,6 +2,8 @@
   "rules": {
     "users": {
       "$uid": {
+        ".write": "auth !== null && auth.uid === $uid",
+        ".read": "auth !== null",
         "rsa": {
           ".write": "auth !== null && auth.uid === $uid",
           ".read": "auth !== null"
