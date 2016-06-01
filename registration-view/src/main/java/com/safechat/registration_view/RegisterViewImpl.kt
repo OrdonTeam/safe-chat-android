@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.TextView
 import com.safechat.register.RegisterView
 
-class RegisterViewImpl(activity: Activity) : RegisterView {
+class RegisterViewImpl(activity: Activity, val navigator: Navigator) : RegisterView {
 
     val loader = activity.findViewById(R.id.register_loader)
     val messsage = activity.findViewById(R.id.register_message) as TextView
@@ -20,9 +20,14 @@ class RegisterViewImpl(activity: Activity) : RegisterView {
 
     override fun successLogIn() {
         messsage.text = "Log in successful"
+        navigator.openSelectConversation()
     }
 
     override fun showKeyRegisterError() {
         messsage.text = "Log in error"
+    }
+
+    interface Navigator {
+        fun openSelectConversation()
     }
 }
