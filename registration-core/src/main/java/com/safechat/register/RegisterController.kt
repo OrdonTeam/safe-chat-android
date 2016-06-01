@@ -6,17 +6,23 @@ class RegisterController(
         val registerView: RegisterView,
         val registerRepository: RegisterRepository,
         val keyGenerator: KeyGenerator,
-        val registerService: RegisterService) {
+        val registerService: RegisterService,
+        val onRegistrationCompletedListener: OnRegistrationCompletedListener) {
 
     fun onViewCreated() {
         if (!registerRepository.isKeySaved()) {
             registerNewKey()
                     .doOnSubscribe { registerView.showRegisterLoader() }
                     .doOnTerminate { registerView.hideRegisterLoader() }
-                    .subscribe({ registerView.successLogIn() }, { registerView.showKeyRegisterError() })
+                    .subscribe({ onRegistrationSuccess() }, { registerView.showKeyRegisterError() })
         } else {
-            registerView.successLogIn()
+            onRegistrationSuccess()
         }
+    }
+
+    private fun onRegistrationSuccess() {
+        registerView.successLogIn()
+        onRegistrationCompletedListener.onRegistrationCompleted()
     }
 
     private fun registerNewKey(): Observable<Unit> {
