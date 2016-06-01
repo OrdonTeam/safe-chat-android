@@ -1,4 +1,3 @@
 package com.safechat.conversation.select
 
-class User {
-}
+data class User(val rsa: String)
