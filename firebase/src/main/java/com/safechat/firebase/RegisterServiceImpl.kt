@@ -23,8 +23,8 @@ class RegisterServiceImpl : RegisterService {
                     .getInstance()
                     .reference
                     .child("users")
-                    .child(publicKey.toBase64String())
-                    .setValue(EmptyUser(Date().time.toString()))
+                    .child("UID-" + publicKey.toBase64String().take(40))
+                    .setValue(EmptyUser(publicKey.toBase64String()))
                     .addOnSuccessListener(onSuccess)
                     .addOnFailureListener(onError)
         }
@@ -39,5 +39,5 @@ class RegisterServiceImpl : RegisterService {
         }
     }
 
-    private data class EmptyUser(val timestamp: String)
+    private data class EmptyUser(val rsa: String)
 }
