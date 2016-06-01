@@ -1,6 +1,8 @@
 package com.safechat.conversation.select
 
+import rx.Observable
+
 interface UsersService {
 
-    fun getUsers()
+    fun getUsers() : Observable<List<User>>
 }
