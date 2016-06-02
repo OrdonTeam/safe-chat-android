@@ -48,29 +48,27 @@ class SelectConversationControllerTest {
 
     @Test
     fun shouldShowFilteredListWhenCallEndsAfterQueryTyped() {
-        val await = SingleAwaitObservable<List<User>>()
-        whenever(service.getUsers()).thenReturn(await.observable)
+        val holder = ObservableHolder(listOf(User("A"), User("B")))
+        whenever(service.getUsers()).thenReturn(holder.observable)
         controller.onCreate()
 
         controller.onQuery("A")
-        await.emit(listOf(User("A"), User("B")))
+        holder.release()
 
         verify(view).showUsers(listOf(User("A")))
     }
 
-    class SingleAwaitObservable<T> {
-        private var sub: Subscriber<in T>? = null
+    class ObservableHolder<T>(val value:T) {
+        private lateinit var subscriber: Subscriber<in T>
 
-        private val onSubscribe: (Subscriber<in T>) -> Unit = {
-            sub = it
+        val observable = Observable.create<T> {
+            subscriber = it
             it.onStart()
         }
 
-        val observable = Observable.create<T>(onSubscribe)
-
-        fun emit(t: T) {
-            sub!!.onNext(t)
-            sub!!.onCompleted()
+        fun release() {
+            subscriber.onNext(value)
+            subscriber.onCompleted()
         }
     }
 }
