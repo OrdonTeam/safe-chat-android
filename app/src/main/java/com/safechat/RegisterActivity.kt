@@ -1,6 +1,7 @@
 package com.safechat
 
 import android.os.Bundle
+import com.safechat.conversation.select.SelectConversationActivity
 import com.safechat.encryption.KeyGeneratorImpl
 import com.safechat.firebase.register.RegisterServiceImpl
 import com.safechat.register.RegisterController

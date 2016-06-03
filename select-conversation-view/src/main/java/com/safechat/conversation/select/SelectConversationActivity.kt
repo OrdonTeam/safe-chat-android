@@ -1,17 +1,13 @@
-package com.safechat
+package com.safechat.conversation.select
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.safechat.conversation.select.SelectConversationController
-import com.safechat.conversation.select.SelectConversationViewImpl
-import com.safechat.firebase.users.UsersServiceImpl
+import android.support.v7.app.AppCompatActivity
 
-class SelectConversationActivity : BaseActivity() {
+class SelectConversationActivity : AppCompatActivity() {
 
-    val controller by lazy {
-        SelectConversationController(UsersServiceImpl(), SelectConversationViewImpl(this))
-    }
+    val controller by lazy { selectConversationControllerProvider(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +16,9 @@ class SelectConversationActivity : BaseActivity() {
     }
 
     companion object {
+
+        lateinit var selectConversationControllerProvider: (SelectConversationActivity) -> SelectConversationController
+
         fun start(context: Context) {
             context.startActivity(Intent(context, SelectConversationActivity::class.java))
         }
