@@ -1,4 +1,4 @@
-package com.safechat.firebase
+package com.safechat.firebase.register
 
 import com.google.firebase.database.FirebaseDatabase
 import rx.Observable

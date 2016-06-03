@@ -2,7 +2,7 @@ package com.safechat
 
 import android.os.Bundle
 import com.safechat.encryption.KeyGeneratorImpl
-import com.safechat.firebase.RegisterServiceImpl
+import com.safechat.firebase.register.RegisterServiceImpl
 import com.safechat.register.RegisterController
 import com.safechat.registration_view.RegisterViewImpl
 import com.safechat.repository.RepositoryImpl

@@ -1,4 +1,4 @@
-package com.safechat.firebase
+package com.safechat.firebase.register
 
 import com.safechat.encryption.toBase64String
 import com.safechat.register.RegisterService
