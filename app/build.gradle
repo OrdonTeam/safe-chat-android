@@ -22,7 +22,6 @@ android {
         targetSdkVersion commonTargetSdkVersion()
         versionCode commonVersionCode()
         versionName commonVersionName()
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
