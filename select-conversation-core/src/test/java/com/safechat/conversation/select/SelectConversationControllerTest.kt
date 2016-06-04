@@ -14,7 +14,7 @@ class SelectConversationControllerTest {
 
     val view = mock<SelectConversationView>()
     val service = mock<UsersService>()
-    val controller = SelectConversationController(service, view)
+    val controller = SelectConversationControllerImpl(service, view)
 
     @Before
     fun setUp() {
