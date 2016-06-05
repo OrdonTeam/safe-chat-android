@@ -29,6 +29,14 @@ class InitConversationControllerImplTest {
         verify(view, never()).complete()
     }
 
+    @Test
+    fun shouldCallOnCompleteWhenCallCompleted() {
+        stubRepositoryToReturn(false)
+        stubServiceToReturn(Observable.just("symmetric-key"))
+        controller.onCreate("rsa")
+        verify(view).complete()
+    }
+
     private fun stubServiceToReturn(result: Observable<String?>?) {
         whenever(service.getEncryptedSymmetricKey("rsa")).thenReturn(result)
     }

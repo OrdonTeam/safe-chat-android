@@ -9,6 +9,8 @@ class InitConversationControllerImpl(
         if (repository.containsSavedSymmetricKey(rsa)) {
             view.complete()
         } else {
+            service.getEncryptedSymmetricKey(rsa)
+                    .subscribe({ view.complete() })
         }
     }
 }
