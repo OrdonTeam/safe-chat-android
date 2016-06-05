@@ -10,7 +10,7 @@ class InitConversationControllerImpl(
             view.complete()
         } else {
             service.getEncryptedSymmetricKey(rsa)
-                    .subscribe({ view.complete() })
+                    .subscribe({ view.complete() }, { view.showError() })
         }
     }
 }

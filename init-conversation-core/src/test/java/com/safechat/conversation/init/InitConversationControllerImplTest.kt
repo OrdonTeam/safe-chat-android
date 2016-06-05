@@ -37,6 +37,14 @@ class InitConversationControllerImplTest {
         verify(view).complete()
     }
 
+    @Test
+    fun shouldCallOnErrorWhenCallCompletedWithError() {
+        stubRepositoryToReturn(false)
+        stubServiceToReturn(Observable.error(RuntimeException()))
+        controller.onCreate("rsa")
+        verify(view).showError()
+    }
+
     private fun stubServiceToReturn(result: Observable<String?>?) {
         whenever(service.getEncryptedSymmetricKey("rsa")).thenReturn(result)
     }
