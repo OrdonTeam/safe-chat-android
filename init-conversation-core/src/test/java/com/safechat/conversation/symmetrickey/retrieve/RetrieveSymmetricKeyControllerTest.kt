@@ -48,6 +48,13 @@ class RetrieveSymmetricKeyControllerTest {
         verify(decryptor).decryptSymmetricKey(any(), any(), any())
     }
 
+    @Test
+    fun shouldSaveDecryptedSymmetricKey() {
+        stubService(just("encryptedSymmetricKey"))
+        startController()
+        verify(repository).saveDecryptedSymmetricKey("otherPublicKey", "decryptedSymmetricKey")
+    }
+
     private fun startController() {
         controller.retrieveKey("otherPublicKey").subscribe(subscriber)
     }

@@ -22,6 +22,7 @@ class RetrieveSymmetricKeyController(
     private fun saveKey(otherPublicKey: String, encryptedSymmetricKey: String): Observable<RetrieveResult> {
         val myPrivateKey = repository.getPrivateKeyString()
         return decryptor.decryptSymmetricKey(otherPublicKey, myPrivateKey, encryptedSymmetricKey)
+                .map { repository.saveDecryptedSymmetricKey(otherPublicKey, it) }
                 .map { RetrieveResult.KEY_RETRIEVED }
     }
 
