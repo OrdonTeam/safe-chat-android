@@ -1,3 +1,5 @@
 package com.safechat.conversation.init
 
-interface InitConversationController
+interface InitConversationController {
+    fun onCreate(rsa: String)
+}
