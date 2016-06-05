@@ -19,7 +19,7 @@ class RetrieveSymmetricKeyControllerTest {
     val decryptor = mock<RetrieveSymmetricKeyDecryptor>()
     val repository = mock<RetrieveSymmetricKeyRepository>()
     val service = mock<RetrieveSymmetricKeyService>()
-    val controller = RetrieveSymmetricKeyController(service, repository, decryptor)
+    val controller = RetrieveSymmetricKeyControllerImpl(service, repository, decryptor)
     val subscriber = TestSubscriber<RetrieveResult>()
 
     @Before
