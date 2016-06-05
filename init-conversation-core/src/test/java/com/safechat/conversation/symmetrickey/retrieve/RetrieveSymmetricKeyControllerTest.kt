@@ -2,6 +2,7 @@ package com.safechat.conversation.symmetrickey.retrieve
 
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController.RetrieveResult
 import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController.RetrieveResult.KEY_NOT_PRESENT
@@ -14,15 +15,17 @@ import rx.observers.TestSubscriber
 
 class RetrieveSymmetricKeyControllerTest {
 
+    val decryptor = mock<RetrieveSymmetricKeyDecryptor>()
     val repository = mock<RetrieveSymmetricKeyRepository>()
     val service = mock<RetrieveSymmetricKeyService>()
-    val controller = RetrieveSymmetricKeyController(service, repository)
+    val controller = RetrieveSymmetricKeyController(service, repository, decryptor)
     val subscriber = TestSubscriber<RetrieveResult>()
 
     @Before
     fun setUp() {
-        stubRepository("myPublicKey")
+        stubRepository()
         stubService(just(null))
+        stubDecryptor()
     }
 
     @Test
@@ -39,20 +42,26 @@ class RetrieveSymmetricKeyControllerTest {
     }
 
     @Test
-    fun shouldUseSelfPublicKeyInCall() {
+    fun shouldDecryptSymmetricKey() {
+        stubService(just("encryptedSymmetricKey"))
         startController()
-        subscriber.assertValue(KEY_NOT_PRESENT)
+        verify(decryptor).decryptSymmetricKey(any(), any(), any())
     }
 
     private fun startController() {
         controller.retrieveKey("otherPublicKey").subscribe(subscriber)
     }
 
-    private fun stubRepository(myPublicKey: String) {
-        whenever(repository.getPublicKeyString()).thenReturn(myPublicKey)
+    private fun stubRepository() {
+        whenever(repository.getPublicKeyString()).thenReturn("myPublicKey")
+        whenever(repository.getPrivateKeyString()).thenReturn("myPrivateKey")
     }
 
     private fun stubService(encryptedSymmetricKey: Observable<String?>) {
         whenever(service.retrieveSymmetricKey("myPublicKey", "otherPublicKey")).thenReturn(encryptedSymmetricKey)
+    }
+
+    private fun stubDecryptor() {
+        whenever(decryptor.decryptSymmetricKey("otherPublicKey", "myPrivateKey", "encryptedSymmetricKey")).thenReturn(just("decryptedSymmetricKey"))
     }
 }
