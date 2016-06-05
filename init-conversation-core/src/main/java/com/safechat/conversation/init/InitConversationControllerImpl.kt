@@ -18,7 +18,7 @@ class InitConversationControllerImpl(
     val onEncryptedKey: (String?) -> Unit = {
         if (it == null) {
             keyGenerator.generateSymmetricKey()
-                    .subscribe({ view.complete() })
+                    .subscribe({ view.complete() }, { view.showError() })
         } else {
             view.complete()
         }

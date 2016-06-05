@@ -56,6 +56,15 @@ class InitConversationControllerImplTest {
         verify(view, never()).complete()
     }
 
+    @Test
+    fun shouldCallOnErrorWhenKeyGenerationFails() {
+        stubRepositoryToReturn(false)
+        stubServiceToReturn(Observable.just(null))
+        stubGeneratorToReturn(Observable.error(RuntimeException()))
+        controller.onCreate("rsa")
+        verify(view).showError()
+    }
+
     private fun stubRepositoryToReturn(isSaved: Boolean) {
         whenever(repository.containsSavedSymmetricKey("rsa")).thenReturn(isSaved)
     }
