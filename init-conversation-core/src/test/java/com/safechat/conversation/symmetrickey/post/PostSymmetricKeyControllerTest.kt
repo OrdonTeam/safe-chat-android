@@ -10,8 +10,9 @@ import rx.observers.TestSubscriber
 
 class PostSymmetricKeyControllerTest {
 
+    val repository = mock<PostSymmetricKeyRepository>()
     val encryptor = mock<PostSymmetricKeyEncryptor>()
-    val controller = PostSymmetricKeyControllerImpl(encryptor)
+    val controller = PostSymmetricKeyControllerImpl(encryptor, repository)
     val subscriber = TestSubscriber<Unit>()
 
     @Before
@@ -23,6 +24,12 @@ class PostSymmetricKeyControllerTest {
     fun shouldGenerateKey() {
         startController()
         verify(encryptor).generateSymmetricKey()
+    }
+
+    @Test
+    fun shouldSaveGeneratedKey() {
+        startController()
+        verify(repository).saveDecryptedSymmetricKey("otherPublicKey", "newSymmetricKey")
     }
 
     private fun startController() {
