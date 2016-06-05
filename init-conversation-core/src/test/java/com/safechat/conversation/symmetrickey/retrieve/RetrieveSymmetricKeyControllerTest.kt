@@ -10,6 +10,7 @@ import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyContr
 import org.junit.Before
 import org.junit.Test
 import rx.Observable
+import rx.Observable.error
 import rx.Observable.just
 import rx.observers.TestSubscriber
 
@@ -25,7 +26,7 @@ class RetrieveSymmetricKeyControllerTest {
     fun setUp() {
         stubRepository()
         stubService(just(null))
-        stubDecryptor()
+        stubDecryptor(just("decryptedSymmetricKey"))
     }
 
     @Test
@@ -55,6 +56,23 @@ class RetrieveSymmetricKeyControllerTest {
         verify(repository).saveDecryptedSymmetricKey("otherPublicKey", "decryptedSymmetricKey")
     }
 
+    @Test
+    fun shouldReturnErrorWhenApiFails() {
+        val exception = RuntimeException()
+        stubService(error(exception))
+        startController()
+        subscriber.assertError(exception)
+    }
+
+    @Test
+    fun shouldReturnErrorWhenDecryptionFails() {
+        val exception = RuntimeException()
+        stubDecryptor(error(exception))
+        stubService(just("encryptedSymmetricKey"))
+        startController()
+        subscriber.assertError(exception)
+    }
+
     private fun startController() {
         controller.retrieveKey("otherPublicKey").subscribe(subscriber)
     }
@@ -68,7 +86,7 @@ class RetrieveSymmetricKeyControllerTest {
         whenever(service.retrieveSymmetricKey("myPublicKey", "otherPublicKey")).thenReturn(encryptedSymmetricKey)
     }
 
-    private fun stubDecryptor() {
-        whenever(decryptor.decryptSymmetricKey("otherPublicKey", "myPrivateKey", "encryptedSymmetricKey")).thenReturn(just("decryptedSymmetricKey"))
+    private fun stubDecryptor(decryptionResult: Observable<String>?) {
+        whenever(decryptor.decryptSymmetricKey("otherPublicKey", "myPrivateKey", "encryptedSymmetricKey")).thenReturn(decryptionResult)
     }
 }
