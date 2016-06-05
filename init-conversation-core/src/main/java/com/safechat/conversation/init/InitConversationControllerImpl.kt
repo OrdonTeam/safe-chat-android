@@ -1,7 +1,14 @@
 package com.safechat.conversation.init
 
-class InitConversationControllerImpl(val view: InitConversationView, val repository: InitConversationRepository) : InitConversationController {
+class InitConversationControllerImpl(
+        val view: InitConversationView,
+        val repository: InitConversationRepository,
+        val service: InitConversationService) : InitConversationController {
+
     override fun onCreate(rsa: String) {
-        view.complete()
+        if (repository.containsSavedSymmetricKey(rsa)) {
+            view.complete()
+        } else {
+        }
     }
 }
