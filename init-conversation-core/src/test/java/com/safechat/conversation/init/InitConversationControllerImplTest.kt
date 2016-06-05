@@ -6,13 +6,15 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Test
 import rx.Observable
+import javax.crypto.SecretKey
 
 class InitConversationControllerImplTest {
 
     val view = mock<InitConversationView>()
     val repository = mock<InitConversationRepository>()
     val service = mock<InitConversationService>()
-    val controller = InitConversationControllerImpl(view, repository, service)
+    val keyGenerator = mock<InitConversationKeyGenerator>()
+    val controller = InitConversationControllerImpl(view, repository, service, keyGenerator)
 
     @Test
     fun shouldCallOnCompleteWhenSymmetricKeyAlreadyExchanged() {
@@ -45,11 +47,24 @@ class InitConversationControllerImplTest {
         verify(view).showError()
     }
 
-    private fun stubServiceToReturn(result: Observable<String?>?) {
-        whenever(service.getEncryptedSymmetricKey("rsa")).thenReturn(result)
+    @Test
+    fun shouldNotCallOnCompleteWhenKeyGenerationIsInProgress() {
+        stubRepositoryToReturn(false)
+        stubServiceToReturn(Observable.just(null))
+        stubGeneratorToReturn(Observable.never())
+        controller.onCreate("rsa")
+        verify(view, never()).complete()
     }
 
     private fun stubRepositoryToReturn(isSaved: Boolean) {
         whenever(repository.containsSavedSymmetricKey("rsa")).thenReturn(isSaved)
+    }
+
+    private fun stubServiceToReturn(result: Observable<String?>?) {
+        whenever(service.getEncryptedSymmetricKey("rsa")).thenReturn(result)
+    }
+
+    private fun stubGeneratorToReturn(secretKey: Observable<SecretKey>) {
+        whenever(keyGenerator.generateSymmetricKey()).thenReturn(secretKey)
     }
 }
