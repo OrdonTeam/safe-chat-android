@@ -26,6 +26,7 @@ android {
 dependencies {
     compile project(":registration-core")
     compile project(":select-conversation-core")
+    compile project(":exchange-symmetric-key-core")
     compile project(":encription")
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.google.firebase:firebase-auth:9.0.1'
