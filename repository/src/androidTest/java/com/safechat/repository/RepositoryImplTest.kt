@@ -1,7 +1,7 @@
 package com.safechat.repository
 
 import android.support.test.InstrumentationRegistry.getTargetContext
-import com.safechat.encryption.Encryptor.newKeyPair
+import com.safechat.register.KeyPairString
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -26,9 +26,11 @@ class RepositoryImplTest {
     fun shouldReadSavedKey() {
         val keyPair = newKeyPair()
         repositoryImpl.saveNewKey(keyPair)
-        assertEquals(keyPair.private, repositoryImpl.getPrivateKey())
-        assertEquals(keyPair.public, repositoryImpl.getPublicKey())
+        assertEquals(keyPair.privateKey, repositoryImpl.getPrivateKey())
+        assertEquals(keyPair.publicKey, repositoryImpl.getPublicKey())
     }
+
+    private fun newKeyPair() = KeyPairString("publicKey", "privateKey")
 
     @After
     @Before

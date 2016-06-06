@@ -11,7 +11,7 @@ import org.mockito.Mockito.`when` as on
 
 class RegisterControllerTest {
 
-    val newKey = KeyPair(mock(PublicKey::class.java), null)
+    val newKey = KeyPairString("publicKey", "privateKey")
     val registerView = mock(RegisterView::class.java)
     val registerRepository = mock(RegisterRepository::class.java)
     val keyGenerator = mock(KeyGenerator::class.java)
@@ -20,7 +20,7 @@ class RegisterControllerTest {
 
     @Before
     fun setUp() {
-        on(registerService.registerNewKey(newKey.public)).thenReturn(error(RuntimeException()))
+        on(registerService.registerNewKey(newKey.publicKey)).thenReturn(error(RuntimeException()))
         on(keyGenerator.generateNewKey()).thenReturn(just(newKey))
     }
 
@@ -52,7 +52,7 @@ class RegisterControllerTest {
 
     @Test
     fun shouldSaveNewKey() {
-        on(registerService.registerNewKey(newKey.public)).thenReturn(just(Unit))
+        on(registerService.registerNewKey(newKey.publicKey)).thenReturn(just(Unit))
         registerController.onViewCreated()
         verify(registerRepository, times(1)).saveNewKey(newKey)
     }
@@ -60,19 +60,19 @@ class RegisterControllerTest {
     @Test
     fun shouldRegisterNewKeyOnServer() {
         registerController.onViewCreated()
-        verify(registerService, times(1)).registerNewKey(newKey.public)
+        verify(registerService, times(1)).registerNewKey(newKey.publicKey)
     }
 
     @Test
     fun shouldNotCallOnLogInWhenCallFails() {
-        on(registerService.registerNewKey(newKey.public)).thenReturn(error(RuntimeException()))
+        on(registerService.registerNewKey(newKey.publicKey)).thenReturn(error(RuntimeException()))
         registerController.onViewCreated()
         verify(registerView, never()).successLogIn()
     }
 
     @Test
     fun shouldShowKeyRegisterErrorWhenCallFails() {
-        on(registerService.registerNewKey(newKey.public)).thenReturn(error(RuntimeException()))
+        on(registerService.registerNewKey(newKey.publicKey)).thenReturn(error(RuntimeException()))
         registerController.onViewCreated()
         verify(registerView, times(1)).showKeyRegisterError()
     }
@@ -99,7 +99,7 @@ class RegisterControllerTest {
 
     @Test
     fun shouldNotSaveKeyIfServiceFails() {
-        on(registerService.registerNewKey(newKey.public)).thenReturn(error(RuntimeException()))
+        on(registerService.registerNewKey(newKey.publicKey)).thenReturn(error(RuntimeException()))
         registerController.onViewCreated()
         verify(registerRepository, never()).saveNewKey(newKey)
     }

@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    compile project(':encription')
     compile project(':firebase')
     compile project(':repository')
     compile project(':registration-view')

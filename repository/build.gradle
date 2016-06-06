@@ -24,7 +24,6 @@ android {
 }
 
 dependencies {
-    compile project(':encription')
     compile project(':registration-core')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso_version") {

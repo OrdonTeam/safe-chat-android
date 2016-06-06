@@ -23,10 +23,11 @@ class RegisterController(
         return keyGenerator
                 .generateNewKey()
                 .flatMap { newKey ->
-                    registerService.registerNewKey(newKey.public).map { newKey }
+                    registerService.registerNewKey(newKey.publicKey).map { newKey }
                 }
                 .map {
                     registerRepository.saveNewKey(it)
                 }
     }
+
 }

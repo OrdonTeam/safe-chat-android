@@ -4,5 +4,5 @@ import rx.Observable
 import java.security.PublicKey
 
 interface RegisterService {
-    fun registerNewKey(publicKey: PublicKey): Observable<Unit>
+    fun registerNewKey(publicKey: String): Observable<Unit>
 }

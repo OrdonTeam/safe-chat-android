@@ -2,36 +2,30 @@ package com.safechat.repository
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.safechat.encryption.Encryptor
-import com.safechat.encryption.Encryptor.privateKeyFromBase64String
-import com.safechat.encryption.Encryptor.publicKeyFromBase64String
-import com.safechat.encryption.toBase64String
+import com.safechat.register.KeyPairString
 import com.safechat.register.RegisterRepository
-import java.security.KeyPair
-import java.security.PrivateKey
-import java.security.PublicKey
 
 class RepositoryImpl(context: Context) : RegisterRepository {
 
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     override fun isKeySaved(): Boolean {
-        return sharedPreferences.contains(PUBLIC_KEY)
+        return sharedPreferences.contains(PUBLIC_KEY) && sharedPreferences.contains(PRIVATE_KEY)
     }
 
-    override fun saveNewKey(key: KeyPair) {
+    override fun saveNewKey(keyPair: KeyPairString) {
         sharedPreferences.edit()
-                .putString(PUBLIC_KEY, key.public.toBase64String())
-                .putString(PRIVATE_KEY, key.private.toBase64String())
+                .putString(PUBLIC_KEY, keyPair.publicKey)
+                .putString(PRIVATE_KEY, keyPair.privateKey)
                 .apply()
     }
 
-    fun getPublicKey(): PublicKey {
-        return publicKeyFromBase64String(sharedPreferences.getString(PUBLIC_KEY, null))
+    fun getPublicKey(): String {
+        return sharedPreferences.getString(PUBLIC_KEY, null)
     }
 
-    fun getPrivateKey(): PrivateKey {
-        return privateKeyFromBase64String(sharedPreferences.getString(PRIVATE_KEY, null))
+    fun getPrivateKey(): String {
+        return sharedPreferences.getString(PRIVATE_KEY, null)
     }
 
     companion object {
