@@ -11,7 +11,6 @@ class ExchangeServiceImpl : PostSymmetricKeyService, RetrieveSymmetricKeyService
     }
 
     override fun retrieveSymmetricKey(myPublicKey: String, otherPublicKey: String): Observable<String?> {
-        throw UnsupportedOperationException()
+        return Observable.just(null)
     }
-
 }
