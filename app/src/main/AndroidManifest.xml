@@ -1,5 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
           package="com.safechat">
 
     <application
@@ -8,8 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:replace="android:theme">
+        android:theme="@style/AppTheme">
 
         <activity android:name=".registration_view.RegisterActivity">
             <intent-filter>

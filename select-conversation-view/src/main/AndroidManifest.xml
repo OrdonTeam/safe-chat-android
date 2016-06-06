@@ -1,8 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.safechat.conversation.select">
 
-    <application
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".SelectConversationActivity"/>
+    <application>
+        <activity
+            android:name=".SelectConversationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 </manifest>
