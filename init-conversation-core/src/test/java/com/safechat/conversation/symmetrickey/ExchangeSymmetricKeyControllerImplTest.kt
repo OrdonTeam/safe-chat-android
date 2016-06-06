@@ -4,8 +4,13 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController
+import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController.RetrieveResult
+import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController.RetrieveResult.KEY_RETRIEVED
 import org.junit.Before
 import org.junit.Test
+import rx.Observable
+import rx.Observable.error
+import rx.Observable.just
 
 class ExchangeSymmetricKeyControllerImplTest {
 
@@ -17,6 +22,7 @@ class ExchangeSymmetricKeyControllerImplTest {
     @Before
     fun setUp() {
         stubRepository(true)
+        stubRetrieveController(just(KEY_RETRIEVED))
     }
 
     @Test
@@ -29,7 +35,14 @@ class ExchangeSymmetricKeyControllerImplTest {
     @Test
     fun shouldRetrieveKey() {
         startController()
-        verify(retrieveController).retrieveKey("otherPublicKey")
+        verify(view).complete()
+    }
+
+    @Test
+    fun shouldShowErrorWhenRetrieveKeyFails() {
+        stubRetrieveController(error(RuntimeException()))
+        startController()
+        verify(view).showError()
     }
 
     private fun startController() {
@@ -38,5 +51,9 @@ class ExchangeSymmetricKeyControllerImplTest {
 
     private fun stubRepository(contains: Boolean) {
         whenever(repository.containsSymmetricKey("otherPublicKey")).thenReturn(contains)
+    }
+
+    private fun stubRetrieveController(retrieveResult: Observable<RetrieveResult>) {
+        whenever(retrieveController.retrieveKey("otherPublicKey")).thenReturn(retrieveResult)
     }
 }
