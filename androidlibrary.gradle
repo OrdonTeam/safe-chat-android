@@ -1,0 +1,24 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion commonCompileSdkVersion()
+    buildToolsVersion commonBuildToolsVersion()
+
+    defaultConfig {
+        minSdkVersion commonMinSdkVersion()
+        targetSdkVersion commonTargetSdkVersion()
+        versionCode commonVersionCode()
+        versionName commonVersionName()
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+}

@@ -16,5 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".conversation.select.SelectConversationActivity"/>
+        <activity android:name=".conversation.symmetrickey.ExchangeSymmetricKeyActivity"/>
     </application>
 </manifest>
