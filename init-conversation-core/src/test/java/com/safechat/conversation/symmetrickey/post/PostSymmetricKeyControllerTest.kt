@@ -10,15 +10,17 @@ import rx.observers.TestSubscriber
 
 class PostSymmetricKeyControllerTest {
 
+    val service = mock<PostSymmetricKeyService>()
     val repository = mock<PostSymmetricKeyRepository>()
     val encryptor = mock<PostSymmetricKeyEncryptor>()
-    val controller = PostSymmetricKeyControllerImpl(encryptor, repository)
+    val controller = PostSymmetricKeyControllerImpl(encryptor, repository, service)
     val subscriber = TestSubscriber<Unit>()
 
     @Before
     fun setUp() {
         stubGenerator()
         stubRepository()
+        stubService()
     }
 
     @Test
@@ -39,6 +41,12 @@ class PostSymmetricKeyControllerTest {
         verify(encryptor).encryptSymmetricKey("otherPublicKey", "myPrivateKey", "newSymmetricKey")
     }
 
+    @Test
+    fun shouldPostEncryptedKey() {
+        startController()
+        verify(service).postSymmetricKey("myPublicKey", "otherPublicKey", "encryptedSymmetricKey")
+    }
+
     private fun startController() {
         controller.postKey("otherPublicKey").subscribe(subscriber)
     }
@@ -51,5 +59,9 @@ class PostSymmetricKeyControllerTest {
     private fun stubRepository() {
         whenever(repository.getPublicKeyString()).thenReturn("myPublicKey")
         whenever(repository.getPrivateKeyString()).thenReturn("myPrivateKey")
+    }
+
+    private fun stubService() {
+        whenever(service.postSymmetricKey("myPublicKey", "otherPublicKey", "encryptedSymmetricKey")).thenReturn(just(Unit))
     }
 }
