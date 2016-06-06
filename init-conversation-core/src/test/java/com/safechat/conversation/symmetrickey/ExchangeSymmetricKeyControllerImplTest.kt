@@ -2,6 +2,7 @@ package com.safechat.conversation.symmetrickey
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.verifyZeroInteractions
 import com.nhaarman.mockito_kotlin.whenever
 import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController
 import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController.RetrieveResult
@@ -21,14 +22,15 @@ class ExchangeSymmetricKeyControllerImplTest {
 
     @Before
     fun setUp() {
-        stubRepository(true)
+        stubRepository(false)
         stubRetrieveController(just(KEY_RETRIEVED))
     }
 
     @Test
     fun shouldReturnImmediatelyIfKeyAlreadySaved() {
-        stubRepository(false)
+        stubRepository(true)
         startController()
+        verifyZeroInteractions(retrieveController)
         verify(view).complete()
     }
 

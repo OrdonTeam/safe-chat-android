@@ -8,11 +8,15 @@ class ExchangeSymmetricKeyControllerImpl(
         val retrieveController: RetrieveSymmetricKeyController) : ExchangeSymmetricKeyController {
 
     override fun onCreate(otherPublicKey: String) {
-        retrieveController.retrieveKey(otherPublicKey)
-                .subscribe({
-                    view.complete()
-                }, {
-                    view.showError()
-                })
+        if (repository.containsSymmetricKey(otherPublicKey)) {
+            view.complete()
+        } else {
+            retrieveController.retrieveKey(otherPublicKey)
+                    .subscribe({
+                        view.complete()
+                    }, {
+                        view.showError()
+                    })
+        }
     }
 }
