@@ -26,8 +26,14 @@ class RepositoryImplTest {
     fun shouldReadSavedKey() {
         val keyPair = newKeyPair()
         repositoryImpl.saveNewKey(keyPair)
-        assertEquals(keyPair.privateKey, repositoryImpl.getPrivateKey())
-        assertEquals(keyPair.publicKey, repositoryImpl.getPublicKey())
+        assertEquals(keyPair.privateKey, repositoryImpl.getPrivateKeyString())
+        assertEquals(keyPair.publicKey, repositoryImpl.getPublicKeyString())
+    }
+
+    @Test
+    fun shouldSaveDecryptedSymmetricKey() {
+        repositoryImpl.saveDecryptedSymmetricKey("other_public_key", "decrypted_symmetric_key")
+        assertTrue(repositoryImpl.containsSymmetricKey("other_public_key"))
     }
 
     private fun newKeyPair() = KeyPairString("publicKey", "privateKey")
@@ -38,6 +44,7 @@ class RepositoryImplTest {
         repositoryImpl.sharedPreferences.edit()
                 .remove("private_key")
                 .remove("public_key")
+                .remove("other_public_key")
                 .apply()
     }
 }

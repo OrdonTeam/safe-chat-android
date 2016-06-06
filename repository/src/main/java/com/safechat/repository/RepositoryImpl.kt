@@ -2,10 +2,13 @@ package com.safechat.repository
 
 import android.content.Context
 import android.preference.PreferenceManager
+import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyRepository
+import com.safechat.conversation.symmetrickey.post.PostSymmetricKeyRepository
+import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyRepository
 import com.safechat.register.KeyPairString
 import com.safechat.register.RegisterRepository
 
-class RepositoryImpl(context: Context) : RegisterRepository {
+class RepositoryImpl(context: Context) : RegisterRepository, ExchangeSymmetricKeyRepository, PostSymmetricKeyRepository, RetrieveSymmetricKeyRepository {
 
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
@@ -20,11 +23,19 @@ class RepositoryImpl(context: Context) : RegisterRepository {
                 .apply()
     }
 
-    fun getPublicKey(): String {
+    override fun containsSymmetricKey(otherPublicKey: String): Boolean {
+        return sharedPreferences.contains(otherPublicKey)
+    }
+
+    override fun saveDecryptedSymmetricKey(otherPublicKey: String, decryptedSymmetricKey: String) {
+        sharedPreferences.edit().putString(otherPublicKey, decryptedSymmetricKey).apply()
+    }
+
+    override fun getPublicKeyString(): String {
         return sharedPreferences.getString(PUBLIC_KEY, null)
     }
 
-    fun getPrivateKey(): String {
+    override fun getPrivateKeyString(): String {
         return sharedPreferences.getString(PRIVATE_KEY, null)
     }
 
