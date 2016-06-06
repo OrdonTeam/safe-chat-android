@@ -58,6 +58,13 @@ class ExchangeSymmetricKeyControllerImplTest {
         verify(postController).postKey("otherPublicKey")
     }
 
+    @Test
+    fun shouldNotPostKeyWhenKeyRetrieved() {
+        stubRetrieveController(just(KEY_RETRIEVED))
+        startController()
+        verifyZeroInteractions(postController)
+    }
+
     private fun startController() {
         controller.onCreate("otherPublicKey")
     }

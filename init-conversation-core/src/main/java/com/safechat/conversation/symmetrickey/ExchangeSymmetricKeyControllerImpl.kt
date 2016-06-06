@@ -2,7 +2,10 @@ package com.safechat.conversation.symmetrickey
 
 import com.safechat.conversation.symmetrickey.post.PostSymmetricKeyController
 import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController
+import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController.RetrieveResult
+import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController.RetrieveResult.KEY_RETRIEVED
 import rx.Observable
+import rx.Observable.just
 
 class ExchangeSymmetricKeyControllerImpl(
         val view: ExchangeSymmetricKeyView,
@@ -20,8 +23,17 @@ class ExchangeSymmetricKeyControllerImpl(
 
     private fun retrieveKey(otherPublicKey: String): Observable<Unit> {
         return retrieveController.retrieveKey(otherPublicKey)
-                .flatMap { postController.postKey(otherPublicKey) }
-                .map { Unit }
+                .flatMap(doIfNotPresent({ postController.postKey(otherPublicKey) }))
+    }
+
+    private fun doIfNotPresent(onKeyNotPresent: () -> Observable<Unit>): (RetrieveResult) -> Observable<Unit> {
+        return {
+            if (it == KEY_RETRIEVED)
+                just(Unit)
+            else {
+                onKeyNotPresent()
+            }
+        }
     }
 
     val onSuccess: (Unit) -> Unit = {
