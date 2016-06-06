@@ -1,10 +1,9 @@
 package com.safechat.conversation.symmetrickey.post
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Before
 import org.junit.Test
+import rx.Observable.error
 import rx.Observable.just
 import rx.observers.TestSubscriber
 
@@ -45,6 +44,43 @@ class PostSymmetricKeyControllerTest {
     fun shouldPostEncryptedKey() {
         startController()
         verify(service).postSymmetricKey("myPublicKey", "otherPublicKey", "encryptedSymmetricKey")
+    }
+
+    @Test
+    fun shouldNotSaveKeyIfPostFails() {
+        whenever(service.postSymmetricKey(any(), any(), any())).thenReturn(error(RuntimeException()))
+        startController()
+        verify(repository, never()).saveDecryptedSymmetricKey(any(), any())
+    }
+
+    @Test
+    fun shouldReturnErrorIfPostFails() {
+        val runtimeException = RuntimeException()
+        whenever(service.postSymmetricKey(any(), any(), any())).thenReturn(error(runtimeException))
+        startController()
+        subscriber.assertError(runtimeException)
+    }
+
+    @Test
+    fun shouldReturnErrorIfGenerationFails() {
+        val runtimeException = RuntimeException()
+        whenever(encryptor.generateSymmetricKey()).thenReturn(error(runtimeException))
+        startController()
+        subscriber.assertError(runtimeException)
+    }
+
+    @Test
+    fun shouldReturnErrorIfEncryptionFails() {
+        val runtimeException = RuntimeException()
+        whenever(encryptor.encryptSymmetricKey(any(), any(), any())).thenReturn(error(runtimeException))
+        startController()
+        subscriber.assertError(runtimeException)
+    }
+
+    @Test
+    fun shouldReturnUnitIfEverythingGoesRight() {
+        startController()
+        subscriber.assertValue(Unit)
     }
 
     private fun startController() {
