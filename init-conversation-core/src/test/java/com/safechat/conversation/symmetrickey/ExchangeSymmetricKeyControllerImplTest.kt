@@ -65,6 +65,13 @@ class ExchangeSymmetricKeyControllerImplTest {
         verifyZeroInteractions(postController)
     }
 
+    @Test
+    fun shouldShowErrorWhenPostFails() {
+        stubPostController(error(RuntimeException()))
+        startController()
+        verify(view).showError()
+    }
+
     private fun startController() {
         controller.onCreate("otherPublicKey")
     }
