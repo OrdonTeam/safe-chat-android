@@ -9,7 +9,8 @@ import rx.Observable
 class ConversationServiceImpl : ConversationService {
 
     override fun getPreviousMessages(myPublicKey: String, otherPublicKey: String): Observable<List<Message>> {
-        return Observable.just(emptyList())
+        return findUserByRsa(otherPublicKey)
+                .flatMap { getPreviousMessagesWithUid(it.uid) }
     }
 
     override fun postMessage(myPublicKey: String, otherPublicKey: String, message: Message): Observable<Unit> {

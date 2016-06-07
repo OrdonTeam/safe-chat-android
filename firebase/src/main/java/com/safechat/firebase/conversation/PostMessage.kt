@@ -27,11 +27,11 @@ fun postMessageToUid(otherUid: String, message: Message): Observable<Unit> {
     }
 }
 
-private fun min(uid: String, otherUid: String): String {
+fun min(uid: String, otherUid: String): String {
     return if (uid.compareTo(otherUid) > 0) uid else otherUid
 }
 
-private fun max(uid: String, otherUid: String): String {
+fun max(uid: String, otherUid: String): String {
     return if (uid.compareTo(otherUid) > 0) otherUid else uid
 }
 
