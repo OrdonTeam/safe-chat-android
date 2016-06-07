@@ -1,18 +1,8 @@
 apply from: "../android_library.gradle"
+apply from: "../android_test.gradle"
 
 dependencies {
     compile project(':select-conversation-core')
-    compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.elpassion.android.commons:recycler:0.0.9"
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso_version") {
-        exclude group: 'com.android.support'
-    }
-    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$espresso_version") {
-        exclude group: 'com.android.support'
-    }
-    androidTestCompile("com.android.support.test.espresso:espresso-intents:$espresso_version") {
-        exclude group: 'com.android.support'
-    }
 }

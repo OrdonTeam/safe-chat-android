@@ -1,0 +1,16 @@
+dependencies {
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$espresso_version"
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:$espresso_version"
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$espresso_version") {
+        exclude group: 'com.android.support'
+    }
+    androidTestCompile("org.mockito:mockito-core:$mockito_version") {
+        exclude group: 'org.hamcrest'
+    }
+    androidTestCompile('com.google.dexmaker:dexmaker:1.2') {
+        exclude group: 'org.hamcrest'
+    }
+    androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.2') {
+        exclude group: 'org.hamcrest'
+    }
+}
