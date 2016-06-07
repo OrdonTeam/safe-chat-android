@@ -19,6 +19,8 @@ class ConversationControllerTest {
 
     val encryptedMessages = listOf(Message("encrypted_text", false))
     val decryptedMessages = listOf(Message("decrypted_text", false))
+    val newMessage = Message("new_message", true)
+    val newEncryptedMessage = Message("new_encrypted_message", true)
 
     @Before
     fun setUp() {
@@ -47,8 +49,18 @@ class ConversationControllerTest {
         verify(view).showError()
     }
 
+    @Test
+    fun shouldPostNewMessage() {
+        sendNewMessage()
+        verify(service).postMessage("myPublicKey", "otherPublicKey", newEncryptedMessage)
+    }
+
     private fun startController() {
         controller.onCreated("otherPublicKey")
+    }
+
+    private fun sendNewMessage() {
+        controller.onNewMessage("otherPublicKey", newMessage)
     }
 
     private fun stubRepository() {
@@ -58,9 +70,11 @@ class ConversationControllerTest {
 
     private fun stubService(messages: Observable<List<Message>>) {
         whenever(service.getPreviousMessages("myPublicKey", "otherPublicKey")).thenReturn(messages)
+        whenever(service.postMessage("myPublicKey", "otherPublicKey", newEncryptedMessage)).thenReturn(just(Unit))
     }
 
     private fun stubCipher(messages: Observable<List<Message>>) {
         whenever(cipher.decryptMessages("symmetricKey", encryptedMessages)).thenReturn(messages)
+        whenever(cipher.encryptMessage("symmetricKey", newMessage)).thenReturn(just(newEncryptedMessage))
     }
 }

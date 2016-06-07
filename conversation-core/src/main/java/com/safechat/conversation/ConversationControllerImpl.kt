@@ -11,4 +11,10 @@ class ConversationControllerImpl(
                 .flatMap { cipher.decryptMessages(repository.getDecryptedSymmetricKey(otherPublicKey), it) }
                 .subscribe({ view.showMessages(it) }, { view.showError() })
     }
+
+    override fun onNewMessage(otherPublicKey: String, message: Message) {
+        cipher.encryptMessage(repository.getDecryptedSymmetricKey(otherPublicKey), message)
+                .flatMap { service.postMessage(repository.getPublicKeyString(), otherPublicKey, it) }
+                .subscribe({}, { view.showError() })
+    }
 }
