@@ -3,7 +3,6 @@ package com.safechat
 import android.app.Application
 import com.safechat.conversation.select.SelectConversationActivity
 import com.safechat.conversation.select.SelectConversationControllerImpl
-import com.safechat.conversation.select.SelectConversationViewImpl
 import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyActivity
 import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyControllerImpl
 import com.safechat.conversation.symmetrickey.post.PostSymmetricKeyControllerImpl
@@ -23,14 +22,19 @@ class SecureMessengerApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        RegisterActivity.registerControllerProvider = {
-            RegisterController(RegisterViewImpl(it, it), RepositoryImpl(it), KeyGeneratorImpl(), RegisterServiceImpl())
+        RegisterActivity.apply {
+            registerControllerProvider = {
+                RegisterController(RegisterViewImpl(it, it), RepositoryImpl(it), KeyGeneratorImpl(), RegisterServiceImpl())
+            }
+            openSelectConversation = {
+                SelectConversationActivity.start(it)
+            }
         }
-        RegisterActivity.openSelectConversation = {
-            ExchangeSymmetricKeyActivity.start(it)
-        }
-        SelectConversationActivity.selectConversationControllerProvider = {
-            SelectConversationControllerImpl(UsersServiceImpl(), SelectConversationViewImpl(it))
+        SelectConversationActivity.apply {
+            selectConversationControllerProvider = {
+                SelectConversationControllerImpl(UsersServiceImpl(), it)
+            }
+            onPublicKeySelect = ExchangeSymmetricKeyActivity.start
         }
         ExchangeSymmetricKeyActivity.exchangeSymmetricKeyControllerProvider = {
             val exchangeServiceImpl = ExchangeServiceImpl()

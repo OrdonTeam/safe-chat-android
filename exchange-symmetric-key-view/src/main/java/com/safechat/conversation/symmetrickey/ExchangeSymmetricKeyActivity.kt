@@ -37,7 +37,7 @@ class ExchangeSymmetricKeyActivity : AppCompatActivity(), ExchangeSymmetricKeyVi
 
         lateinit var exchangeSymmetricKeyControllerProvider: (ExchangeSymmetricKeyActivity) -> ExchangeSymmetricKeyController
 
-        fun start(context: Context) {
+        val start: (Context, String) -> Unit = { context: Context, otherPublicKey: String ->
             context.startActivity(Intent(context, ExchangeSymmetricKeyActivity::class.java))
         }
     }
