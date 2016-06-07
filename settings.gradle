@@ -1,4 +1,4 @@
-include ':app', ':exchange-symmetric-key-view',
+include ':app', ':exchange-symmetric-key-view', ':conversation-core',
         ':select-conversation-view',
         ':select-conversation-core',
         ':encryption',
