@@ -8,8 +8,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
-import com.elpassion.android.recycler.BaseRecyclerViewAdapter
-import com.elpassion.android.recycler.ItemAdapter
+import com.elpassion.android.commons.recycler.BaseRecyclerViewAdapter
+import com.elpassion.android.commons.recycler.ItemAdapter
 
 class SelectConversationActivity : AppCompatActivity(), SelectConversationView {
 
@@ -24,12 +24,7 @@ class SelectConversationActivity : AppCompatActivity(), SelectConversationView {
     override fun showUsers(users: List<User>) {
         val recycler = findViewById(R.id.conversation_select_list) as RecyclerView
         recycler.layoutManager = LinearLayoutManager(this)
-        recycler.adapter = object : BaseRecyclerViewAdapter() {
-            fun init() {
-                adapters.addAll(users.map { mapToItemAdapter(it) })
-            }
-
-        }.apply { init() }
+        recycler.adapter = BaseRecyclerViewAdapter(users.map { mapToItemAdapter(it) })
     }
 
     private fun mapToItemAdapter(it: User): UserItemAdapter {
