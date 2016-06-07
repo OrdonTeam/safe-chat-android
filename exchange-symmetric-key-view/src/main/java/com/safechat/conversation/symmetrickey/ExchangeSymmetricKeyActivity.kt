@@ -14,7 +14,7 @@ class ExchangeSymmetricKeyActivity : AppCompatActivity(), ExchangeSymmetricKeyVi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.exchange_symmetric_key_view)
-        controller.onCreate("MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDIfUla_EeBCl--dO4kmsIUpyrmvr_qMWhNt8RtiT3e6qWxhpI2bFrzliDGHFy_jwuNfDDFaucquCi_iLni_BCIAYInGSnfjWjV_nrIL1EabLEbx8tJWZrQn5aob1no6t_A8V_bjd4NCQoShsHD9CMzxtA5AZGIE8dEHtbsUEsCwIDAQAB")
+        controller.onCreate(intent.getStringExtra(OTHER_PUBLIC_KEY))
     }
 
     override fun showLoader() {
@@ -35,10 +35,14 @@ class ExchangeSymmetricKeyActivity : AppCompatActivity(), ExchangeSymmetricKeyVi
 
     companion object {
 
+        private val OTHER_PUBLIC_KEY = "otherPublicKey"
+
         lateinit var exchangeSymmetricKeyControllerProvider: (ExchangeSymmetricKeyActivity) -> ExchangeSymmetricKeyController
 
         val start: (Context, String) -> Unit = { context: Context, otherPublicKey: String ->
-            context.startActivity(Intent(context, ExchangeSymmetricKeyActivity::class.java))
+            context.startActivity(activityIntent(context, otherPublicKey))
         }
+
+        fun activityIntent(context: Context, otherPublicKey: String) = Intent(context, ExchangeSymmetricKeyActivity::class.java).apply { putExtra(OTHER_PUBLIC_KEY, otherPublicKey) }
     }
 }
