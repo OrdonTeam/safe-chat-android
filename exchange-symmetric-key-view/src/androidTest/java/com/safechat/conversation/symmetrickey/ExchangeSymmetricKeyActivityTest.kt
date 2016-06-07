@@ -2,18 +2,13 @@ package com.safechat.conversation.symmetrickey
 
 import android.support.test.InstrumentationRegistry
 import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyActivity.Companion.activityIntent
-import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mockito
 
 class ExchangeSymmetricKeyActivityTest {
 
-    var savedPublicKey: String? = null
-    val controller: ExchangeSymmetricKeyController = object : ExchangeSymmetricKeyController {
-        override fun onCreate(otherPublicKey: String) {
-            savedPublicKey = otherPublicKey
-        }
-    }
+    val controller = Mockito.mock(ExchangeSymmetricKeyController::class.java)
 
     @JvmField @Rule
     val rule = activityRule<ExchangeSymmetricKeyActivity>(activityIntent(InstrumentationRegistry.getInstrumentation().targetContext, "otherPublicKey")) {
@@ -22,6 +17,6 @@ class ExchangeSymmetricKeyActivityTest {
 
     @Test
     fun shouldStartSelectConversationActivity() {
-        Assert.assertEquals("otherPublicKey", savedPublicKey)
+        Mockito.verify(controller).onCreate("otherPublicKey")
     }
 }
