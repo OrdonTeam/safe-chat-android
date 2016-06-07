@@ -9,9 +9,10 @@ class PostSymmetricKeyControllerImpl(
 
     override fun postKey(otherPublicKey: String): Observable<Unit> {
         return encryptor.generateSymmetricKey()
-                .doOnNext {
-                    encryptor.encryptSymmetricKey(otherPublicKey, repository.getPrivateKeyString(), it)
+                .flatMap { newKey ->
+                    encryptor.encryptSymmetricKey(otherPublicKey, repository.getPrivateKeyString(), newKey)
                             .flatMap { service.postSymmetricKey(repository.getPublicKeyString(), otherPublicKey, it) }
+                            .map { newKey }
                 }
                 .map { repository.saveDecryptedSymmetricKey(otherPublicKey, it) }
     }
