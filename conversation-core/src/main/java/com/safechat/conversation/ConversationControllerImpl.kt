@@ -1,9 +1,10 @@
 package com.safechat.conversation
 
 class ConversationControllerImpl(
-        val service: ConversationService) : ConversationController {
+        val service: ConversationService,
+        val repository: ConversationRepository) : ConversationController {
 
     override fun onCreated(otherPublicKey: String) {
-        service.getPreviousMessages("myPublicKey", otherPublicKey)
+        service.getPreviousMessages(repository.getPublicKeyString(), otherPublicKey)
     }
 }
