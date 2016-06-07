@@ -13,6 +13,13 @@ class ExchangeServiceImpl : PostSymmetricKeyService, RetrieveSymmetricKeyService
     }
 
     override fun retrieveSymmetricKey(myPublicKey: String, otherPublicKey: String): Observable<String?> {
-        return Observable.just(null)
+        return findUserByRsa(otherPublicKey)
+                .flatMap { user ->
+                    retrieveKeyFromUserUid(user.uid)
+                            .map { it to user.uid }
+                            .flatMap { pair ->
+                                removeKeyFromUserUid(pair.second).map { pair.first }
+                            }
+                }
     }
 }
