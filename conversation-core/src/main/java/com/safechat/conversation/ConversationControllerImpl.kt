@@ -3,11 +3,12 @@ package com.safechat.conversation
 class ConversationControllerImpl(
         val service: ConversationService,
         val repository: ConversationRepository,
-        val cipher: ConversationCipher) : ConversationController {
+        val cipher: ConversationCipher,
+        val view: ConversationView) : ConversationController {
 
     override fun onCreated(otherPublicKey: String) {
         service.getPreviousMessages(repository.getPublicKeyString(), otherPublicKey)
                 .flatMap { cipher.decryptMessages(repository.getDecryptedSymmetricKey(otherPublicKey), it) }
-                .subscribe()
+                .subscribe({ view.showMessages(it) })
     }
 }

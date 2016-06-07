@@ -10,10 +10,11 @@ import rx.Observable.just
 
 class ConversationControllerTest {
 
+    val view = mock<ConversationView>()
     val cipher = mock<ConversationCipher>()
     val repository = mock<ConversationRepository>()
     val service = mock<ConversationService>()
-    val controller = ConversationControllerImpl(service, repository, cipher)
+    val controller = ConversationControllerImpl(service, repository, cipher, view)
 
     val encryptedMessages = listOf(Message("encrypted_text", false))
     val decryptedMessages = listOf(Message("decrypted_text", false))
@@ -41,6 +42,12 @@ class ConversationControllerTest {
     fun shouldDecryptMessages() {
         startController()
         verify(cipher).decryptMessages("symmetricKey", encryptedMessages)
+    }
+
+    @Test
+    fun shouldShowDecryptedMessages() {
+        startController()
+        verify(view).showMessages(decryptedMessages)
     }
 
     private fun startController() {
