@@ -1,4 +1,4 @@
-apply from: "../androidlibrary.gradle"
+apply from: "../android_library.gradle"
 
 dependencies {
     compile project(':exchange-symmetric-key-core')

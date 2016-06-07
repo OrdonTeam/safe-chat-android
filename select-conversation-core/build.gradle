@@ -1,1 +1,1 @@
-apply from: "../corebuild.gradle"
+apply from: "../core_build.gradle"
