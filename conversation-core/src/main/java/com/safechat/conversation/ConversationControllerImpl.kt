@@ -9,6 +9,6 @@ class ConversationControllerImpl(
     override fun onCreated(otherPublicKey: String) {
         service.getPreviousMessages(repository.getPublicKeyString(), otherPublicKey)
                 .flatMap { cipher.decryptMessages(repository.getDecryptedSymmetricKey(otherPublicKey), it) }
-                .subscribe({ view.showMessages(it) })
+                .subscribe({ view.showMessages(it) }, { view.showError() })
     }
 }

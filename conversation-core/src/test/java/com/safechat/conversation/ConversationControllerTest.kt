@@ -6,6 +6,7 @@ import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Before
 import org.junit.Test
 import rx.Observable
+import rx.Observable.error
 import rx.Observable.just
 
 class ConversationControllerTest {
@@ -27,27 +28,23 @@ class ConversationControllerTest {
     }
 
     @Test
-    fun shouldReadSavedPublicKey() {
-        startController()
-        verify(repository).getPublicKeyString()
-    }
-
-    @Test
-    fun shouldDownloadPreviousMessages() {
-        startController()
-        verify(service).getPreviousMessages("myPublicKey", "otherPublicKey")
-    }
-
-    @Test
-    fun shouldDecryptMessages() {
-        startController()
-        verify(cipher).decryptMessages("symmetricKey", encryptedMessages)
-    }
-
-    @Test
     fun shouldShowDecryptedMessages() {
         startController()
         verify(view).showMessages(decryptedMessages)
+    }
+
+    @Test
+    fun shouldShowErrorWhenServiceFails() {
+        stubService(error(RuntimeException()))
+        startController()
+        verify(view).showError()
+    }
+
+    @Test
+    fun shouldShowErrorWhenCipherFails() {
+        stubCipher(error(RuntimeException()))
+        startController()
+        verify(view).showError()
     }
 
     private fun startController() {
