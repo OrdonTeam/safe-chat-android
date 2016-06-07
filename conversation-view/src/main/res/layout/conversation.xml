@@ -20,5 +20,6 @@
     <EditText
         android:id="@+id/conversation_message"
         android:layout_width="match_parent"
+        android:singleLine="true"
         android:layout_height="wrap_content"/>
 </LinearLayout>

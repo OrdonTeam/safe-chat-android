@@ -26,6 +26,7 @@ android {
 dependencies {
     compile project(':registration-core')
     compile project(':exchange-symmetric-key-core')
+    compile project(':conversation-core')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso_version") {
         exclude group: 'com.android.support'
