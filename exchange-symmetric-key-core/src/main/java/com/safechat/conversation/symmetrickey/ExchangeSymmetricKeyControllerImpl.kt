@@ -17,7 +17,10 @@ class ExchangeSymmetricKeyControllerImpl(
         if (repository.containsSymmetricKey(otherPublicKey)) {
             view.complete()
         } else {
-            retrieveKey(otherPublicKey).subscribe(onSuccess, onError)
+            retrieveKey(otherPublicKey)
+                    .doOnSubscribe { view.showLoader() }
+                    .doOnTerminate { view.hideLoader() }
+                    .subscribe(onSuccess, onError)
         }
     }
 

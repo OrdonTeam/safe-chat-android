@@ -1,9 +1,6 @@
 package com.safechat.conversation.symmetrickey
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.verifyZeroInteractions
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import com.safechat.conversation.symmetrickey.post.PostSymmetricKeyController
 import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController
 import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyController.RetrieveResult
@@ -70,6 +67,27 @@ class ExchangeSymmetricKeyControllerImplTest {
         stubPostController(error(RuntimeException()))
         startController()
         verify(view).showError()
+    }
+
+    @Test
+    fun shouldShowLoader() {
+        stubPostController(Observable.never())
+        startController()
+        verify(view).showLoader()
+        verify(view, never()).hideLoader()
+    }
+
+    @Test
+    fun shouldNotShowLoader() {
+        stubRepository(true)
+        startController()
+        verify(view, never()).showLoader()
+    }
+
+    @Test
+    fun shouldHideLoader() {
+        startController()
+        verify(view).hideLoader()
     }
 
     private fun startController() {

@@ -4,4 +4,8 @@ interface ExchangeSymmetricKeyView {
     fun complete()
 
     fun showError()
+
+    fun showLoader()
+
+    fun hideLoader()
 }
