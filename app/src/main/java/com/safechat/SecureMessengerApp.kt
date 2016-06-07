@@ -36,11 +36,16 @@ class SecureMessengerApp : Application() {
             }
             onPublicKeySelect = ExchangeSymmetricKeyActivity.start
         }
-        ExchangeSymmetricKeyActivity.exchangeSymmetricKeyControllerProvider = {
-            val exchangeServiceImpl = ExchangeServiceImpl()
-            val retrieveSymmetricKeyControllerImpl = RetrieveSymmetricKeyControllerImpl(exchangeServiceImpl, RepositoryImpl(it), SymmetricKeyCipher())
-            val postSymmetricKeyControllerImpl = PostSymmetricKeyControllerImpl(SymmetricKeyCipher(), RepositoryImpl(it), exchangeServiceImpl)
-            ExchangeSymmetricKeyControllerImpl(it, RepositoryImpl(it), retrieveSymmetricKeyControllerImpl, postSymmetricKeyControllerImpl)
+        ExchangeSymmetricKeyActivity.apply {
+            exchangeSymmetricKeyControllerProvider = {
+                val exchangeServiceImpl = ExchangeServiceImpl()
+                val retrieveSymmetricKeyControllerImpl = RetrieveSymmetricKeyControllerImpl(exchangeServiceImpl, RepositoryImpl(it), SymmetricKeyCipher())
+                val postSymmetricKeyControllerImpl = PostSymmetricKeyControllerImpl(SymmetricKeyCipher(), RepositoryImpl(it), exchangeServiceImpl)
+                ExchangeSymmetricKeyControllerImpl(it, RepositoryImpl(it), retrieveSymmetricKeyControllerImpl, postSymmetricKeyControllerImpl)
+            }
+            onKeyExchange = { context, string ->
+                EmptyActivity.start(context)
+            }
         }
     }
 }

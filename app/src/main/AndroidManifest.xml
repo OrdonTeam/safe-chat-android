@@ -17,5 +17,6 @@
         </activity>
         <activity android:name=".conversation.select.SelectConversationActivity"/>
         <activity android:name=".conversation.symmetrickey.ExchangeSymmetricKeyActivity"/>
+        <activity android:name=".EmptyActivity"/>
     </application>
 </manifest>

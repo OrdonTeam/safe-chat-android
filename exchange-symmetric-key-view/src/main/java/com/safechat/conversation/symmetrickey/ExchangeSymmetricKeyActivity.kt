@@ -26,7 +26,7 @@ class ExchangeSymmetricKeyActivity : AppCompatActivity(), ExchangeSymmetricKeyVi
     }
 
     override fun complete() {
-        (findViewById(R.id.exchange_message) as TextView).text = "POSTED"
+        onKeyExchange(this, intent.getStringExtra(OTHER_PUBLIC_KEY))
     }
 
     override fun showError() {
@@ -38,6 +38,7 @@ class ExchangeSymmetricKeyActivity : AppCompatActivity(), ExchangeSymmetricKeyVi
         private val OTHER_PUBLIC_KEY = "otherPublicKey"
 
         lateinit var exchangeSymmetricKeyControllerProvider: (ExchangeSymmetricKeyActivity) -> ExchangeSymmetricKeyController
+        lateinit var onKeyExchange: (Context, String) -> Unit
 
         val start: (Context, String) -> Unit = { context: Context, otherPublicKey: String ->
             context.startActivity(activityIntent(context, otherPublicKey))
