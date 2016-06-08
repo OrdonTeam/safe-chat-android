@@ -1,5 +1,6 @@
 package com.safechat.encryption.asymmetric
 
+import com.safechat.encryption.util.asObservable
 import rx.Observable
 import java.security.Key
 import javax.crypto.Cipher
@@ -7,11 +8,7 @@ import javax.crypto.Cipher
 object LongArraysRSACipher {
 
     fun encrypt(decrypted: ByteArray, key: Key): Observable<List<ByteArray>> {
-        return Observable.create {
-            it.onStart()
-            it.onNext(encryptImpl(decrypted, key))
-            it.onCompleted()
-        }
+        return { encryptImpl(decrypted, key) }.asObservable()
     }
 
     internal fun encryptImpl(bytes: ByteArray, key: Key): List<ByteArray> {
@@ -21,11 +18,7 @@ object LongArraysRSACipher {
     }
 
     fun decrypt(encrypted: List<ByteArray>, key: Key): Observable<ByteArray> {
-        return Observable.create {
-            it.onStart()
-            it.onNext(decryptImpl(encrypted, key))
-            it.onCompleted()
-        }
+        return { decryptImpl(encrypted, key) }.asObservable()
     }
 
     internal fun decryptImpl(encrypted: List<ByteArray>, key: Key): ByteArray {

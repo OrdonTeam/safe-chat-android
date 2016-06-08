@@ -1,5 +1,6 @@
 package com.safechat.encryption.symmetric
 
+import com.safechat.encryption.util.asObservable
 import rx.Observable
 import java.security.Key
 import javax.crypto.Cipher
@@ -8,11 +9,7 @@ import javax.crypto.spec.IvParameterSpec
 object AESCipher {
 
     fun encrypt(decrypted: ByteArray, key: Key): Observable<ByteArray> {
-        return Observable.create {
-            it.onStart()
-            it.onNext(encryptImpl(decrypted, key))
-            it.onCompleted()
-        }
+        return { encryptImpl(decrypted, key) }.asObservable()
     }
 
     internal fun encryptImpl(decrypted: ByteArray, key: Key): ByteArray {
@@ -22,11 +19,7 @@ object AESCipher {
     }
 
     fun decrypt(encrypted: ByteArray, key: Key): Observable<ByteArray> {
-        return Observable.create {
-            it.onStart()
-            it.onNext(decryptImpl(encrypted, key))
-            it.onCompleted()
-        }
+        return { decryptImpl(encrypted, key) }.asObservable()
     }
 
     internal fun decryptImpl(encrypted: ByteArray, key: Key): ByteArray {

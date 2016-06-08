@@ -1,5 +1,6 @@
 package com.safechat.encryption.generator
 
+import com.safechat.encryption.util.asObservable
 import rx.Observable
 import java.security.KeyPair
 import java.security.KeyPairGenerator
@@ -9,11 +10,7 @@ import javax.crypto.SecretKey
 object NewKeysGenerator {
 
     fun generateNewKeyPair(): Observable<KeyPair> {
-        return Observable.create {
-            it.onStart()
-            it.onNext(newKeyPair())
-            it.onCompleted()
-        }
+        return { newKeyPair() }.asObservable()
     }
 
     internal fun newKeyPair(): KeyPair {
@@ -23,11 +20,7 @@ object NewKeysGenerator {
     }
 
     fun generateNewSymmetricKey(): Observable<SecretKey> {
-        return Observable.create {
-            it.onStart()
-            it.onNext(newSymmetricKey())
-            it.onCompleted()
-        }
+        return { newSymmetricKey() }.asObservable()
     }
 
     internal fun newSymmetricKey(): SecretKey {
