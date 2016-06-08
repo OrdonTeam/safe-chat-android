@@ -16,6 +16,7 @@ class RegisterActivity : AppCompatActivity(), RegisterViewImpl.Navigator {
 
     override fun openSelectConversation() {
         openSelectConversation(this)
+        finish()
     }
 
     companion object {

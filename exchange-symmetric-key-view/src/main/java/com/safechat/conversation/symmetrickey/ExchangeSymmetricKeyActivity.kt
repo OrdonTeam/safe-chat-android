@@ -27,6 +27,7 @@ class ExchangeSymmetricKeyActivity : AppCompatActivity(), ExchangeSymmetricKeyVi
 
     override fun complete() {
         onKeyExchange(this, intent.getStringExtra(OTHER_PUBLIC_KEY))
+        finish()
     }
 
     override fun showError() {
