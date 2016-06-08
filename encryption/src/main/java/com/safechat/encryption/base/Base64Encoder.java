@@ -2,7 +2,7 @@ package com.safechat.encryption.base;
 
 import java.util.Arrays;
 
-class Base64Encoder {
+public class Base64Encoder {
 
     private Base64Encoder() {
     }
