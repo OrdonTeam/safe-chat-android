@@ -1,6 +1,5 @@
 package com.safechat.encryption.asymmetric
 
-import com.safechat.encryption.split
 import rx.Observable
 import java.security.Key
 import javax.crypto.Cipher

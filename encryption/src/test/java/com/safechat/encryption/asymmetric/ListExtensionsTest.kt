@@ -1,4 +1,4 @@
-package com.safechat.encryption
+package com.safechat.encryption.asymmetric
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

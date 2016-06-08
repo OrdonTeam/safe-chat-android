@@ -1,4 +1,4 @@
-package com.safechat.encryption
+package com.safechat.encryption.asymmetric
 
 
 fun <T> List<T>.split(partitionSize: Int): List<List<T>> {
