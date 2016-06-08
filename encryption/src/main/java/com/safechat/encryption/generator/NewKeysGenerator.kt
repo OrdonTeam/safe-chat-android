@@ -32,7 +32,7 @@ object NewKeysGenerator {
 
     internal fun newSymmetricKey(): SecretKey {
         val keyGenerator = KeyGenerator.getInstance("AES")
-        keyGenerator.init(256)
+        keyGenerator.init(128)
         return keyGenerator.generateKey();
     }
 }
