@@ -10,10 +10,6 @@
           ".write": "auth !== null && auth.uid === $uid",
           ".read": "auth !== null"
         },
-        "conversations": {
-          ".write": "auth !== null && auth.uid === $uid",
-          ".read": "auth !== null && auth.uid === $uid"
-        },
         "pending_requests": {
           ".write": "auth !== null && auth.uid === $uid",
           ".read": "auth !== null && auth.uid === $uid",
@@ -25,9 +21,11 @@
       }
     },
     "conversations": {
-      "$conversation_id": {
-        ".write": "auth !== null && root.child('users').child(auth.uid).child('conversations').val().hasChild($conversation_id)",
-        ".read": "auth !== null && root.child('users').child(auth.uid).child('conversations').val().hasChild($conversation_id)"
+      "$uid": {
+        "$uid2": {
+          ".write": "auth !== null && (auth.uid === $uid || auth.uid === $uid2)",
+          ".read": "auth !== null && (auth.uid === $uid || auth.uid === $uid2)"
+        }
       }
     }
   }
