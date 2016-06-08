@@ -6,7 +6,7 @@ import rx.Observable
 
 class KeyGeneratorImpl : KeyGenerator {
 
-    override fun generateNewKey(): Observable<KeyPairString> {
+    override fun generateNewKeyPair(): Observable<KeyPairString> {
         return Observable.create {
             it.onStart()
             it.onNext(keyPair())

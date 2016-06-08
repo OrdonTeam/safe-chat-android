@@ -21,7 +21,7 @@ class RegisterController(
 
     private fun registerNewKey(): Observable<Unit> {
         return keyGenerator
-                .generateNewKey()
+                .generateNewKeyPair()
                 .flatMap { newKey ->
                     registerService.registerNewKey(newKey.publicKey).map { newKey }
                 }

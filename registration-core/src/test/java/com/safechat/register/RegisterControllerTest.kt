@@ -5,8 +5,6 @@ import org.junit.Test
 import org.mockito.Mockito.*
 import rx.Observable.error
 import rx.Observable.just
-import java.security.KeyPair
-import java.security.PublicKey
 import org.mockito.Mockito.`when` as on
 
 class RegisterControllerTest {
@@ -21,7 +19,7 @@ class RegisterControllerTest {
     @Before
     fun setUp() {
         on(registerService.registerNewKey(newKey.publicKey)).thenReturn(error(RuntimeException()))
-        on(keyGenerator.generateNewKey()).thenReturn(just(newKey))
+        on(keyGenerator.generateNewKeyPair()).thenReturn(just(newKey))
     }
 
     @Test
@@ -40,14 +38,14 @@ class RegisterControllerTest {
     @Test
     fun shouldGenerateNewKeyIfKeyDoesNotExist() {
         registerController.onViewCreated()
-        verify(keyGenerator, times(1)).generateNewKey()
+        verify(keyGenerator, times(1)).generateNewKeyPair()
     }
 
     @Test
     fun shouldNotGenerateNewKeyIfKeyAlreadyExists() {
         on(registerRepository.isKeySaved()).thenReturn(true)
         registerController.onViewCreated()
-        verify(keyGenerator, never()).generateNewKey()
+        verify(keyGenerator, never()).generateNewKeyPair()
     }
 
     @Test
