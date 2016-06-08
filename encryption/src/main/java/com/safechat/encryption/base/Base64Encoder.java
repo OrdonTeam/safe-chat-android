@@ -1,4 +1,4 @@
-package com.safechat.encryption;
+package com.safechat.encryption.base;
 
 import java.util.Arrays;
 

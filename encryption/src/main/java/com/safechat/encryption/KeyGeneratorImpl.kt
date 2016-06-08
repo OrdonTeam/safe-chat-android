@@ -1,5 +1,6 @@
 package com.safechat.encryption
 
+import com.safechat.encryption.base.KeysBase64Cipher.toBase64String
 import com.safechat.register.KeyGenerator
 import com.safechat.register.KeyPairString
 import rx.Observable
@@ -16,7 +17,9 @@ class KeyGeneratorImpl : KeyGenerator {
 
     private fun keyPair(): KeyPairString {
         val newKeyPair = Encryptor.newKeyPair()
-        return KeyPairString(newKeyPair.public.toBase64String(),newKeyPair.private.toBase64String())
+        return KeyPairString(
+                toBase64String(newKeyPair.public),
+                toBase64String(newKeyPair.private))
     }
 
 }

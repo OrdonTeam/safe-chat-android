@@ -1,8 +1,6 @@
 package com.safechat.encryption
 
 import com.safechat.encryption.Encryptor.newKeyPair
-import com.safechat.encryption.Encryptor.privateKeyFromBase64String
-import com.safechat.encryption.Encryptor.publicKeyFromBase64String
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -38,20 +36,6 @@ class EncryptorTest {
         val joinedDecryptedSlices = decryptedSlices.reduce { first, second -> first + second }
 
         val decrypted = Encryptor.decrypt(joinedDecryptedSlices, keyPair.public)
-        assertEquals(String(message), String(decrypted))
-    }
-
-    @Test
-    fun shouldEncryptAndDecryptWithPersistedKey() {
-        val encrypted = Encryptor.encrypt(message, keyPair.public)
-        val decrypted = Encryptor.decrypt(encrypted, privateKeyFromBase64String(keyPair.private.toBase64String()))
-        assertEquals(String(message), String(decrypted))
-    }
-
-    @Test
-    fun shouldEncryptWithPersistedKeyAndDecrypt() {
-        val encrypted = Encryptor.encrypt(message, publicKeyFromBase64String(keyPair.public.toBase64String()))
-        val decrypted = Encryptor.decrypt(encrypted, keyPair.private)
         assertEquals(String(message), String(decrypted))
     }
 }
