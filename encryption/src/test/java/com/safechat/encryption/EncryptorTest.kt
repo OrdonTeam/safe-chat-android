@@ -1,6 +1,6 @@
 package com.safechat.encryption
 
-import com.safechat.encryption.Encryptor.newKeyPair
+import com.safechat.encryption.generator.newKeyPair
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

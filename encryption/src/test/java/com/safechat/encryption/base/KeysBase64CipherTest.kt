@@ -1,15 +1,15 @@
 package com.safechat.encryption.base
 
-import com.safechat.encryption.Encryptor
 import com.safechat.encryption.base.KeysBase64Cipher.decodePrivateKey
 import com.safechat.encryption.base.KeysBase64Cipher.decodePublicKey
 import com.safechat.encryption.base.KeysBase64Cipher.toBase64String
+import com.safechat.encryption.generator.newKeyPair
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class KeysBase64CipherTest {
 
-    val keyPair = Encryptor.newKeyPair()
+    val keyPair = newKeyPair()
 
     @Test
     fun shouldEncryptAndDecryptKeysToBase64() {
