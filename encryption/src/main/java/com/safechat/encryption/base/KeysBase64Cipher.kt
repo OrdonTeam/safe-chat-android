@@ -8,6 +8,7 @@ import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
 
 object KeysBase64Cipher {
+
     fun decodePublicKey(base64String: String): PublicKey {
         return KeyFactory.getInstance("RSA").generatePublic(X509EncodedKeySpec(Base64Encoder.decode(base64String)))
     }
