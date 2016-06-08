@@ -22,7 +22,7 @@ fun retrieveKeyFromUserUid(otherUid: String) = Observable.create<String?> { subs
                         subscriber.onCompleted()
                     } else {
                         val pendingRequest = dataSnapshot.getValue(object : GenericTypeIndicator<GetPendingRequest>() {})
-                        subscriber.onNext(pendingRequest?.rsa)
+                        subscriber.onNext(pendingRequest?.encryptedSymmetricKey)
                         subscriber.onCompleted()
                     }
                 }
@@ -34,5 +34,5 @@ fun retrieveKeyFromUserUid(otherUid: String) = Observable.create<String?> { subs
 }
 
 private class GetPendingRequest {
-    val rsa: String? = null
+    val encryptedSymmetricKey: String? = null
 }
