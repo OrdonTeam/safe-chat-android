@@ -14,6 +14,7 @@ import com.elpassion.android.commons.recycler.ItemAdapter
 class ConversationActivity : AppCompatActivity(), ConversationView {
 
     val controller by lazy { conversationControllerProvider(this) }
+    val recyclerView by lazy { findViewById(R.id.conversation_messages) as RecyclerView }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,11 +25,10 @@ class ConversationActivity : AppCompatActivity(), ConversationView {
             textView.text = ""
             true
         }
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     override fun showMessages(messages: List<Message>) {
-        val recyclerView = findViewById(R.id.conversation_messages) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = BaseRecyclerViewAdapter(messages.map { MessageItemAdapter(it) })
     }
 
