@@ -1,5 +1,8 @@
 package com.safechat.firebase.register
 
+import com.safechat.firebase.auth.createUser
+import com.safechat.firebase.auth.loginUser
+import com.safechat.firebase.users.putUser
 import com.safechat.register.RegisterService
 import rx.Observable
 

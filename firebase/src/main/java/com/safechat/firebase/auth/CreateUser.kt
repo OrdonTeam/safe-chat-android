@@ -1,14 +1,14 @@
-package com.safechat.firebase.register
+package com.safechat.firebase.auth
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import rx.Observable
 
-fun loginUser(email: String, password: String) = Observable.create<AuthResult> { subscriber ->
+fun createUser(email: String, password: String) = Observable.create<AuthResult> { subscriber ->
     subscriber.onStart()
     FirebaseAuth
             .getInstance()
-            .signInWithEmailAndPassword(email, password)
+            .createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 subscriber.onNext(it)
                 subscriber.onCompleted()
