@@ -10,7 +10,7 @@ fun putUser(uid: String, publicKeyString: String) = Observable.create<Unit> { su
             .reference
             .child("users")
             .child(uid)
-            .setValue(EmptyUser(publicKeyString))
+            .setValue(publicKeyString)
             .addOnSuccessListener{
                 subscriber.onNext(Unit)
                 subscriber.onCompleted()
@@ -19,5 +19,3 @@ fun putUser(uid: String, publicKeyString: String) = Observable.create<Unit> { su
                 subscriber.onError(it)
             }
 }
-
-private data class EmptyUser(val rsa: String)

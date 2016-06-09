@@ -4,7 +4,6 @@ import com.google.firebase.database.*
 import rx.Observable
 import java.util.*
 
-
 fun getUsersList() = Observable.create<List<UserUidAndRsa>> { subscriber ->
     subscriber.onStart()
     FirebaseDatabase
@@ -17,8 +16,8 @@ fun getUsersList() = Observable.create<List<UserUidAndRsa>> { subscriber ->
                         subscriber.onNext(emptyList())
                         subscriber.onCompleted()
                     } else {
-                        val usersMap = dataSnapshot.getValue(object : GenericTypeIndicator<HashMap<String, UserRsa>>() {})
-                        subscriber.onNext(usersMap.map { UserUidAndRsa(it.key, it.value.rsa!!) })
+                        val usersMap = dataSnapshot.getValue(object : GenericTypeIndicator<HashMap<String, String>>() {})
+                        subscriber.onNext(usersMap.map { UserUidAndRsa(it.key, it.value) })
                         subscriber.onCompleted()
                     }
                 }
@@ -30,7 +29,3 @@ fun getUsersList() = Observable.create<List<UserUidAndRsa>> { subscriber ->
 }
 
 data class UserUidAndRsa(val uid: String, val rsa: String)
-
-private class UserRsa() {
-    var rsa: String? = null
-}
