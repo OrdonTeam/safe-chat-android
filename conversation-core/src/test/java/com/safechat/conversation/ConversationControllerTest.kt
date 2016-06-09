@@ -55,6 +55,15 @@ class ConversationControllerTest {
         verify(service).postMessage("myPublicKey", "otherPublicKey", newEncryptedMessage)
     }
 
+    @Test
+    fun shouldUnsubscribe() {
+        val unsubscribeVerifier = UnsubscribeVerifier.newUnsubscribeVerifier<List<Message>>()
+        whenever(service.listenForMessages("myPublicKey", "otherPublicKey")).thenReturn(unsubscribeVerifier.observable)
+        startController()
+        controller.onDestroy()
+        unsubscribeVerifier.assertWasUnsubscribed()
+    }
+
     private fun startController() {
         controller.onCreated("otherPublicKey")
     }
@@ -69,7 +78,7 @@ class ConversationControllerTest {
     }
 
     private fun stubService(messages: Observable<List<Message>>) {
-        whenever(service.getPreviousMessages("myPublicKey", "otherPublicKey")).thenReturn(messages)
+        whenever(service.listenForMessages("myPublicKey", "otherPublicKey")).thenReturn(messages)
         whenever(service.postMessage("myPublicKey", "otherPublicKey", newEncryptedMessage)).thenReturn(just(Unit))
     }
 

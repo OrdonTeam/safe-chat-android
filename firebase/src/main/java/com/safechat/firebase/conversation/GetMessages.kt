@@ -4,7 +4,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.safechat.conversation.Message
 import rx.Observable
-import java.util.*
 
 fun getPreviousMessagesWithUid(otherUid: String): Observable<List<Message>> {
     return Observable.create { subscriber ->
@@ -16,21 +15,28 @@ fun getPreviousMessagesWithUid(otherUid: String): Observable<List<Message>> {
                 .child("conversations")
                 .child(min(uid, otherUid))
                 .child(max(uid, otherUid))
-                .addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(data: DataSnapshot?) {
+                .addChildEventListener(object : ChildEventListener {
+                    override fun onChildMoved(p0: DataSnapshot?, p1: String?) {
+                    }
+
+                    override fun onChildChanged(p0: DataSnapshot?, p1: String?) {
+                    }
+
+                    override fun onChildAdded(data: DataSnapshot?, p1: String?) {
                         if (data == null) {
                             subscriber.onNext(emptyList())
                             subscriber.onCompleted()
                         } else {
-                            val value = data.getValue(object : GenericTypeIndicator<HashMap<String, GetMessage>>() {})
+                            val value = data.getValue(object : GenericTypeIndicator<GetMessage>() {})
                             if (value == null) {
                                 subscriber.onNext(emptyList())
-                                subscriber.onCompleted()
                             } else {
-                                subscriber.onNext(value.values.map { Message(it.message!!, it.sender == uid) })
-                                subscriber.onCompleted()
+                                subscriber.onNext(listOf(Message(value.message!!, value.sender == uid)))
                             }
                         }
+                    }
+
+                    override fun onChildRemoved(p0: DataSnapshot?) {
                     }
 
                     override fun onCancelled(error: DatabaseError) {

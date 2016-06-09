@@ -8,7 +8,7 @@ import rx.Observable
 //TODO: add real implementation
 class ConversationServiceImpl : ConversationService {
 
-    override fun getPreviousMessages(myPublicKey: String, otherPublicKey: String): Observable<List<Message>> {
+    override fun listenForMessages(myPublicKey: String, otherPublicKey: String): Observable<List<Message>> {
         return findUserByRsa(otherPublicKey)
                 .flatMap { getPreviousMessagesWithUid(it.uid) }
     }
