@@ -1,19 +1,15 @@
 package com.safechat.firebase.exchange
 
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import rx.Observable
 
-fun removeKeyFromUserUid(otherUid: String) = Observable.create<Unit> { subscriber ->
+fun removeKeyFromUserUid(myUid: String, otherUid: String) = Observable.create<Unit> { subscriber ->
     subscriber.onStart()
-
-    val uid = FirebaseAuth.getInstance().currentUser!!.uid
     FirebaseDatabase
             .getInstance()
             .reference
-            .child("users")
-            .child(uid)
             .child("pending_requests")
+            .child(myUid)
             .child(otherUid)
             .setValue(null)
             .addOnSuccessListener {

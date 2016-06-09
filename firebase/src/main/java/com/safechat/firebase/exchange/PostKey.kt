@@ -1,21 +1,17 @@
 package com.safechat.firebase.exchange
 
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import rx.Observable
 
-fun postSymmetricKeyToUserUid(myPublicKey: String, otherUid: String, encryptedSymmetricKey: String) = Observable.create<Unit> { subscriber ->
+fun postSymmetricKeyToUserUid(myUid: String, otherUid: String, encryptedSymmetricKey: String) = Observable.create<Unit> { subscriber ->
     subscriber.onStart()
-
-    val uid = FirebaseAuth.getInstance().currentUser!!.uid
     FirebaseDatabase
             .getInstance()
             .reference
-            .child("users")
-            .child(otherUid)
             .child("pending_requests")
-            .child(uid)
-            .setValue(PostPendingRequest(myPublicKey, encryptedSymmetricKey, "TODO"))
+            .child(otherUid)
+            .child(myUid)
+            .setValue(encryptedSymmetricKey)
             .addOnSuccessListener {
                 subscriber.onNext(Unit)
                 subscriber.onCompleted()
@@ -24,5 +20,3 @@ fun postSymmetricKeyToUserUid(myPublicKey: String, otherUid: String, encryptedSy
                 subscriber.onError(it)
             }
 }
-
-private data class PostPendingRequest(val rsa: String, val encryptedSymmetricKey: String, val conversationId: String)

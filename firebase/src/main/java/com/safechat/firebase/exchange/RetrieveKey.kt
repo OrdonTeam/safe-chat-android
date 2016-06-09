@@ -1,19 +1,18 @@
 package com.safechat.firebase.exchange
 
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import rx.Observable
 
-fun retrieveKeyFromUserUid(otherUid: String) = Observable.create<String?> { subscriber ->
+fun retrieveKeyFromUserUid(myUid: String, otherUid: String) = Observable.create<String?> { subscriber ->
     subscriber.onStart()
-
-    val uid = FirebaseAuth.getInstance().currentUser!!.uid
     FirebaseDatabase
             .getInstance()
             .reference
-            .child("users")
-            .child(uid)
             .child("pending_requests")
+            .child(myUid)
             .child(otherUid)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot?) {
@@ -21,8 +20,7 @@ fun retrieveKeyFromUserUid(otherUid: String) = Observable.create<String?> { subs
                         subscriber.onNext(null)
                         subscriber.onCompleted()
                     } else {
-                        val pendingRequest = dataSnapshot.getValue(object : GenericTypeIndicator<GetPendingRequest>() {})
-                        subscriber.onNext(pendingRequest?.encryptedSymmetricKey)
+                        subscriber.onNext(dataSnapshot.getValue(String::class.java))
                         subscriber.onCompleted()
                     }
                 }
@@ -31,8 +29,4 @@ fun retrieveKeyFromUserUid(otherUid: String) = Observable.create<String?> { subs
                     subscriber.onError(databaseError.toException())
                 }
             })
-}
-
-private class GetPendingRequest {
-    val encryptedSymmetricKey: String? = null
 }
