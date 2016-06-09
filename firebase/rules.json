@@ -8,7 +8,7 @@
         }
       }
     },
-    "pending_request": {
+    "pending_requests": {
       "$uid": {
         "$uid2": {
           ".write": "auth !== null && (auth.uid === $uid || auth.uid === $uid2)",
@@ -17,6 +17,7 @@
       }
     },
     "users": {
+      ".read": "auth !== null",
       "$uid": {
         ".write": "auth !== null && auth.uid === $uid",
         ".read": "auth !== null"
