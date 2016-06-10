@@ -5,4 +5,5 @@ dependencies {
     compile project(':conversation-core')
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "com.elpassion.android.commons:recycler:0.0.9"
+    androidTestCompile "com.elpassion.android.commons:espresso:0.0.9"
 }

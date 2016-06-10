@@ -8,40 +8,28 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
-import com.elpassion.android.commons.recycler.BaseRecyclerViewAdapter
-import com.elpassion.android.commons.recycler.ItemAdapter
 
 class ConversationActivity : AppCompatActivity(), ConversationView {
 
     val controller by lazy { conversationControllerProvider(this) }
-    val recyclerView by lazy { findViewById(R.id.conversation_messages) as RecyclerView }
+    val adapter = ConversationAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversation)
-        controller.onCreated(intent.getStringExtra(OTHER_PUBLIC_KEY))
         (findViewById(R.id.conversation_message) as TextView).setOnEditorActionListener { textView, i, keyEvent ->
             controller.onNewMessage(intent.getStringExtra(OTHER_PUBLIC_KEY), Message(textView.text.toString().trim(), true))
             textView.text = ""
             true
         }
+        val recyclerView = findViewById(R.id.conversation_messages) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        controller.onCreated(intent.getStringExtra(OTHER_PUBLIC_KEY))
     }
 
     override fun showMessages(messages: List<Message>) {
-        recyclerView.adapter = BaseRecyclerViewAdapter(messages.map { MessageItemAdapter(it) })
-    }
-
-    class MessageItemAdapter(val message: Message) : ItemAdapter<Holder>(R.layout.message) {
-        override fun onCreateViewHolder(itemView: View) = Holder(itemView)
-
-        override fun onBindViewHolder(holder: Holder) {
-            holder.message.text = message.text
-        }
-    }
-
-    class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val message = itemView as TextView
+        adapter.add(messages.map { ConversationAdapter.MessageItemAdapter(it) })
     }
 
     override fun showError() {
