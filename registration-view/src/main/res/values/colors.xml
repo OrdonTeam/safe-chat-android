@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="loader_colors">
+        <item>@color/green</item>
+        <item>@color/yellow</item>
+        <item>@color/blue</item>
+        <item>@color/red</item>
+    </integer-array>
+
+    <color name="green">#3e802f</color>
+    <color name="yellow">#f4b400</color>
+    <color name="blue">#427fed</color>
+    <color name="red">#b23424</color>
+    <color name="background">#10c0ff</color>
+    <color name="text_color">#303010</color>
+</resources>

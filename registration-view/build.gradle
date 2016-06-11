@@ -3,4 +3,5 @@ apply from: "../android_test.gradle"
 
 dependencies {
     compile project(':registration-core')
+    compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
 }

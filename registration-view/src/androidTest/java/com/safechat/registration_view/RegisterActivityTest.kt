@@ -16,6 +16,6 @@ class RegisterActivityTest {
 
     @Test
     fun shouldStartRegisterActivity() {
-
+        Mockito.verify(controller).onViewCreated()
     }
 }
