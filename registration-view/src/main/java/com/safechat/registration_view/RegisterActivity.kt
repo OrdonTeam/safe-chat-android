@@ -1,16 +1,16 @@
 package com.safechat.registration_view
 
 import android.os.Bundle
+import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.TextView
 import com.safechat.register.RegisterController
 import com.safechat.register.RegisterView
 
 class RegisterActivity : AppCompatActivity(), RegisterView {
 
     val loader by lazy { findViewById(R.id.register_loader)!! }
-    val message by lazy { findViewById(R.id.register_message) as TextView }
     val registerController by lazy { registerControllerProvider(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,10 @@ class RegisterActivity : AppCompatActivity(), RegisterView {
     }
 
     override fun showKeyRegisterError() {
-        message.text = "Log in error"
+        val coordinator = findViewById(R.id.register_coordinator) as CoordinatorLayout
+        Snackbar.make(coordinator, R.string.register_error, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.register_try_again, { registerController.onViewCreated() })
+                .show()
     }
 
     companion object {

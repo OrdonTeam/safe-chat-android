@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="creating_new_account">Creating new account</string>
+    <string name="register_error">Error while signing in. Please try again later</string>
+    <string name="register_try_again">Try again</string>
 </resources>
