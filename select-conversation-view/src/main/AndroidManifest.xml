@@ -4,6 +4,6 @@
     <application>
         <activity
             android:name=".SelectConversationActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/AppTheme"/>
     </application>
 </manifest>
