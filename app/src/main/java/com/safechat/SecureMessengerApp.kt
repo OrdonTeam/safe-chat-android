@@ -2,9 +2,7 @@ package com.safechat
 
 import android.app.Application
 import com.safechat.conversation.ConversationActivity
-import com.safechat.conversation.ConversationCipher
 import com.safechat.conversation.ConversationControllerImpl
-import com.safechat.conversation.ConversationService
 import com.safechat.conversation.select.SelectConversationActivity
 import com.safechat.conversation.select.SelectConversationControllerImpl
 import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyActivity
@@ -20,7 +18,6 @@ import com.safechat.firebase.register.RegisterServiceImpl
 import com.safechat.firebase.users.UsersServiceImpl
 import com.safechat.register.RegisterControllerImpl
 import com.safechat.registration_view.RegisterActivity
-import com.safechat.registration_view.RegisterViewImpl
 import com.safechat.repository.RepositoryImpl
 
 class SecureMessengerApp : Application() {
@@ -30,7 +27,7 @@ class SecureMessengerApp : Application() {
 
         RegisterActivity.apply {
             registerControllerProvider = {
-                RegisterControllerImpl(RegisterViewImpl(it, it), RepositoryImpl(it), KeyGeneratorImpl(), RegisterServiceImpl())
+                RegisterControllerImpl(it, RepositoryImpl(it), KeyGeneratorImpl(), RegisterServiceImpl())
             }
             openSelectConversation = {
                 SelectConversationActivity.start(it)
