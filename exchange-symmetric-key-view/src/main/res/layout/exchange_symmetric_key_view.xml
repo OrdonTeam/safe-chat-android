@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/exchange_coordinator"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/background">
 
-    <ProgressBar
+    <LinearLayout
         android:id="@+id/exchange_loader"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/exchange_message"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/exchanging_secret_key"
+            android:textColor="@color/text_color"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+
+        <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+            style="@style/ProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"/>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

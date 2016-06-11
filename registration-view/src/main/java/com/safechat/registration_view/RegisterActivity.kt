@@ -36,7 +36,7 @@ class RegisterActivity : AppCompatActivity(), RegisterView {
     override fun showKeyRegisterError() {
         val coordinator = findViewById(R.id.register_coordinator) as CoordinatorLayout
         Snackbar.make(coordinator, R.string.register_error, Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.register_try_again, { registerController.onViewCreated() })
+                .setAction(R.string.try_again, { registerController.onViewCreated() })
                 .show()
     }
 

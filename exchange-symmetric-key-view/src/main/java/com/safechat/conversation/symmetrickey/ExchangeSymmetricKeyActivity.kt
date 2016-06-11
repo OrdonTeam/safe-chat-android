@@ -3,9 +3,10 @@ package com.safechat.conversation.symmetrickey
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.TextView
 
 class ExchangeSymmetricKeyActivity : AppCompatActivity(), ExchangeSymmetricKeyView {
 
@@ -31,7 +32,10 @@ class ExchangeSymmetricKeyActivity : AppCompatActivity(), ExchangeSymmetricKeyVi
     }
 
     override fun showError() {
-        (findViewById(R.id.exchange_message) as TextView).text = "FAILED"
+        val coordinator = findViewById(R.id.exchange_coordinator) as CoordinatorLayout
+        Snackbar.make(coordinator, R.string.exchanging_error, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.try_again, { controller.onCreate(intent.getStringExtra(OTHER_PUBLIC_KEY)) })
+                .show()
     }
 
     companion object {
