@@ -18,7 +18,7 @@ import com.safechat.firebase.conversation.ConversationServiceImpl
 import com.safechat.firebase.exchange.ExchangeServiceImpl
 import com.safechat.firebase.register.RegisterServiceImpl
 import com.safechat.firebase.users.UsersServiceImpl
-import com.safechat.register.RegisterController
+import com.safechat.register.RegisterControllerImpl
 import com.safechat.registration_view.RegisterActivity
 import com.safechat.registration_view.RegisterViewImpl
 import com.safechat.repository.RepositoryImpl
@@ -30,7 +30,7 @@ class SecureMessengerApp : Application() {
 
         RegisterActivity.apply {
             registerControllerProvider = {
-                RegisterController(RegisterViewImpl(it, it), RepositoryImpl(it), KeyGeneratorImpl(), RegisterServiceImpl())
+                RegisterControllerImpl(RegisterViewImpl(it, it), RepositoryImpl(it), KeyGeneratorImpl(), RegisterServiceImpl())
             }
             openSelectConversation = {
                 SelectConversationActivity.start(it)

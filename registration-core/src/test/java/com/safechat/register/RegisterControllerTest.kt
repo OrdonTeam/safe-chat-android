@@ -14,7 +14,7 @@ class RegisterControllerTest {
     val registerRepository = mock(RegisterRepository::class.java)
     val keyGenerator = mock(KeyGenerator::class.java)
     val registerService = mock(RegisterService::class.java)
-    val registerController = RegisterController(registerView, registerRepository, keyGenerator, registerService)
+    val registerController = RegisterControllerImpl(registerView, registerRepository, keyGenerator, registerService)
 
     @Before
     fun setUp() {
