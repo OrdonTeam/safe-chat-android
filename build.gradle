@@ -25,9 +25,9 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-int commonVersionCode() { return 1000000 }
+int commonVersionCode() { return 1000001 }
 
-String commonVersionName() { return "1.0.0" }
+String commonVersionName() { return "1.0.1" }
 
 int commonCompileSdkVersion() {
     return 23
