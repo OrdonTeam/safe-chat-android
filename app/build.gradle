@@ -5,12 +5,14 @@ buildscript {
     dependencies {
         classpath 'com.google.gms:google-services:3.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.github.triplet.gradle:play-publisher:1.1.3'
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.github.triplet.play'
 
 android {
     compileSdkVersion commonCompileSdkVersion()
@@ -42,6 +44,11 @@ android {
             minifyEnabled false
         }
     }
+}
+
+play {
+    serviceAccountEmail = 'secure-messenger-android@api-project-55592339260.iam.gserviceaccount.com'
+    pk12File = file('service-account.p12')
 }
 
 dependencies {
