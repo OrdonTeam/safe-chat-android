@@ -16,6 +16,7 @@ android:
     - sys-img-armeabi-v7a-android-21
 
 before_install:
+  - openssl aes-256-cbc -d -a -k "$encription_password" -in app/gradle.properties.enc -out app/gradle.properties
   - openssl aes-256-cbc -d -a -k "$encription_password" -in app/keystore.jks.enc -out app/keystore.jks
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &

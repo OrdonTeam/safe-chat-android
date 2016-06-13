@@ -23,15 +23,24 @@ android {
         versionCode commonVersionCode()
         versionName commonVersionName()
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
     packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
+    }
+    signingConfigs {
+        release {
+            storeFile file('keystore.jks')
+            storePassword ASYMMETRIC_STORE_PASSWORD
+            keyAlias 'secure-messenger-android'
+            keyPassword ASYMMETRIC_KEY_PASSWORD
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+        }
     }
 }
 
