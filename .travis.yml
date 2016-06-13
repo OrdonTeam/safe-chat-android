@@ -35,4 +35,6 @@ script:
 
 after_script:
   - adb logcat -d
+
+after_success:
   - test "$TRAVIS_BRANCH" == "master" && ./gradlew :app:publishApkRelease
