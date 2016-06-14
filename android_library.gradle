@@ -21,6 +21,10 @@ android {
         versionName commonVersionName()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    dexOptions {
+        javaMaxHeapSize "1024M"
+        preDexLibraries = System.env.CI != "true"
+    }
 }
 
 dependencies {
