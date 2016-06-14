@@ -37,4 +37,5 @@ dependencies {
     androidTestCompile("com.android.support.test.espresso:espresso-intents:$espresso_version") {
         exclude group: 'com.android.support'
     }
+    compile project(path: ':select-conversation-core')
 }

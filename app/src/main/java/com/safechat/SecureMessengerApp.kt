@@ -35,7 +35,7 @@ class SecureMessengerApp : Application() {
         }
         SelectConversationActivity.apply {
             selectConversationControllerProvider = {
-                SelectConversationControllerImpl(UsersServiceImpl(), it)
+                SelectConversationControllerImpl(UsersServiceImpl(), it, RepositoryImpl(it))
             }
             onPublicKeySelect = ExchangeSymmetricKeyActivity.start
         }

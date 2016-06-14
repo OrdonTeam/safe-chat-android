@@ -1,12 +1,17 @@
 package com.safechat.conversation.select
 
-class SelectConversationControllerImpl(val service: UsersService, val view: SelectConversationView) : SelectConversationController {
+class SelectConversationControllerImpl(
+        val service: UsersService,
+        val view: SelectConversationView,
+        val repository: SelectConversationRepository) : SelectConversationController {
 
     private var users: List<User> = emptyList()
     private var query: String = ""
 
     override fun onCreate() {
-        service.getUsers().subscribe(onSuccess, {})
+        service.getUsers()
+                .map { it.filterNot { it.rsa == repository.getPublicKeyString() } }
+                .subscribe(onSuccess, {})
     }
 
     val onSuccess: (List<User>) -> Unit = {

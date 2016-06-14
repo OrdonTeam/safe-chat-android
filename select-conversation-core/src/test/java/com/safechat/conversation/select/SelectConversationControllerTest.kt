@@ -14,11 +14,13 @@ class SelectConversationControllerTest {
 
     val view = mock<SelectConversationView>()
     val service = mock<UsersService>()
-    val controller = SelectConversationControllerImpl(service, view)
+    val repository = mock<SelectConversationRepository>()
+    val controller = SelectConversationControllerImpl(service, view, repository)
 
     @Before
     fun setUp() {
         whenever(service.getUsers()).thenReturn(error(RuntimeException()))
+        whenever(repository.getPublicKeyString()).thenReturn("my_public_key")
     }
 
     @Test
@@ -56,6 +58,14 @@ class SelectConversationControllerTest {
         holder.release()
 
         verify(view).showUsers(listOf(User("A")))
+    }
+
+    @Test
+    fun shouldFilterSelfRsaOut() {
+        val results = listOf(User("my_public_key"))
+        whenever(service.getUsers()).thenReturn(just(results))
+        controller.onCreate()
+        verify(view).showUsers(emptyList())
     }
 
     class ObservableHolder<T>(val value:T) {
