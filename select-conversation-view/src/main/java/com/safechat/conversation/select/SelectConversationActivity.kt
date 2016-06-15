@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.view.Menu
 import android.view.View
 import android.widget.TextView
 import com.elpassion.android.commons.recycler.BaseRecyclerViewAdapter
@@ -20,8 +21,14 @@ class SelectConversationActivity : AppCompatActivity(), SelectConversationView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_conversation)
         setSupportActionBar(findViewById(R.id.toolbar) as Toolbar)
-        getSupportActionBar()!!.title = "Select rsa"
+        getSupportActionBar()!!.setTitle(R.string.select_conversation_title)
         controller.onCreate()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        menu.findItem(R.id.show_info).setOnMenuItemClickListener { onMenuInfoSelect(this); true }
+        return true
     }
 
     override fun showUsers(users: List<User>) {
@@ -58,6 +65,7 @@ class SelectConversationActivity : AppCompatActivity(), SelectConversationView {
 
         lateinit var selectConversationControllerProvider: (SelectConversationActivity) -> SelectConversationController
         lateinit var onPublicKeySelect: (Context, String) -> Unit
+        lateinit var onMenuInfoSelect: (Context) -> Unit
 
         fun start(context: Context) {
             context.startActivity(Intent(context, SelectConversationActivity::class.java))
