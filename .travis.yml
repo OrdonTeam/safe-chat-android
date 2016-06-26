@@ -23,7 +23,7 @@ before_install:
   - emulator -avd test -no-skin -no-audio -no-window &
 
 install:
-  - travis_retry travis_wait ./gradlew assembleDebug
+  - travis_retry travis_wait ./gradlew assembleDebugAndroidTest
 
 before_script:
   - android-wait-for-emulator
