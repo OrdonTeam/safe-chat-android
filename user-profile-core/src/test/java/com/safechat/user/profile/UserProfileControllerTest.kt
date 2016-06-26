@@ -15,7 +15,7 @@ class UserProfileControllerTest {
     val repository = mock<UserProfileRepository>()
     val suidCalculator = mock<SuidCalculator>()
     val view = mock<UserProfileView>()
-    val controller = UserProfileController(service, repository, suidCalculator, view)
+    val controller = UserProfileControllerImpl(service, repository, suidCalculator, view)
 
     @Before
     fun setUp() {
