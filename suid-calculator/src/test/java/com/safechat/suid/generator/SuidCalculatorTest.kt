@@ -20,4 +20,12 @@ class SuidCalculatorTest {
 
         assertEquals("kakp", suidCalculator.findShortestUniqueSubstring("kakper", input))
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun shouldThrowIllegalArgumentExceptionIfOriginalStringIsOnTheList() {
+        val original = "kotlin"
+        val input = listOf(original)
+
+        suidCalculator.findShortestUniqueSubstring(original, input)
+    }
 }
