@@ -26,12 +26,10 @@ class SuidCalculatorImpl : SuidCalculator {
                 it.contains(substring)
             }
 
-    private fun String.substringsForLength(length: Int) =
-            mapIndexed { index, letter ->
-                drop(index)
-            }.filter {
-                it.length >= length
-            }.map {
-                it.take(length)
-            }
+    private fun String.substringsForLength(length: Int): List<String> {
+        val maximalStartIndex = this.length - length
+        return (0..maximalStartIndex).map {
+            substring(it, it + length)
+        }
+    }
 }
