@@ -7,7 +7,7 @@ class SuidCalculatorImpl : SuidCalculator {
     val MINIMAL_UNIQUE_LENGTH = 2
 
     override fun findShortestUniqueSubstring(original: String, others: List<String>): String {
-        if (others.contains(original)) {
+        if (!isNotContainedByAnyElementOfList(original, others)) {
             throw IllegalArgumentException()
         }
         return findRecursively(MINIMAL_UNIQUE_LENGTH, original, others)
