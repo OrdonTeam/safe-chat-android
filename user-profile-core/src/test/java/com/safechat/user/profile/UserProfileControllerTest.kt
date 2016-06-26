@@ -47,5 +47,15 @@ class UserProfileControllerTest {
 
         verify(view).showShortestUniqueId(Mockito.anyString())
     }
+
+
+    @Test
+    fun shouldShowErrorWhenRetrieveUsersFails() {
+        whenever(service.getUsers()).thenReturn(Observable.error(RuntimeException()))
+
+        controller.onCreate()
+
+        verify(view).showError()
+    }
 }
 

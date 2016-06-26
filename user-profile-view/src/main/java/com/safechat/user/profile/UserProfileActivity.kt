@@ -23,6 +23,10 @@ class UserProfileActivity : AppCompatActivity(), UserProfileView {
         (findViewById(R.id.user_profile_suid) as TextView).text = suid
     }
 
+    override fun showError() {
+        throw UnsupportedOperationException()
+    }
+
     companion object {
         lateinit var userProfileControllerProvider: (UserProfileActivity) -> UserProfileController
 

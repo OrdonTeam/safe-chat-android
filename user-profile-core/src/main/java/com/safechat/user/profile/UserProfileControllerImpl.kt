@@ -11,7 +11,7 @@ class UserProfileControllerImpl(val service: UsersService,
         service.getUsers()
                 .map { it.filterNot { it.rsa == myPublicKey } }
                 .map { suidCalculator.findShortestUniqueSubstring(myPublicKey, it.map { it.rsa }) }
-                .subscribe(onSuccess, {})
+                .subscribe(onSuccess, { view.showError() })
     }
 
     val onSuccess: (String) -> Unit = {
