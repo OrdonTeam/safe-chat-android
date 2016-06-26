@@ -10,6 +10,9 @@ class SuidCalculatorImpl : SuidCalculator {
             val substrings = original.substringsForLength(length)
             val result = substrings.firstOrNull { isNotContainedByAnyElementOfList(it, others) }
             if (result != null) {
+                if (!original.contains(result)) {
+                    throw RuntimeException()
+                }
                 return result
             }
         }

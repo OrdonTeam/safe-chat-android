@@ -9,8 +9,15 @@ import com.safechat.conversation.symmetrickey.post.PostSymmetricKeyRepository
 import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyRepository
 import com.safechat.register.KeyPairString
 import com.safechat.register.RegisterRepository
+import com.safechat.user.profile.UserProfileRepository
 
-class RepositoryImpl(context: Context) : RegisterRepository, ExchangeSymmetricKeyRepository, PostSymmetricKeyRepository, RetrieveSymmetricKeyRepository, ConversationRepository, SelectConversationRepository {
+class RepositoryImpl(context: Context) : RegisterRepository,
+        ExchangeSymmetricKeyRepository,
+        PostSymmetricKeyRepository,
+        RetrieveSymmetricKeyRepository,
+        ConversationRepository,
+        SelectConversationRepository,
+        UserProfileRepository {
 
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 

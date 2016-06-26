@@ -59,10 +59,12 @@ dependencies {
     compile project(':encryption')
     compile project(':firebase')
     compile project(':repository')
+    compile project(':suid-calculator')
     compile project(':registration-view')
     compile project(':select-conversation-view')
     compile project(':exchange-symmetric-key-view')
     compile project(':conversation-view')
+    compile project(':user-profile-view')
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

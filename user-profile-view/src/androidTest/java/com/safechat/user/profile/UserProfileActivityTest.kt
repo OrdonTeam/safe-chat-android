@@ -5,7 +5,7 @@ import org.junit.Test
 
 class UserProfileActivityTest {
 
-    val controller = object : UserProfileController {
+    val controller = object : UserProfileController{
         override fun onCreate() {
         }
     }
