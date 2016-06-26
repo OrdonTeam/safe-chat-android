@@ -4,21 +4,21 @@ import com.safechat.user.profile.SuidCalculator
 
 class SuidCalculatorImpl : SuidCalculator {
 
+    val MINIMAL_UNIQUE_LENGTH = 2
+
     override fun findShortestUniqueSubstring(original: String, others: List<String>): String {
         if (others.contains(original)) {
             throw IllegalArgumentException()
         }
-        val MINIMAL_UNIQUE_LENGTH = 2
-        var result = ""
-        for (length in MINIMAL_UNIQUE_LENGTH..original.length) {
-            val substrings = original.substringsForLength(length)
-            val uniqueText = substrings.firstOrNull { isNotContainedByAnyElementOfList(it, others) }
-            if (uniqueText != null) {
-                result = uniqueText
-                break
-            }
-        }
-        return result
+        return findRecursively(MINIMAL_UNIQUE_LENGTH, original, others)
+    }
+
+    private fun findRecursively(length: Int, original: String, others: List<String>): String {
+        return findUniqueSubstringOfLength(length, original, others) ?: findRecursively(length + 1, original, others)
+    }
+
+    private fun findUniqueSubstringOfLength(length: Int, original: String, others: List<String>): String? {
+        return original.substringsForLength(length).firstOrNull { isNotContainedByAnyElementOfList(it, others) }
     }
 
     private fun isNotContainedByAnyElementOfList(substring: String, list: List<String>) =
