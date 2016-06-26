@@ -1,1 +1,5 @@
 apply from: "../core_build.gradle"
+
+dependencies {
+    compile project(':users-service-core')
+}

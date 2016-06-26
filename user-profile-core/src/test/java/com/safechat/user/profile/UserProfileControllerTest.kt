@@ -4,6 +4,8 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import com.safechat.user.service.User
+import com.safechat.user.service.UsersService
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito

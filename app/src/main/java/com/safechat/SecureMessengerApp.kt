@@ -16,7 +16,6 @@ import com.safechat.firebase.conversation.ConversationServiceImpl
 import com.safechat.firebase.exchange.ExchangeServiceImpl
 import com.safechat.firebase.register.RegisterServiceImpl
 import com.safechat.firebase.users.UsersServiceImpl
-import com.safechat.firebase.users.UsersServiceImpl2
 import com.safechat.register.RegisterControllerImpl
 import com.safechat.registration_view.RegisterActivity
 import com.safechat.repository.RepositoryImpl
@@ -63,7 +62,7 @@ class SecureMessengerApp : Application() {
         }
         UserProfileActivity.apply {
             userProfileControllerProvider = {
-                val service = UsersServiceImpl2()
+                val service = UsersServiceImpl()
                 val repository = RepositoryImpl(it)
                 val suidCalculator = SuidCalculatorImpl()
                 UserProfileControllerImpl(service, repository, suidCalculator, it)

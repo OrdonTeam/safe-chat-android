@@ -13,7 +13,7 @@ import rx.Subscriber
 class SelectConversationControllerTest {
 
     val view = mock<SelectConversationView>()
-    val service = mock<UsersService>()
+    val service = mock<com.safechat.user.service.UsersService>()
     val repository = mock<SelectConversationRepository>()
     val controller = SelectConversationControllerImpl(service, view, repository)
 
@@ -31,7 +31,7 @@ class SelectConversationControllerTest {
 
     @Test
     fun shouldShowUsersFromService() {
-        val results = emptyList<User>()
+        val results = emptyList<com.safechat.user.service.User>()
         whenever(service.getUsers()).thenReturn(just(results))
         controller.onCreate()
         verify(view).showUsers(results)
@@ -39,8 +39,8 @@ class SelectConversationControllerTest {
 
     @Test
     fun shouldFilterOutResultsByGivenQuery() {
-        val user = User("A")
-        whenever(service.getUsers()).thenReturn(just(listOf(user, User("B"))))
+        val user = com.safechat.user.service.User("A")
+        whenever(service.getUsers()).thenReturn(just(listOf(user, com.safechat.user.service.User("B"))))
         controller.onCreate()
 
         controller.onQuery("A")
@@ -50,19 +50,19 @@ class SelectConversationControllerTest {
 
     @Test
     fun shouldShowFilteredListWhenCallEndsAfterQueryTyped() {
-        val holder = ObservableHolder(listOf(User("A"), User("B")))
+        val holder = ObservableHolder(listOf(com.safechat.user.service.User("A"), com.safechat.user.service.User("B")))
         whenever(service.getUsers()).thenReturn(holder.observable)
         controller.onCreate()
 
         controller.onQuery("A")
         holder.release()
 
-        verify(view).showUsers(listOf(User("A")))
+        verify(view).showUsers(listOf(com.safechat.user.service.User("A")))
     }
 
     @Test
     fun shouldFilterSelfRsaOut() {
-        val results = listOf(User("my_public_key"))
+        val results = listOf(com.safechat.user.service.User("my_public_key"))
         whenever(service.getUsers()).thenReturn(just(results))
         controller.onCreate()
         verify(view).showUsers(emptyList())

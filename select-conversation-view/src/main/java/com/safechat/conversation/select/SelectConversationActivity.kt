@@ -31,13 +31,13 @@ class SelectConversationActivity : AppCompatActivity(), SelectConversationView {
         return true
     }
 
-    override fun showUsers(users: List<User>) {
+    override fun showUsers(users: List<com.safechat.user.service.User>) {
         val recycler = findViewById(R.id.conversation_select_list) as RecyclerView
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = BaseRecyclerViewAdapter(users.map { mapToItemAdapter(it) })
     }
 
-    private fun mapToItemAdapter(it: User): UserItemAdapter {
+    private fun mapToItemAdapter(it: com.safechat.user.service.User): UserItemAdapter {
         return UserItemAdapter(it, onRsaSelected)
     }
 
@@ -45,7 +45,7 @@ class SelectConversationActivity : AppCompatActivity(), SelectConversationView {
         onPublicKeySelect(this, rsa)
     }
 
-    class UserItemAdapter(val user: User, val onRsaSelected: (String) -> Unit) : ItemAdapter<Holder>(R.layout.user_item) {
+    class UserItemAdapter(val user: com.safechat.user.service.User, val onRsaSelected: (String) -> Unit) : ItemAdapter<Holder>(R.layout.user_item) {
 
         override fun onCreateViewHolder(itemView: View) = Holder(itemView)
 
