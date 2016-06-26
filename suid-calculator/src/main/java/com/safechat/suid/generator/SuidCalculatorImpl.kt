@@ -4,26 +4,29 @@ import com.safechat.user.profile.SuidCalculator
 
 class SuidCalculatorImpl : SuidCalculator {
 
-    override fun findShortestUniqueSubstring(original: String, others: List<String>) =
-            generateSubstrings(original)
-                    .first { substring ->
-                        isNotContainedByAnyElementOfList(substring, others)
-                    }
+    override fun findShortestUniqueSubstring(original: String, others: List<String>): String {
+        val MINIMAL_UNIQUE_LENGTH = 2
+        for (length in MINIMAL_UNIQUE_LENGTH..original.length) {
+            val substrings = original.substringsForLength(length)
+            val result = substrings.firstOrNull { isNotContainedByAnyElementOfList(it, others) }
+            if (result != null) {
+                return result
+            }
+        }
+        throw IllegalStateException();
+    }
 
-    private fun isNotContainedByAnyElementOfList(substring: String, others: List<String>) =
-            others.any {
+    private fun isNotContainedByAnyElementOfList(substring: String, list: List<String>) =
+            list.any {
                 it.contains(substring)
             }.not()
 
-    fun generateSubstrings(input: String) =
-            input.mapIndexed { index, letter ->
-                input.substring(0, input.length - index)
-            }.flatMap { text ->
-                text.mapIndexed { index, letter ->
-                    text.substring(index, text.length)
-                }
-            }.toSet()
-                    .filter { it.length > 2 }
-                    .sortedBy { it.length }
-
+    private fun String.substringsForLength(length: Int) =
+            mapIndexed { index, letter ->
+                drop(index)
+            }.filter {
+                it.length >= length
+            }.map {
+                it.take(length)
+            }
 }

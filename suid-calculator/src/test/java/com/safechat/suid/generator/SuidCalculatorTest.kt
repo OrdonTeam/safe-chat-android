@@ -8,19 +8,16 @@ class SuidCalculatorTest {
     val suidCalculator = SuidCalculatorImpl()
 
     @Test
-    fun shouldGenerateAllSubstringsLongerThanTwo() {
-        val input = "kasper"
+    fun shouldFindShortestUniqueSubstringSimple() {
+        val input = listOf("kotlin")
 
-        assertEquals(setOf("kasper", "kaspe", "kasp", "kas",
-                "asper", "aspe", "asp",
-                "sper", "spe",
-                "per"), suidCalculator.generateSubstrings(input).toSet())
+        assertEquals("la", suidCalculator.findShortestUniqueSubstring("kotlan", input))
     }
 
     @Test
-    fun shouldFindShortestUniqueSubstring() {
-        val input = listOf("kasper", "kas2per")
+    fun shouldFindShortestUniqueSubstringComplex() {
+        val input = listOf("k2akper", "kak2per")
 
-        assertEquals("mas", suidCalculator.findShortestUniqueSubstring("masper", input))
+        assertEquals("kakp", suidCalculator.findShortestUniqueSubstring("kakper", input))
     }
 }
