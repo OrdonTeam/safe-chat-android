@@ -1,3 +1,4 @@
 <resources>
     <string name="user_profile_title">user-profile-view</string>
+    <string name="user_profile_error">Error while searching for shortest unique substring.</string>
 </resources>
