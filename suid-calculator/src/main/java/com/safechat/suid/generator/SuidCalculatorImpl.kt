@@ -22,9 +22,9 @@ class SuidCalculatorImpl : SuidCalculator {
     }
 
     private fun isNotContainedByAnyElementOfList(substring: String, list: List<String>) =
-            list.any {
+            list.none {
                 it.contains(substring)
-            }.not()
+            }
 
     private fun String.substringsForLength(length: Int) =
             mapIndexed { index, letter ->
