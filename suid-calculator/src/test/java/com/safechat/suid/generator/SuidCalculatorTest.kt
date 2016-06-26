@@ -5,7 +5,7 @@ import org.junit.Test
 
 class SuidCalculatorTest {
 
-    val suidCalculator = SuidCalculator()
+    val suidCalculator = SuidCalculatorImpl()
 
     @Test
     fun shouldGenerateAllSubstringsLongerThanTwo() {

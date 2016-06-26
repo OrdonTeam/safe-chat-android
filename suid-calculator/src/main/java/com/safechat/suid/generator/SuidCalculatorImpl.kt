@@ -1,8 +1,10 @@
 package com.safechat.suid.generator
 
-class SuidCalculator {
+import com.safechat.user.profile.SuidCalculator
 
-    fun findShortestUniqueSubstring(original: String, others: List<String>) =
+class SuidCalculatorImpl : SuidCalculator {
+
+    override fun findShortestUniqueSubstring(original: String, others: List<String>) =
             generateSubstrings(original)
                     .first { substring ->
                         isNotContainedByAnyElementOfList(substring, others)
