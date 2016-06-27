@@ -23,13 +23,9 @@ fun getPreviousMessagesWithUid(otherUid: String): Observable<Message> {
                     }
 
                     override fun onChildAdded(data: DataSnapshot?, p1: String?) {
-                        if (data == null) {
-                            subscriber.onError(RuntimeException("Empty data set"))
-                        } else {
+                        if (data != null) {
                             val value = data.getValue(object : GenericTypeIndicator<GetMessage>() {})
-                            if (value == null) {
-                                subscriber.onError(RuntimeException("Empty data set"))
-                            } else {
+                            if (value != null) {
                                 subscriber.onNext(Message(value.message!!, value.sender == uid, false, data.key!!.toLong()))
                             }
                         }
