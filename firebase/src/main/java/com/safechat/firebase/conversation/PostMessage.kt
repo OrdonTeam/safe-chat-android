@@ -16,7 +16,7 @@ fun postMessageToUid(otherUid: String, message: Message): Observable<Unit> {
                 .child(min(uid, otherUid))
                 .child(max(uid, otherUid))
                 .child(message.timestamp.toString())
-                .setValue(message.toFirebaseMessage(uid))
+                .setValue(message.toFirebaseMessage(uid, otherUid))
                 .addOnSuccessListener {
                     subscriber.onNext(Unit)
                     subscriber.onCompleted()
