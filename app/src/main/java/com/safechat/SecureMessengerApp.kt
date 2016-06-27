@@ -19,6 +19,9 @@ import com.safechat.firebase.users.UsersServiceImpl
 import com.safechat.register.RegisterControllerImpl
 import com.safechat.registration_view.RegisterActivity
 import com.safechat.repository.RepositoryImpl
+import com.safechat.suid.generator.SuidCalculatorImpl
+import com.safechat.user.profile.UserProfileActivity
+import com.safechat.user.profile.UserProfileControllerImpl
 
 class SecureMessengerApp : Application() {
 
@@ -38,7 +41,7 @@ class SecureMessengerApp : Application() {
                 SelectConversationControllerImpl(UsersServiceImpl(), it, RepositoryImpl(it))
             }
             onPublicKeySelect = ExchangeSymmetricKeyActivity.start
-            onMenuInfoSelect = { EmptyActivity.start(it) }
+            onMenuInfoSelect = { UserProfileActivity.start(it) }
         }
         ExchangeSymmetricKeyActivity.apply {
             exchangeSymmetricKeyControllerProvider = {
@@ -55,6 +58,14 @@ class SecureMessengerApp : Application() {
                 val repository = RepositoryImpl(it)
                 val cipher = ConversationCipherImpl()
                 ConversationControllerImpl(service, repository, cipher, it)
+            }
+        }
+        UserProfileActivity.apply {
+            userProfileControllerProvider = {
+                val service = UsersServiceImpl()
+                val repository = RepositoryImpl(it)
+                val suidCalculator = SuidCalculatorImpl()
+                UserProfileControllerImpl(service, repository, suidCalculator, it)
             }
         }
     }

@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.TextView
 import com.elpassion.android.commons.recycler.BaseRecyclerViewAdapter
 import com.elpassion.android.commons.recycler.ItemAdapter
+import com.safechat.user.service.User
 
 class SelectConversationActivity : AppCompatActivity(), SelectConversationView {
 

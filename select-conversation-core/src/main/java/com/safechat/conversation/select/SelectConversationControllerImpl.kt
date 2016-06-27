@@ -1,5 +1,8 @@
 package com.safechat.conversation.select
 
+import com.safechat.user.service.User
+import com.safechat.user.service.UsersService
+
 class SelectConversationControllerImpl(
         val service: UsersService,
         val view: SelectConversationView,
