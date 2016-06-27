@@ -5,7 +5,7 @@ import com.google.firebase.database.*
 import com.safechat.conversation.Message
 import rx.Observable
 
-fun getPreviousMessagesWithUid(otherUid: String): Observable<List<Message>> {
+fun getPreviousMessagesWithUid(otherUid: String): Observable<Message> {
     return Observable.create { subscriber ->
         subscriber.onStart()
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
@@ -24,14 +24,13 @@ fun getPreviousMessagesWithUid(otherUid: String): Observable<List<Message>> {
 
                     override fun onChildAdded(data: DataSnapshot?, p1: String?) {
                         if (data == null) {
-                            subscriber.onNext(emptyList())
-                            subscriber.onCompleted()
+                            subscriber.onError(RuntimeException("Empty data set"))
                         } else {
                             val value = data.getValue(object : GenericTypeIndicator<GetMessage>() {})
                             if (value == null) {
-                                subscriber.onNext(emptyList())
+                                subscriber.onError(RuntimeException("Empty data set"))
                             } else {
-                                subscriber.onNext(listOf(Message(value.message!!, value.sender == uid, false, data.key!!.toLong())))
+                                subscriber.onNext(Message(value.message!!, value.sender == uid, false, data.key!!.toLong()))
                             }
                         }
                     }
