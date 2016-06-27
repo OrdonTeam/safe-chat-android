@@ -1,0 +1,2 @@
+apply from: "../android_library.gradle"
+apply from: "../android_test.gradle"

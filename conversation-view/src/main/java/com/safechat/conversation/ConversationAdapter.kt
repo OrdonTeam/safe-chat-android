@@ -34,12 +34,18 @@ class ConversationAdapter : BaseRecyclerViewAdapter() {
         override fun onCreateViewHolder(itemView: View) = Holder(itemView)
 
         override fun onBindViewHolder(holder: Holder) {
-            holder.message.text = message.text
+            holder.messageText.text = message.text
+            holder.messageSender.text = message.isYours.toString()
+            holder.messageRead.text = message.isRead.toString()
+            holder.messageTimestamp.text = message.timestamp.toString()
         }
     }
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val message = itemView as TextView
+        val messageText = itemView.findViewById(R.id.message_text) as TextView
+        val messageSender = itemView.findViewById(R.id.message_sender) as TextView
+        val messageRead = itemView.findViewById(R.id.message_read) as TextView
+        val messageTimestamp = itemView.findViewById(R.id.message_timestamp) as TextView
     }
 
 }

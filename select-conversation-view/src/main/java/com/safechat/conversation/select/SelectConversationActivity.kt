@@ -23,6 +23,7 @@ class SelectConversationActivity : AppCompatActivity(), SelectConversationView {
         setContentView(R.layout.select_conversation)
         setSupportActionBar(findViewById(R.id.toolbar) as Toolbar)
         getSupportActionBar()!!.setTitle(R.string.select_conversation_title)
+        findViewById(R.id.create_conversation)!!.setOnClickListener { onCreateConversationSelect(this) }
         controller.onCreate()
     }
 
@@ -67,6 +68,7 @@ class SelectConversationActivity : AppCompatActivity(), SelectConversationView {
         lateinit var selectConversationControllerProvider: (SelectConversationActivity) -> SelectConversationController
         lateinit var onPublicKeySelect: (Context, String) -> Unit
         lateinit var onMenuInfoSelect: (Context) -> Unit
+        lateinit var onCreateConversationSelect: (Context) -> Unit
 
         fun start(context: Context) {
             context.startActivity(Intent(context, SelectConversationActivity::class.java))

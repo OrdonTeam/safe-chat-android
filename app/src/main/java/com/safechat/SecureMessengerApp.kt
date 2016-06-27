@@ -3,6 +3,7 @@ package com.safechat
 import android.app.Application
 import com.safechat.conversation.ConversationActivity
 import com.safechat.conversation.ConversationControllerImpl
+import com.safechat.conversation.create.CreateConversationActivity
 import com.safechat.conversation.select.SelectConversationActivity
 import com.safechat.conversation.select.SelectConversationControllerImpl
 import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyActivity
@@ -42,6 +43,7 @@ class SecureMessengerApp : Application() {
             }
             onPublicKeySelect = ExchangeSymmetricKeyActivity.start
             onMenuInfoSelect = { UserProfileActivity.start(it) }
+            onCreateConversationSelect = { CreateConversationActivity.start(it) }
         }
         ExchangeSymmetricKeyActivity.apply {
             exchangeSymmetricKeyControllerProvider = {

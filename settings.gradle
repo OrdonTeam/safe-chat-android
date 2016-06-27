@@ -1,4 +1,4 @@
-include ':app',
+include ':app', ':create-conversation-view',
         ':users-service-core',
         ':suid-calculator',
         ':user-profile-core',
