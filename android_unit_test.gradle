@@ -1,0 +1,5 @@
+dependencies {
+    testCompile "junit:junit:$junit_version"
+    testCompile "org.mockito:mockito-core:$mockito_version"
+    testCompile "com.nhaarman:mockito-kotlin:$kotlin_mockito_version"
+}

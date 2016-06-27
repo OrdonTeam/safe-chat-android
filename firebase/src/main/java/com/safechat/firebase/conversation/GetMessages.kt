@@ -39,7 +39,7 @@ fun getPreviousMessagesWithUid(otherUid: String): Observable<Message> {
                         val message = data.toMessage(uid, data.key!!.toLong())
                         if (message != null) {
                             subscriber.onNext(message)
-                            if (message.isYours && !message.isRead) {
+                            if (!message.isYours && !message.isRead) {
                                 updateMessage(message)
                             }
                         }

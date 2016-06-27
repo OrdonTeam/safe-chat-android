@@ -10,16 +10,16 @@ internal data class FirebaseMessage(
         var isRead: Boolean = false) {
 
 
-    fun toMessage(uid: String, timestamp: Long): Message {
-        return Message(message!!, sender == uid, isRead, timestamp)
+    fun toMessage(myUid: String, timestamp: Long): Message {
+        return Message(message!!, sender == myUid, isRead, timestamp)
     }
 }
 
-internal fun Message.toFirebaseMessage(uid: String, otherUid: String): FirebaseMessage {
-    val sender = if (isYours) uid else otherUid
+internal fun Message.toFirebaseMessage(myUid: String, otherUid: String): FirebaseMessage {
+    val sender = if (isYours) myUid else otherUid
     return FirebaseMessage(this.text, sender, isRead)
 }
 
-internal fun DataSnapshot.toMessage(uid: String, timestamp: Long): Message? {
-    return getValue(object : GenericTypeIndicator<FirebaseMessage>() {})?.toMessage(uid, timestamp)
+internal fun DataSnapshot.toMessage(myUid: String, timestamp: Long): Message? {
+    return getValue(object : GenericTypeIndicator<FirebaseMessage>() {})?.toMessage(myUid, timestamp)
 }
