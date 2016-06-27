@@ -18,7 +18,7 @@ class ConversationActivity : AppCompatActivity(), ConversationView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversation)
         (findViewById(R.id.conversation_message) as TextView).setOnEditorActionListener { textView, i, keyEvent ->
-            controller.onNewMessage(intent.getStringExtra(OTHER_PUBLIC_KEY), Message(textView.text.toString().trim(), true))
+            controller.onNewMessage(intent.getStringExtra(OTHER_PUBLIC_KEY), Message(textView.text.toString().trim(), true, false, System.currentTimeMillis()))
             textView.text = ""
             true
         }

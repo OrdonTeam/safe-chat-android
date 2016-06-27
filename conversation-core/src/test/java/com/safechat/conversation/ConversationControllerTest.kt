@@ -17,10 +17,10 @@ class ConversationControllerTest {
     val service = mock<ConversationService>()
     val controller = ConversationControllerImpl(service, repository, cipher, view)
 
-    val encryptedMessages = listOf(Message("encrypted_text", false))
-    val decryptedMessages = listOf(Message("decrypted_text", false))
-    val newMessage = Message("new_message", true)
-    val newEncryptedMessage = Message("new_encrypted_message", true)
+    val encryptedMessages = listOf(Message("encrypted_text", false, false, 1466490821381))
+    val decryptedMessages = listOf(Message("decrypted_text", false, false, 1466490821384))
+    val newMessage = Message("new_message", true, false, 1466490821390)
+    val newEncryptedMessage = Message("new_encrypted_message", true, false, 1466490821390)
 
     @Before
     fun setUp() {

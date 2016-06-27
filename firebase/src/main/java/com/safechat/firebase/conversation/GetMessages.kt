@@ -31,7 +31,7 @@ fun getPreviousMessagesWithUid(otherUid: String): Observable<List<Message>> {
                             if (value == null) {
                                 subscriber.onNext(emptyList())
                             } else {
-                                subscriber.onNext(listOf(Message(value.message!!, value.sender == uid)))
+                                subscriber.onNext(listOf(Message(value.message!!, value.sender == uid, false, data.key!!.toLong())))
                             }
                         }
                     }

@@ -16,7 +16,7 @@ class ConversationCipherImplTest {
 
     @Test
     fun shouldEncryptAndDecryptWithSymmetricKey() {
-        val message = Message("message", true)
+        val message = Message("message", true, false, 1466490821381)
         cipher.encryptMessage(symmetricKeyBase64, message)
                 .flatMap { cipher.decryptMessages(symmetricKeyBase64, listOf(it)) }
                 .map { it.first() }
@@ -26,7 +26,7 @@ class ConversationCipherImplTest {
 
     @Test
     fun encryptionShouldReturnDifferentMessage() {
-        val message = Message("message", true)
+        val message = Message("message", true, false, 1466490821381)
         cipher.encryptMessage(symmetricKeyBase64, message)
                 .subscribe(subscriber)
         val encryptedMessage = subscriber.onNextEvents.first()
