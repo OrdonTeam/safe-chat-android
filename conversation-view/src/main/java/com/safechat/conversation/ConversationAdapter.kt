@@ -9,8 +9,25 @@ import com.elpassion.android.commons.recycler.ItemAdapter
 class ConversationAdapter : BaseRecyclerViewAdapter() {
 
     fun add(messages: List<MessageItemAdapter>) {
-        adapters.addAll(messages)
+        messages.forEach {
+            add(it)
+        }
+    }
+
+    private fun add(message: MessageItemAdapter) {
+        removeIfAlreadyOnList(message.message.timestamp)
+        adapters.add(message)
+        adapters.sortBy { (it as MessageItemAdapter).message.timestamp }
         notifyDataSetChanged()
+    }
+
+    private fun removeIfAlreadyOnList(timestamp: Long) {
+        adapters.firstOrNull { hasSameTimestamp(it, timestamp) }
+                ?.run { adapters.remove(this) }
+    }
+
+    private fun hasSameTimestamp(it: ItemAdapter<out RecyclerView.ViewHolder>, timestamp: Long): Boolean {
+        return (it as MessageItemAdapter).message.timestamp == timestamp
     }
 
     class MessageItemAdapter(val message: Message) : ItemAdapter<Holder>(R.layout.message) {
