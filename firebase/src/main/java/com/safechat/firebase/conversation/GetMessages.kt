@@ -1,7 +1,10 @@
 package com.safechat.firebase.conversation
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.safechat.conversation.Message
 import rx.Observable
 
@@ -24,9 +27,9 @@ fun getPreviousMessagesWithUid(otherUid: String): Observable<Message> {
 
                     override fun onChildAdded(data: DataSnapshot?, p1: String?) {
                         if (data != null) {
-                            val value = data.getValue(object : GenericTypeIndicator<GetMessage>() {})
-                            if (value != null) {
-                                subscriber.onNext(Message(value.message!!, value.sender == uid, false, data.key!!.toLong()))
+                            val message = data.toMessage(uid, data.key!!.toLong())
+                            if (message != null) {
+                                subscriber.onNext(message)
                             }
                         }
                     }
@@ -39,9 +42,4 @@ fun getPreviousMessagesWithUid(otherUid: String): Observable<Message> {
                     }
                 })
     }
-}
-
-private class GetMessage {
-    var message: String? = null
-    var sender: String? = null
 }

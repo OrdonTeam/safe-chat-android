@@ -16,7 +16,7 @@ fun postMessageToUid(otherUid: String, message: Message): Observable<Unit> {
                 .child(min(uid, otherUid))
                 .child(max(uid, otherUid))
                 .child(message.timestamp.toString())
-                .setValue(FirebaseMessage(message.text, uid))
+                .setValue(message.toFirebaseMessage(uid))
                 .addOnSuccessListener {
                     subscriber.onNext(Unit)
                     subscriber.onCompleted()
@@ -34,5 +34,3 @@ fun min(uid: String, otherUid: String): String {
 fun max(uid: String, otherUid: String): String {
     return if (uid.compareTo(otherUid) > 0) otherUid else uid
 }
-
-private data class FirebaseMessage(val message: String, val sender: String)
