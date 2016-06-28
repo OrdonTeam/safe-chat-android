@@ -2,7 +2,7 @@ apply from: "../android_library.gradle"
 apply from: "../android_test.gradle"
 
 dependencies {
-    compile project(':select-conversation-core')
+    compile project(':conversations-list-core')
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "com.elpassion.android.commons:recycler:0.0.9"
 }

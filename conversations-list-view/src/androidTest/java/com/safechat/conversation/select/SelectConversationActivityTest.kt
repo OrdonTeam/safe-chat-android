@@ -5,11 +5,8 @@ import org.junit.Test
 
 class SelectConversationActivityTest {
 
-    val controller: SelectConversationController = object : SelectConversationController{
+    val controller: SelectConversationController = object : SelectConversationController {
         override fun onCreate() {
-        }
-
-        override fun onQuery(query: String) {
         }
     }
 
