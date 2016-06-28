@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name=".SelectConversationActivity"
+            android:name=".ConversationsListActivity"
             android:theme="@style/AppTheme"/>
     </application>
 </manifest>

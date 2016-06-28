@@ -14,9 +14,9 @@ import com.elpassion.android.commons.recycler.BaseRecyclerViewAdapter
 import com.elpassion.android.commons.recycler.ItemAdapter
 import com.safechat.user.service.User
 
-class ConversationsListActivity : AppCompatActivity(), SelectConversationView {
+class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
 
-    val controller by lazy { selectConversationControllerProvider(this) }
+    val controller by lazy { conversationsListControllerProvider(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +65,7 @@ class ConversationsListActivity : AppCompatActivity(), SelectConversationView {
 
     companion object {
 
-        lateinit var selectConversationControllerProvider: (ConversationsListActivity) -> SelectConversationController
+        lateinit var conversationsListControllerProvider: (ConversationsListActivity) -> ConversationsListController
         lateinit var onPublicKeySelect: (Context, String) -> Unit
         lateinit var onMenuInfoSelect: (Context) -> Unit
         lateinit var onCreateConversationSelect: (Context) -> Unit

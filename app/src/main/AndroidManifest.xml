@@ -15,7 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".conversation.select.SelectConversationActivity"/>
+        <activity android:name=".conversation.select.ConversationsListActivity"/>
         <activity android:name=".conversation.symmetrickey.ExchangeSymmetricKeyActivity"/>
         <activity android:name=".EmptyActivity"/>
     </application>

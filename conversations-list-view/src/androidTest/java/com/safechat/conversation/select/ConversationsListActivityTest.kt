@@ -5,14 +5,14 @@ import org.junit.Test
 
 class ConversationsListActivityTest {
 
-    val controller: SelectConversationController = object : SelectConversationController {
+    val listController: ConversationsListController = object : ConversationsListController {
         override fun onCreate() {
         }
     }
 
     @JvmField @Rule
-    val rule = activityRule<SelectConversationActivity>() {
-        SelectConversationActivity.selectConversationControllerProvider = { controller }
+    val rule = activityRule<ConversationsListActivity>() {
+        ConversationsListActivity.conversationsListControllerProvider = { listController }
     }
 
     @Test

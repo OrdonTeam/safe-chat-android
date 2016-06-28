@@ -4,8 +4,8 @@ import android.app.Application
 import com.safechat.conversation.ConversationActivity
 import com.safechat.conversation.ConversationControllerImpl
 import com.safechat.conversation.create.CreateConversationActivity
-import com.safechat.conversation.select.SelectConversationActivity
-import com.safechat.conversation.select.SelectConversationControllerImpl
+import com.safechat.conversation.select.ConversationsListActivity
+import com.safechat.conversation.select.ConversationsListControllerImpl
 import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyActivity
 import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyControllerImpl
 import com.safechat.conversation.symmetrickey.post.PostSymmetricKeyControllerImpl
@@ -14,7 +14,7 @@ import com.safechat.encryption.ConversationCipherImpl
 import com.safechat.encryption.KeyGeneratorImpl
 import com.safechat.encryption.SymmetricKeyCipher
 import com.safechat.firebase.conversation.ConversationServiceImpl
-import com.safechat.firebase.conversations.ConversationListServiceImpl
+import com.safechat.firebase.conversations.ConversationsListServiceImpl
 import com.safechat.firebase.exchange.ExchangeServiceImpl
 import com.safechat.firebase.register.RegisterServiceImpl
 import com.safechat.firebase.users.UsersServiceImpl
@@ -35,12 +35,12 @@ class SecureMessengerApp : Application() {
                 RegisterControllerImpl(it, RepositoryImpl(it), KeyGeneratorImpl(), RegisterServiceImpl())
             }
             openSelectConversation = {
-                SelectConversationActivity.start(it)
+                ConversationsListActivity.start(it)
             }
         }
-        SelectConversationActivity.apply {
-            selectConversationControllerProvider = {
-                SelectConversationControllerImpl(ConversationListServiceImpl(), it)
+        ConversationsListActivity.apply {
+            conversationsListControllerProvider = {
+                ConversationsListControllerImpl(ConversationsListServiceImpl(), it)
             }
             onPublicKeySelect = ExchangeSymmetricKeyActivity.start
             onMenuInfoSelect = { UserProfileActivity.start(it) }
