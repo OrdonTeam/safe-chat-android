@@ -8,11 +8,11 @@ import org.junit.Test
 import rx.Observable.error
 import rx.Observable.just
 
-class SelectConversationControllerTest {
+class ConversationsListControllerTest {
 
-    val view = mock<SelectConversationView>()
-    val service = mock<ConversationListService>()
-    val controller = SelectConversationControllerImpl(service, view)
+    val view = mock<ConversationsListView>()
+    val service = mock<ConversationsListService>()
+    val controller = ConversationsListControllerImpl(service, view)
 
     @Before
     fun setUp() {

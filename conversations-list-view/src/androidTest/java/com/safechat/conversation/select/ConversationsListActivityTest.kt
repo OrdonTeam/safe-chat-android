@@ -3,7 +3,7 @@ package com.safechat.conversation.select
 import org.junit.Rule
 import org.junit.Test
 
-class SelectConversationActivityTest {
+class ConversationsListActivityTest {
 
     val controller: SelectConversationController = object : SelectConversationController {
         override fun onCreate() {

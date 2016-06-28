@@ -1,5 +1,5 @@
 package com.safechat.conversation.select
 
-interface SelectConversationController {
+interface ConversationsListController {
     fun onCreate()
 }

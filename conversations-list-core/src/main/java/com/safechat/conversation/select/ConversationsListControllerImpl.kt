@@ -1,8 +1,8 @@
 package com.safechat.conversation.select
 
-class SelectConversationControllerImpl(
-        val service: ConversationListService,
-        val view: SelectConversationView) : SelectConversationController {
+class ConversationsListControllerImpl(
+        val service: ConversationsListService,
+        val view: SelectConversationView) : ConversationsListController {
 
     override fun onCreate() {
         service.getConversations()

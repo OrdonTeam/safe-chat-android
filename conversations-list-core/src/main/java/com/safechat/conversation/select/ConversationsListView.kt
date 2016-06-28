@@ -1,5 +1,5 @@
 package com.safechat.conversation.select
 
-interface SelectConversationView {
+interface ConversationsListView {
     fun showUsers(users: List<UserRsaConversation>)
 }
