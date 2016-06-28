@@ -14,6 +14,7 @@ import com.safechat.encryption.ConversationCipherImpl
 import com.safechat.encryption.KeyGeneratorImpl
 import com.safechat.encryption.SymmetricKeyCipher
 import com.safechat.firebase.conversation.ConversationServiceImpl
+import com.safechat.firebase.conversations.ConversationListServiceImpl
 import com.safechat.firebase.exchange.ExchangeServiceImpl
 import com.safechat.firebase.register.RegisterServiceImpl
 import com.safechat.firebase.users.UsersServiceImpl
@@ -39,7 +40,7 @@ class SecureMessengerApp : Application() {
         }
         SelectConversationActivity.apply {
             selectConversationControllerProvider = {
-                SelectConversationControllerImpl(UsersServiceImpl(), it, RepositoryImpl(it))
+                SelectConversationControllerImpl(ConversationListServiceImpl(), it)
             }
             onPublicKeySelect = ExchangeSymmetricKeyActivity.start
             onMenuInfoSelect = { UserProfileActivity.start(it) }

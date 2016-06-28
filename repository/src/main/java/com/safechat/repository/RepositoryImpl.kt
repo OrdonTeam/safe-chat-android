@@ -3,7 +3,6 @@ package com.safechat.repository
 import android.content.Context
 import android.preference.PreferenceManager
 import com.safechat.conversation.ConversationRepository
-import com.safechat.conversation.select.SelectConversationRepository
 import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyRepository
 import com.safechat.conversation.symmetrickey.post.PostSymmetricKeyRepository
 import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyRepository
@@ -16,7 +15,6 @@ class RepositoryImpl(context: Context) : RegisterRepository,
         PostSymmetricKeyRepository,
         RetrieveSymmetricKeyRepository,
         ConversationRepository,
-        SelectConversationRepository,
         UserProfileRepository {
 
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
