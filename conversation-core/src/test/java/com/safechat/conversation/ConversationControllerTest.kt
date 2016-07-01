@@ -17,10 +17,10 @@ class ConversationControllerTest {
     val service = mock<ConversationService>()
     val controller = ConversationControllerImpl(service, repository, cipher, view)
 
-    val encryptedMessages = Message("encrypted_text", false, false, 1466490821381)
-    val decryptedMessages = listOf(Message("decrypted_text", false, false, 1466490821384))
-    val newMessage = Message("new_message", true, false, 1466490821390)
-    val newEncryptedMessage = Message("new_encrypted_message", true, false, 1466490821390)
+    val encryptedMessages = com.safechat.message.Message("encrypted_text", false, false, 1466490821381)
+    val decryptedMessages = listOf(com.safechat.message.Message("decrypted_text", false, false, 1466490821384))
+    val newMessage = com.safechat.message.Message("new_message", true, false, 1466490821390)
+    val newEncryptedMessage = com.safechat.message.Message("new_encrypted_message", true, false, 1466490821390)
     val otherPublicKey = "otherPublicKey"
     val myPublicKey = "myPublicKey"
 
@@ -71,7 +71,7 @@ class ConversationControllerTest {
 
     @Test
     fun shouldUnsubscribe() {
-        val unsubscribeVerifier = UnsubscribeVerifier.newUnsubscribeVerifier<Message>()
+        val unsubscribeVerifier = UnsubscribeVerifier.newUnsubscribeVerifier<com.safechat.message.Message>()
         whenever(service.listenForMessages(myPublicKey, otherPublicKey)).thenReturn(unsubscribeVerifier.observable)
         startController()
         controller.onDestroy()
@@ -91,12 +91,12 @@ class ConversationControllerTest {
         whenever(repository.getDecryptedSymmetricKey(otherPublicKey)).thenReturn("symmetricKey")
     }
 
-    private fun stubService(messages: Observable<Message>) {
+    private fun stubService(messages: Observable<com.safechat.message.Message>) {
         whenever(service.listenForMessages(myPublicKey, otherPublicKey)).thenReturn(messages)
         whenever(service.postMessage(myPublicKey, otherPublicKey, newEncryptedMessage)).thenReturn(just(Unit))
     }
 
-    private fun stubCipher(messages: Observable<List<Message>>) {
+    private fun stubCipher(messages: Observable<List<com.safechat.message.Message>>) {
         whenever(cipher.decryptMessages("symmetricKey", listOf(encryptedMessages))).thenReturn(messages)
         whenever(cipher.encryptMessage("symmetricKey", newMessage)).thenReturn(just(newEncryptedMessage))
     }

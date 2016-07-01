@@ -4,10 +4,11 @@ import android.content.Context
 import android.preference.PreferenceManager
 import com.elpassion.android.commons.sharedpreferences.createSharedPrefs
 import com.safechat.conversation.ConversationRepository
-import com.safechat.conversation.Message
+import com.safechat.conversation.select.ConversationsListRepository
 import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyRepository
 import com.safechat.conversation.symmetrickey.post.PostSymmetricKeyRepository
 import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyRepository
+import com.safechat.message.Message
 import com.safechat.register.KeyPairString
 import com.safechat.register.RegisterRepository
 import com.safechat.user.profile.UserProfileRepository
@@ -17,7 +18,8 @@ class RepositoryImpl(context: Context) : RegisterRepository,
         PostSymmetricKeyRepository,
         RetrieveSymmetricKeyRepository,
         ConversationRepository,
-        UserProfileRepository {
+        UserProfileRepository,
+        ConversationsListRepository {
 
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
@@ -56,6 +58,11 @@ class RepositoryImpl(context: Context) : RegisterRepository,
 
     override fun getDecryptedSymmetricKey(otherPublicKey: String): String {
         return sharedPreferences.getString(otherPublicKey, null)
+    }
+
+    override fun getConversationsMessages(): Map<String, Message> {
+        val typedSharedPrefs = createSharedPrefs<Map<String, Message>>({ sharedPreferences })
+        return typedSharedPrefs.read(CONVERSATIONS) ?: emptyMap()
     }
 
     companion object {

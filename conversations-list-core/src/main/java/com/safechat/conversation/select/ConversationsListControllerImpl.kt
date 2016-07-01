@@ -1,15 +1,11 @@
 package com.safechat.conversation.select
 
 class ConversationsListControllerImpl(
-        val service: ConversationsListService,
+        val repository: ConversationsListRepository,
         val view: ConversationsListView) : ConversationsListController {
 
     override fun onCreate() {
-        service.getConversations()
-                .subscribe(onSuccess, {})
-    }
-
-    val onSuccess: (List<UserRsaConversation>) -> Unit = {
-        view.showUsers(it)
+        val conversations = repository.getConversationsMessages()
+        view.showConversations(conversations)
     }
 }

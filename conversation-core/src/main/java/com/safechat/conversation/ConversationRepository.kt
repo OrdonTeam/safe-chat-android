@@ -5,5 +5,5 @@ interface ConversationRepository {
 
     fun getDecryptedSymmetricKey(otherPublicKey: String): String
 
-    fun saveConversationMessage(otherPublicKey: String, message: Message)
+    fun saveConversationMessage(otherPublicKey: String, message: com.safechat.message.Message)
 }

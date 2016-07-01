@@ -12,7 +12,7 @@ import android.view.View
 import android.widget.TextView
 import com.elpassion.android.commons.recycler.BaseRecyclerViewAdapter
 import com.elpassion.android.commons.recycler.ItemAdapter
-import com.safechat.user.service.User
+import com.safechat.message.Message
 
 class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
 
@@ -33,28 +33,30 @@ class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
         return true
     }
 
-    override fun showUsers(users: List<UserRsaConversation>) {
+    override fun showConversations(conversations: Map<String, Message>) {
         val recycler = findViewById(R.id.conversation_select_list) as RecyclerView
         recycler.layoutManager = LinearLayoutManager(this)
-        recycler.adapter = BaseRecyclerViewAdapter(users.map { mapToItemAdapter(it) })
+        recycler.adapter = BaseRecyclerViewAdapter(conversations.map { mapToItemAdapter(it.key, it.value) })
     }
 
-    private fun mapToItemAdapter(it: UserRsaConversation): UserItemAdapter {
-        return UserItemAdapter(it, onRsaSelected)
+    private fun mapToItemAdapter(user: String, message: Message): UserItemAdapter {
+        return UserItemAdapter(user, message, onRsaSelected)
     }
 
     private val onRsaSelected: (String) -> Unit = { rsa ->
         onPublicKeySelect(this, rsa)
     }
 
-    class UserItemAdapter(val user: UserRsaConversation, val onRsaSelected: (String) -> Unit) : ItemAdapter<Holder>(R.layout.user_item) {
+    class UserItemAdapter(val user: String,
+                          val messsage: Message,
+                          val onRsaSelected: (String) -> Unit) : ItemAdapter<Holder>(R.layout.user_item) {
 
         override fun onCreateViewHolder(itemView: View) = Holder(itemView)
 
         override fun onBindViewHolder(holder: Holder) {
-            holder.rsa.text = user.rsa
+            holder.rsa.text = user
             holder.itemView.setOnClickListener {
-                onRsaSelected(user.rsa)
+                onRsaSelected(user)
             }
         }
     }

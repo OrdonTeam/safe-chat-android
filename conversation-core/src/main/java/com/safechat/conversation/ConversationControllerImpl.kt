@@ -18,7 +18,7 @@ class ConversationControllerImpl(
                 .subscribe({ view.showMessages(it) }, { view.showError() })
     }
 
-    override fun onNewMessage(otherPublicKey: String, message: Message) {
+    override fun onNewMessage(otherPublicKey: String, message: com.safechat.message.Message) {
         repository.saveConversationMessage(otherPublicKey, message)
         cipher.encryptMessage(repository.getDecryptedSymmetricKey(otherPublicKey), message)
                 .flatMap { service.postMessage(repository.getPublicKeyString(), otherPublicKey, it) }

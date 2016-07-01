@@ -30,7 +30,7 @@ class ConversationAdapter : BaseRecyclerViewAdapter() {
         return (it as MessageItemAdapter).message.timestamp == timestamp
     }
 
-    class MessageItemAdapter(val message: Message) : ItemAdapter<Holder>(R.layout.message) {
+    class MessageItemAdapter(val message: com.safechat.message.Message) : ItemAdapter<Holder>(R.layout.message) {
         override fun onCreateViewHolder(itemView: View) = Holder(itemView)
 
         override fun onBindViewHolder(holder: Holder) {

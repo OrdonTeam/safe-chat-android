@@ -1,5 +1,7 @@
 package com.safechat.conversation.select
 
+import com.safechat.message.Message
+
 interface ConversationsListView {
-    fun showUsers(users: List<UserRsaConversation>)
+    fun showConversations(conversations: Map<String, Message>)
 }

@@ -5,11 +5,11 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.safechat.conversation.Message
+import com.safechat.message.Message
 import rx.Observable
 import rx.schedulers.Schedulers
 
-fun getPreviousMessagesWithUid(otherUid: String): Observable<Message> {
+fun getPreviousMessagesWithUid(otherUid: String): Observable<com.safechat.message.Message> {
     return Observable.create { subscriber ->
         subscriber.onStart()
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
@@ -45,7 +45,7 @@ fun getPreviousMessagesWithUid(otherUid: String): Observable<Message> {
                         }
                     }
 
-                    private fun updateMessage(message: Message) {
+                    private fun updateMessage(message: com.safechat.message.Message) {
                         postMessageToUid(otherUid, message.copy(isRead = true))
                                 .subscribeOn(Schedulers.trampoline())
                                 .subscribe({}, { subscriber.onError(it) })

@@ -3,34 +3,33 @@ package com.safechat.conversation.select
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import com.safechat.message.Message
 import org.junit.Before
 import org.junit.Test
-import rx.Observable.error
-import rx.Observable.just
 
 class ConversationsListControllerTest {
 
     val view = mock<ConversationsListView>()
-    val service = mock<ConversationsListService>()
-    val controller = ConversationsListControllerImpl(service, view)
+    val repository = mock<ConversationsListRepository>()
+    val controller = ConversationsListControllerImpl(repository, view)
 
     @Before
     fun setUp() {
-        whenever(service.getConversations()).thenReturn(error(RuntimeException()))
+        whenever(repository.getConversationsMessages()).thenReturn(emptyMap())
     }
 
     @Test
     fun shouldGetAllUserConversationsOnCreate() {
         controller.onCreate()
-        verify(service).getConversations()
+        verify(repository).getConversationsMessages()
     }
 
     @Test
-    fun shouldShowUsersFromService() {
-        val results = emptyList<UserRsaConversation>()
-        whenever(service.getConversations()).thenReturn(just(results))
+    fun shouldShowUsersFromRepository() {
+        val results = emptyMap<String, Message>()
+        whenever(repository.getConversationsMessages()).thenReturn(results)
         controller.onCreate()
-        verify(view).showUsers(results)
+        verify(view).showConversations(results)
     }
 }
 

@@ -1,6 +1,6 @@
 package com.safechat.firebase.conversation
 
-import com.safechat.conversation.Message
+import com.safechat.message.Message
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 
@@ -12,25 +12,25 @@ class FirebaseMessageTest {
 
     @Test
     fun shouldConvertMessageToFirebase() {
-        val message = Message("text", false, false, timestamp)
+        val message = com.safechat.message.Message("text", false, false, timestamp)
         assertEquals(message, message.toFirebaseMessage(myUid, otherUid).toMessage(myUid, timestamp))
     }
 
     @Test
     fun shouldConvertMineMessageToFirebase() {
-        val message = Message("text", true, false, timestamp)
+        val message = com.safechat.message.Message("text", true, false, timestamp)
         assertEquals(message, message.toFirebaseMessage(myUid, otherUid).toMessage(myUid, timestamp))
     }
 
     @Test
     fun shouldConvertReadMessageToFirebase() {
-        val message = Message("text", false, true, timestamp)
+        val message = com.safechat.message.Message("text", false, true, timestamp)
         assertEquals(message, message.toFirebaseMessage(myUid, otherUid).toMessage(myUid, timestamp))
     }
 
     @Test
     fun shouldConvertMineReadMessageToFirebase() {
-        val message = Message("text", true, true, timestamp)
+        val message = com.safechat.message.Message("text", true, true, timestamp)
         assertEquals(message, message.toFirebaseMessage(myUid, otherUid).toMessage(myUid, timestamp))
     }
 }

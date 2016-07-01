@@ -1,4 +1,6 @@
-include ':app', ':create-conversation-view',
+include ':app',
+        ':create-conversation-view',
+        ':message-model',
         ':users-service-core',
         ':suid-calculator',
         ':user-profile-core',

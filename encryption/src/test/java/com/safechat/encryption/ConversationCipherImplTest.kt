@@ -1,6 +1,6 @@
 package com.safechat.encryption
 
-import com.safechat.conversation.Message
+import com.safechat.message.Message
 import com.safechat.encryption.base.KeysBase64Cipher
 import com.safechat.encryption.generator.newSymmetricKey
 import org.junit.Assert
@@ -12,11 +12,11 @@ class ConversationCipherImplTest {
     val symmetricKeyBase64 = KeysBase64Cipher.toBase64String(newSymmetricKey())
 
     val cipher = ConversationCipherImpl()
-    val subscriber = TestSubscriber<Message>()
+    val subscriber = TestSubscriber<com.safechat.message.Message>()
 
     @Test
     fun shouldEncryptAndDecryptWithSymmetricKey() {
-        val message = Message("message", true, false, 1466490821381)
+        val message = com.safechat.message.Message("message", true, false, 1466490821381)
         cipher.encryptMessage(symmetricKeyBase64, message)
                 .flatMap { cipher.decryptMessages(symmetricKeyBase64, listOf(it)) }
                 .map { it.first() }
@@ -26,7 +26,7 @@ class ConversationCipherImplTest {
 
     @Test
     fun encryptionShouldReturnDifferentMessage() {
-        val message = Message("message", true, false, 1466490821381)
+        val message = com.safechat.message.Message("message", true, false, 1466490821381)
         cipher.encryptMessage(symmetricKeyBase64, message)
                 .subscribe(subscriber)
         val encryptedMessage = subscriber.onNextEvents.first()

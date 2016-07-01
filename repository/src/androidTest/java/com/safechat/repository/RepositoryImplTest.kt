@@ -1,6 +1,7 @@
 package com.safechat.repository
 
 import android.support.test.InstrumentationRegistry.getTargetContext
+import com.safechat.message.Message
 import com.safechat.register.KeyPairString
 import org.junit.After
 import org.junit.Assert.*
@@ -35,6 +36,24 @@ class RepositoryImplTest {
         repositoryImpl.saveDecryptedSymmetricKey(otherPublicKey, "decrypted_symmetric_key")
         assertTrue(repositoryImpl.containsSymmetricKey(otherPublicKey))
     }
+
+    @Test
+    fun shouldSaveConversationMessage() {
+        val message = Message("", false, false, 1L)
+        repositoryImpl.saveConversationMessage(otherPublicKey, message)
+        val messages = repositoryImpl.getConversationsMessages()
+        assertEquals(message, messages.values.first())
+    }
+
+    @Test
+    fun shouldOverrideMessageFromTheSamePublicKey(){
+        val secondMessage = Message("", false, false, 2L)
+        repositoryImpl.saveConversationMessage(otherPublicKey, Message("", false, false, 1L))
+        repositoryImpl.saveConversationMessage(otherPublicKey, secondMessage)
+        val messages = repositoryImpl.getConversationsMessages()
+        assertEquals(secondMessage, messages.values.first())
+    }
+
 
     private fun newKeyPair() = KeyPairString("publicKey", "privateKey")
 

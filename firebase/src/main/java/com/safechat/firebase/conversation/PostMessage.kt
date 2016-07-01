@@ -2,10 +2,10 @@ package com.safechat.firebase.conversation
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.safechat.conversation.Message
+import com.safechat.message.Message
 import rx.Observable
 
-fun postMessageToUid(otherUid: String, message: Message): Observable<Unit> {
+fun postMessageToUid(otherUid: String, message: com.safechat.message.Message): Observable<Unit> {
     return Observable.create { subscriber ->
         subscriber.onStart()
         val uid = FirebaseAuth.getInstance().currentUser!!.uid

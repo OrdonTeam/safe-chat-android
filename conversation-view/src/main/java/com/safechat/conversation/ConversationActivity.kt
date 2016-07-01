@@ -18,7 +18,7 @@ class ConversationActivity : AppCompatActivity(), ConversationView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.conversation)
         (findViewById(R.id.conversation_message) as TextView).setOnEditorActionListener { textView, i, keyEvent ->
-            controller.onNewMessage(intent.getStringExtra(OTHER_PUBLIC_KEY), Message(textView.text.toString().trim(), true, false, System.currentTimeMillis()))
+            controller.onNewMessage(intent.getStringExtra(OTHER_PUBLIC_KEY), com.safechat.message.Message(textView.text.toString().trim(), true, false, System.currentTimeMillis()))
             textView.text = ""
             true
         }
@@ -28,7 +28,7 @@ class ConversationActivity : AppCompatActivity(), ConversationView {
         controller.onCreated(intent.getStringExtra(OTHER_PUBLIC_KEY))
     }
 
-    override fun showMessages(messages: List<Message>) {
+    override fun showMessages(messages: List<com.safechat.message.Message>) {
         adapter.add(messages.map { ConversationAdapter.MessageItemAdapter(it) })
     }
 
