@@ -32,19 +32,22 @@ class RepositoryImplTest {
 
     @Test
     fun shouldSaveDecryptedSymmetricKey() {
-        repositoryImpl.saveDecryptedSymmetricKey("other_public_key", "decrypted_symmetric_key")
-        assertTrue(repositoryImpl.containsSymmetricKey("other_public_key"))
+        repositoryImpl.saveDecryptedSymmetricKey(otherPublicKey, "decrypted_symmetric_key")
+        assertTrue(repositoryImpl.containsSymmetricKey(otherPublicKey))
     }
 
     private fun newKeyPair() = KeyPairString("publicKey", "privateKey")
+
+    private val otherPublicKey = "other_public_key"
 
     @After
     @Before
     fun clearKey() {
         repositoryImpl.sharedPreferences.edit()
-                .remove("private_key")
-                .remove("public_key")
-                .remove("other_public_key")
+                .remove(RepositoryImpl.PRIVATE_KEY)
+                .remove(RepositoryImpl.PUBLIC_KEY)
+                .remove(RepositoryImpl.CONVERSATIONS)
+                .remove(otherPublicKey)
                 .apply()
     }
 }

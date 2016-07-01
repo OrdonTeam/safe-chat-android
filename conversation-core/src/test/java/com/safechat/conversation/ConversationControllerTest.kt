@@ -21,6 +21,8 @@ class ConversationControllerTest {
     val decryptedMessages = listOf(Message("decrypted_text", false, false, 1466490821384))
     val newMessage = Message("new_message", true, false, 1466490821390)
     val newEncryptedMessage = Message("new_encrypted_message", true, false, 1466490821390)
+    val otherPublicKey = "otherPublicKey"
+    val myPublicKey = "myPublicKey"
 
     @Before
     fun setUp() {
@@ -33,6 +35,12 @@ class ConversationControllerTest {
     fun shouldShowDecryptedMessages() {
         startController()
         verify(view).showMessages(decryptedMessages)
+    }
+
+    @Test
+    fun shouldSaveLastMessageInRepository() {
+        startController()
+        verify(repository).saveConversationMessage(otherPublicKey, decryptedMessages.last())
     }
 
     @Test
@@ -52,34 +60,40 @@ class ConversationControllerTest {
     @Test
     fun shouldPostNewMessage() {
         sendNewMessage()
-        verify(service).postMessage("myPublicKey", "otherPublicKey", newEncryptedMessage)
+        verify(service).postMessage(myPublicKey, otherPublicKey, newEncryptedMessage)
+    }
+
+    @Test
+    fun shouldSaveNewlyPostedMessageIntoRepository() {
+        sendNewMessage()
+        verify(repository).saveConversationMessage(otherPublicKey, newMessage)
     }
 
     @Test
     fun shouldUnsubscribe() {
         val unsubscribeVerifier = UnsubscribeVerifier.newUnsubscribeVerifier<Message>()
-        whenever(service.listenForMessages("myPublicKey", "otherPublicKey")).thenReturn(unsubscribeVerifier.observable)
+        whenever(service.listenForMessages(myPublicKey, otherPublicKey)).thenReturn(unsubscribeVerifier.observable)
         startController()
         controller.onDestroy()
         unsubscribeVerifier.assertWasUnsubscribed()
     }
 
     private fun startController() {
-        controller.onCreated("otherPublicKey")
+        controller.onCreated(otherPublicKey)
     }
 
     private fun sendNewMessage() {
-        controller.onNewMessage("otherPublicKey", newMessage)
+        controller.onNewMessage(otherPublicKey, newMessage)
     }
 
     private fun stubRepository() {
-        whenever(repository.getPublicKeyString()).thenReturn("myPublicKey")
-        whenever(repository.getDecryptedSymmetricKey("otherPublicKey")).thenReturn("symmetricKey")
+        whenever(repository.getPublicKeyString()).thenReturn(myPublicKey)
+        whenever(repository.getDecryptedSymmetricKey(otherPublicKey)).thenReturn("symmetricKey")
     }
 
     private fun stubService(messages: Observable<Message>) {
-        whenever(service.listenForMessages("myPublicKey", "otherPublicKey")).thenReturn(messages)
-        whenever(service.postMessage("myPublicKey", "otherPublicKey", newEncryptedMessage)).thenReturn(just(Unit))
+        whenever(service.listenForMessages(myPublicKey, otherPublicKey)).thenReturn(messages)
+        whenever(service.postMessage(myPublicKey, otherPublicKey, newEncryptedMessage)).thenReturn(just(Unit))
     }
 
     private fun stubCipher(messages: Observable<List<Message>>) {
