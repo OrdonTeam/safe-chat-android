@@ -1,7 +1,5 @@
 package com.safechat.user.profile
 
-import com.safechat.user.service.UsersService
-
 class UserProfileControllerImpl(val service: UsersService,
                                 val repository: UserProfileRepository,
                                 val suidCalculator: SuidCalculator,

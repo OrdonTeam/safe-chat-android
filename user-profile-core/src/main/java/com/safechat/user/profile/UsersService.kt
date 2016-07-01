@@ -1,4 +1,4 @@
-package com.safechat.user.service
+package com.safechat.user.profile
 
 import rx.Observable
 

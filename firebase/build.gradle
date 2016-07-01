@@ -5,8 +5,8 @@ dependencies {
     compile project(":registration-core")
     compile project(":exchange-symmetric-key-core")
     compile project(':conversation-core')
-    compile project(':users-service-core')
     compile project(':conversations-list-core')
+    compile project(':user-profile-core')
     compile 'com.google.firebase:firebase-auth:9.0.1'
     compile 'com.google.firebase:firebase-database:9.0.0'
 }
