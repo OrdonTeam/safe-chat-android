@@ -65,7 +65,6 @@ dependencies {
     compile project(':exchange-symmetric-key-view')
     compile project(':conversation-view')
     compile project(':create-conversation-view')
-    compile project(':user-profile-view')
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

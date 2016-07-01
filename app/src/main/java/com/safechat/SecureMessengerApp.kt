@@ -16,13 +16,13 @@ import com.safechat.encryption.SymmetricKeyCipher
 import com.safechat.firebase.conversation.ConversationServiceImpl
 import com.safechat.firebase.exchange.ExchangeServiceImpl
 import com.safechat.firebase.register.RegisterServiceImpl
-import com.safechat.firebase.users.UsersServiceImpl
+import com.safechat.firebase.users.CreateConversationServiceImpl
 import com.safechat.register.RegisterControllerImpl
 import com.safechat.registration_view.RegisterActivity
 import com.safechat.repository.RepositoryImpl
 import com.safechat.suid.generator.SuidCalculatorImpl
-import com.safechat.user.profile.UserProfileActivity
-import com.safechat.user.profile.UserProfileControllerImpl
+import com.safechat.conversation.create.CreateConversationControllerImpl
+import com.safechat.conversation.create.CreateConversationView
 
 class SecureMessengerApp : Application() {
 
@@ -61,12 +61,12 @@ class SecureMessengerApp : Application() {
                 ConversationControllerImpl(service, repository, cipher, it)
             }
         }
-        UserProfileActivity.apply {
-            userProfileControllerProvider = {
-                val service = UsersServiceImpl()
+        CreateConversationActivity.apply {
+            createConversationControllerProvider = {
+                val service = CreateConversationServiceImpl()
                 val repository = RepositoryImpl(it)
                 val suidCalculator = SuidCalculatorImpl()
-                UserProfileControllerImpl(service, repository, suidCalculator, it)
+                CreateConversationControllerImpl(service, repository, suidCalculator, it)
             }
         }
     }

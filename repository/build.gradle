@@ -27,7 +27,7 @@ dependencies {
     compile project(':registration-core')
     compile project(':exchange-symmetric-key-core')
     compile project(':conversation-core')
-    compile project(':user-profile-core')
+    compile project(':create-conversation-core')
     compile project(':conversations-list-core')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.elpassion.android.commons:shared-preferences:0.0.9"

@@ -1,9 +1,0 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.safechat.user.profile">
-
-    <application>
-        <activity
-            android:name=".UserProfileActivity"
-            android:theme="@style/AppTheme"/>
-    </application>
-</manifest>

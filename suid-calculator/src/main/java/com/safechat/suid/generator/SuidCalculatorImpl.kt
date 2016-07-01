@@ -1,6 +1,6 @@
 package com.safechat.suid.generator
 
-import com.safechat.user.profile.SuidCalculator
+import com.safechat.conversation.create.SuidCalculator
 
 class SuidCalculatorImpl : SuidCalculator {
 
