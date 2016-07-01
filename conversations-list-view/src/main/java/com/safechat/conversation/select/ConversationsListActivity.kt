@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.view.Menu
 import android.view.View
 import android.widget.TextView
 import com.elpassion.android.commons.recycler.BaseRecyclerViewAdapter
@@ -22,15 +21,9 @@ class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_conversation)
         setSupportActionBar(findViewById(R.id.toolbar) as Toolbar)
-        getSupportActionBar()!!.setTitle(R.string.select_conversation_title)
+        supportActionBar!!.setTitle(R.string.select_conversation_title)
         findViewById(R.id.create_conversation)!!.setOnClickListener { onCreateConversationSelect(this) }
         controller.onCreate()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        menu.findItem(R.id.show_info).setOnMenuItemClickListener { onMenuInfoSelect(this); true }
-        return true
     }
 
     override fun showConversations(conversations: Map<String, Message>) {
@@ -69,7 +62,6 @@ class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
 
         lateinit var conversationsListControllerProvider: (ConversationsListActivity) -> ConversationsListController
         lateinit var onPublicKeySelect: (Context, String) -> Unit
-        lateinit var onMenuInfoSelect: (Context) -> Unit
         lateinit var onCreateConversationSelect: (Context) -> Unit
 
         fun start(context: Context) {
