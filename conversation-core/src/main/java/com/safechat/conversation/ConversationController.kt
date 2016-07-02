@@ -6,4 +6,6 @@ interface ConversationController {
     fun onNewMessage(otherPublicKey: String, message: com.safechat.message.Message)
 
     fun onDestroy()
+
+    fun onBackArrowClick()
 }

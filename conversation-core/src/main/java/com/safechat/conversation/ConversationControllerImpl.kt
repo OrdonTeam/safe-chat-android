@@ -28,4 +28,8 @@ class ConversationControllerImpl(
     override fun onDestroy() {
         subscription?.unsubscribe()
     }
+
+    override fun onBackArrowClick() {
+        view.close()
+    }
 }
