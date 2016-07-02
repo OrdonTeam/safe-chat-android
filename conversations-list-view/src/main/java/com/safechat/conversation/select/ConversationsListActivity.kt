@@ -36,7 +36,10 @@ class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
         contentFlipper.show(R.id.conversation_select_list)
         val recycler = findViewById(R.id.conversation_select_list) as RecyclerView
         recycler.layoutManager = LinearLayoutManager(this)
-        recycler.adapter = BaseRecyclerViewAdapter(conversations.map { mapToItemAdapter(it.key, it.value) })
+        recycler.adapter = BaseRecyclerViewAdapter(
+                conversations.map { mapToItemAdapter(it.key, it.value) }
+                        .flatMap { listOf(it, SeparatorItemAdapter()) }
+        )
     }
 
     override fun showEmptyConversationsPlaceholder() {
@@ -69,6 +72,14 @@ class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
                 holder.nameView.setTypeface(null, Typeface.BOLD)
                 holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.gray_background_color))
             }
+        }
+    }
+
+    class SeparatorItemAdapter() : ItemAdapter<Holder>(R.layout.separator_item) {
+
+        override fun onCreateViewHolder(itemView: View) = Holder(itemView)
+
+        override fun onBindViewHolder(holder: Holder) {
         }
     }
 
