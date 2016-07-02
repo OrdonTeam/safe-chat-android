@@ -2,7 +2,6 @@ package com.safechat.firebase.conversation
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.GenericTypeIndicator
-import com.safechat.message.Message
 
 internal data class FirebaseMessage(
         var message: String? = null,

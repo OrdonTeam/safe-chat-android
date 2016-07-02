@@ -4,6 +4,7 @@ import android.content.Context
 import android.preference.PreferenceManager
 import com.elpassion.android.commons.sharedpreferences.createSharedPrefs
 import com.safechat.conversation.ConversationRepository
+import com.safechat.conversation.create.CreateConversationRepository
 import com.safechat.conversation.select.ConversationsListRepository
 import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyRepository
 import com.safechat.conversation.symmetrickey.post.PostSymmetricKeyRepository
@@ -11,7 +12,6 @@ import com.safechat.conversation.symmetrickey.retrieve.RetrieveSymmetricKeyRepos
 import com.safechat.message.Message
 import com.safechat.register.KeyPairString
 import com.safechat.register.RegisterRepository
-import com.safechat.conversation.create.CreateConversationRepository
 
 class RepositoryImpl(context: Context) : RegisterRepository,
         ExchangeSymmetricKeyRepository,

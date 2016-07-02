@@ -4,12 +4,6 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import com.safechat.user.profile.CreateConversationControllerImpl
-import com.safechat.user.profile.CreateConversationRepository
-import com.safechat.user.profile.User
-import com.safechat.user.profile.CreateConversationService
-import com.safechat.user.profile.CreateConversationView
-import com.safechat.user.profile.SuidCalculator
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito

@@ -11,7 +11,7 @@ fun putUser(uid: String, publicKeyString: String) = Observable.create<Unit> { su
             .child("users")
             .child(uid)
             .setValue(publicKeyString)
-            .addOnSuccessListener{
+            .addOnSuccessListener {
                 subscriber.onNext(Unit)
                 subscriber.onCompleted()
             }

@@ -46,7 +46,7 @@ class RepositoryImplTest {
     }
 
     @Test
-    fun shouldOverrideMessageFromTheSamePublicKey(){
+    fun shouldOverrideMessageFromTheSamePublicKey() {
         val secondMessage = Message("", false, false, 2L)
         repositoryImpl.saveConversationMessage(otherPublicKey, Message("", false, false, 1L))
         repositoryImpl.saveConversationMessage(otherPublicKey, secondMessage)

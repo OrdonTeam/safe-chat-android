@@ -1,4 +1,10 @@
 <resources>
     <string name="create_conversation_title">user-profile-view</string>
     <string name="create_conversation_error">Error while searching for shortest unique substring.</string>
+    <string name="unique_id_here_is">Here is your unique id</string>
+    <string name="unique_id_warning">(it might change over time)</string>
+    <string name="unique_id_input_hint">Enter your friend\'s unique id...</string>
+    <string name="create_conversation_button">go!</string>
+    <string name="calculating_unique_id">Calculating...</string>
+    <string name="error_user_not_found">User not found :(</string>
 </resources>

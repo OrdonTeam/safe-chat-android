@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.annotation.IdRes
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -59,14 +60,14 @@ class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
         override fun onBindViewHolder(holder: Holder) {
             holder.nameView.text = user
             holder.dateView.text = messsage.timestamp.toString()
-            holder.conversationColorView.setBackgroundColor(holder.itemView.context.getColor(R.color.red))
+            holder.conversationColorView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
             holder.lastMessageView.text = messsage.text
             holder.itemView.setOnClickListener {
                 onRsaSelected(user)
             }
             if (!messsage.isRead) {
                 holder.nameView.setTypeface(null, Typeface.BOLD)
-                holder.itemView.setBackgroundColor(holder.itemView.context.getColor(R.color.gray_background_color))
+                holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.gray_background_color))
             }
         }
     }

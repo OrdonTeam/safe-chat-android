@@ -7,6 +7,7 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.View
 import android.widget.TextView
 
 class CreateConversationActivity : AppCompatActivity(), CreateConversationView {
@@ -19,6 +20,10 @@ class CreateConversationActivity : AppCompatActivity(), CreateConversationView {
         setSupportActionBar(findViewById(R.id.toolbar) as Toolbar)
         supportActionBar!!.setTitle(R.string.create_conversation_title)
         controller.onCreate()
+        val suidInput = findViewById(R.id.unique_id_input) as TextView
+        findViewById(R.id.create_conversation_button)!!.setOnClickListener {
+            controller.onCreateConversationButtonClick(suidInput.text.toString())
+        }
     }
 
     override fun showShortestUniqueId(suid: String) {
@@ -32,10 +37,18 @@ class CreateConversationActivity : AppCompatActivity(), CreateConversationView {
                 .show()
     }
 
+    override fun showUserFoundScreen(rsa: String) {
+        showUserFoundScreen(this, rsa)
+    }
+
+    override fun showUserNotFound() {
+        findViewById(R.id.user_not_found_error_message)!!.visibility = View.VISIBLE
+    }
+
     companion object {
 
         lateinit var createConversationControllerProvider: (CreateConversationActivity) -> CreateConversationController
-
+        lateinit var showUserFoundScreen: (Context, String) -> Unit
         fun start(context: Context) {
             context.startActivity(Intent(context, CreateConversationActivity::class.java))
         }

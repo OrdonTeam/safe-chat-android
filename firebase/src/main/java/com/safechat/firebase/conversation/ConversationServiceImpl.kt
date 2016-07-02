@@ -1,7 +1,6 @@
 package com.safechat.firebase.conversation
 
 import com.safechat.conversation.ConversationService
-import com.safechat.message.Message
 import com.safechat.firebase.users.findUserByRsa
 import rx.Observable
 

@@ -2,8 +2,6 @@
 <android.support.design.widget.CoordinatorLayout
     android:id="@+id/create_conversation_coordinator"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -19,12 +17,5 @@
             android:layout_height="wrap_content"/>
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/my_suid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:text="AAAA"/>
-
+    <include layout="@layout/create_conversation_content"/>
 </android.support.design.widget.CoordinatorLayout>

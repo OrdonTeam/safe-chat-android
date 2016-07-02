@@ -1,6 +1,5 @@
 package com.safechat.encryption
 
-import com.safechat.message.Message
 import com.safechat.encryption.base.KeysBase64Cipher
 import com.safechat.encryption.generator.newSymmetricKey
 import org.junit.Assert

@@ -1,7 +1,6 @@
 package com.safechat.encryption
 
 import com.safechat.conversation.ConversationCipher
-import com.safechat.message.Message
 import com.safechat.encryption.base.Base64Encoder
 import com.safechat.encryption.base.KeysBase64Cipher
 import com.safechat.encryption.symmetric.AESCipher

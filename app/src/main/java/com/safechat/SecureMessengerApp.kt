@@ -4,6 +4,7 @@ import android.app.Application
 import com.safechat.conversation.ConversationActivity
 import com.safechat.conversation.ConversationControllerImpl
 import com.safechat.conversation.create.CreateConversationActivity
+import com.safechat.conversation.create.CreateConversationControllerImpl
 import com.safechat.conversation.select.ConversationsListActivity
 import com.safechat.conversation.select.ConversationsListControllerImpl
 import com.safechat.conversation.symmetrickey.ExchangeSymmetricKeyActivity
@@ -21,8 +22,6 @@ import com.safechat.register.RegisterControllerImpl
 import com.safechat.registration_view.RegisterActivity
 import com.safechat.repository.RepositoryImpl
 import com.safechat.suid.generator.SuidCalculatorImpl
-import com.safechat.conversation.create.CreateConversationControllerImpl
-import com.safechat.conversation.create.CreateConversationView
 
 class SecureMessengerApp : Application() {
 
@@ -68,6 +67,7 @@ class SecureMessengerApp : Application() {
                 val suidCalculator = SuidCalculatorImpl()
                 CreateConversationControllerImpl(service, repository, suidCalculator, it)
             }
+            showUserFoundScreen = ExchangeSymmetricKeyActivity.start
         }
     }
 }

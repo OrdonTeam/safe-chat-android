@@ -5,6 +5,8 @@
     <color name="gray_background_color">#f9f9f9</color>
     <color name="text_color">#303010</color>
     <color name="gray_text_color">#979797</color>
+    <color name="light_gray_text_color">#d8d8d8</color>
+    <color name="ugly_yellow">#b6c31e</color>
 
     <integer-array name="loader_colors">
         <item>@color/green</item>
