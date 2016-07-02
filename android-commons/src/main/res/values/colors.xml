@@ -2,7 +2,9 @@
 <resources>
     <color name="background_dark">#393939</color>
     <color name="background">#ffffff</color>
+    <color name="gray_background_color">#f9f9f9</color>
     <color name="text_color">#303010</color>
+    <color name="gray_text_color">#979797</color>
 
     <integer-array name="loader_colors">
         <item>@color/green</item>
