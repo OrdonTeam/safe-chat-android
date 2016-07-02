@@ -27,7 +27,7 @@ class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_conversation)
         setSupportActionBar(findViewById(R.id.toolbar) as Toolbar)
-        supportActionBar!!.setTitle(R.string.select_conversation_title)
+        supportActionBar!!.setTitle(R.string.conversation_list_title)
         findViewById(R.id.conversation_menu)!!.setOnClickListener { onCreateConversationSelect(this) }
         controller.onCreate()
     }

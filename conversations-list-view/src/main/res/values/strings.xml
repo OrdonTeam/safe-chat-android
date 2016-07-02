@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="select_conversation_title">Select rsa</string>
+    <string name="conversation_list_title">Contact list</string>
     <string name="menu_info">Info</string>
 </resources>
