@@ -6,6 +6,10 @@ class ConversationsListControllerImpl(
 
     override fun onCreate() {
         val conversations = repository.getConversationsMessages()
-        view.showConversations(conversations)
+        if (conversations.isNotEmpty()) {
+            view.showConversations(conversations)
+        } else {
+            view.showEmptyConversationsPlaceholder()
+        }
     }
 }

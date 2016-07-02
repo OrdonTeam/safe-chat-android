@@ -17,11 +17,22 @@
             android:layout_height="wrap_content"/>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/conversation_select_list"
+    <ViewFlipper
+        android:id="@+id/conversation_list_flipper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/conversation_select_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <include
+            android:id="@+id/empty_conversation_placeholder"
+            layout="@layout/empty_conversations_list"/>
+
+    </ViewFlipper>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/conversation_menu"

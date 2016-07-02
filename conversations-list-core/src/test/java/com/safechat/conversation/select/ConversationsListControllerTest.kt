@@ -25,11 +25,18 @@ class ConversationsListControllerTest {
     }
 
     @Test
-    fun shouldShowUsersFromRepository() {
-        val results = emptyMap<String, Message>()
+    fun shouldShowConversationsFromRepositoryIfRepositoryIsNotEmpty() {
+        val results = mapOf("" to Message("", false, false, 1L))
         whenever(repository.getConversationsMessages()).thenReturn(results)
         controller.onCreate()
         verify(view).showConversations(results)
+    }
+
+    @Test
+    fun shouldShowEmptyConversationListPlaceHolderWhenThereAreNoConversationsInRepository() {
+        whenever(repository.getConversationsMessages()).thenReturn(emptyMap<String, Message>())
+        controller.onCreate()
+        verify(view).showEmptyConversationsPlaceholder()
     }
 }
 
