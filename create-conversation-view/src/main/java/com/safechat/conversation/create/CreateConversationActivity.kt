@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.widget.TextView
-import kotlinx.android.synthetic.main.create_conversation.*
 
 class CreateConversationActivity : AppCompatActivity(), CreateConversationView {
 
