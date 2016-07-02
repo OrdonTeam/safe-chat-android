@@ -1,5 +1,5 @@
 <resources>
-    <string name="create_conversation_title">user-profile-view</string>
+    <string name="create_conversation_title">Add contact</string>
     <string name="create_conversation_error">Error while searching for shortest unique substring.</string>
     <string name="unique_id_here_is">Here is your unique id</string>
     <string name="unique_id_warning">(it might change over time)</string>
