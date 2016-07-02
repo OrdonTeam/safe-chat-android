@@ -64,12 +64,6 @@ class ConversationControllerTest {
     }
 
     @Test
-    fun shouldSaveNewlyPostedMessageIntoRepository() {
-        sendNewMessage()
-        verify(repository).saveConversationMessage(otherPublicKey, newMessage)
-    }
-
-    @Test
     fun shouldUnsubscribe() {
         val unsubscribeVerifier = UnsubscribeVerifier.newUnsubscribeVerifier<com.safechat.message.Message>()
         whenever(service.listenForMessages(myPublicKey, otherPublicKey)).thenReturn(unsubscribeVerifier.observable)
