@@ -6,7 +6,7 @@ import org.junit.Test
 class ConversationsListActivityTest {
 
     val listController: ConversationsListController = object : ConversationsListController {
-        override fun onCreate() {
+        override fun onResume() {
         }
     }
 

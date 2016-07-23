@@ -29,7 +29,11 @@ class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
         setSupportActionBar(findViewById(R.id.toolbar) as Toolbar)
         supportActionBar!!.setTitle(R.string.conversation_list_title)
         findViewById(R.id.conversation_menu)!!.setOnClickListener { onCreateConversationSelect(this) }
-        controller.onCreate()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        controller.onResume()
     }
 
     override fun showEmptyConversationsPlaceholder() {

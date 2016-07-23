@@ -20,7 +20,7 @@ class ConversationsListControllerTest {
 
     @Test
     fun shouldGetAllUserConversationsOnCreate() {
-        controller.onCreate()
+        controller.onResume()
         verify(repository).getConversationsMessages()
     }
 
@@ -28,14 +28,14 @@ class ConversationsListControllerTest {
     fun shouldShowConversationsFromRepositoryIfRepositoryIsNotEmpty() {
         val results = mapOf("" to Message("", false, false, 1L))
         whenever(repository.getConversationsMessages()).thenReturn(results)
-        controller.onCreate()
+        controller.onResume()
         verify(view).showConversations(results)
     }
 
     @Test
     fun shouldShowEmptyConversationListPlaceHolderWhenThereAreNoConversationsInRepository() {
         whenever(repository.getConversationsMessages()).thenReturn(emptyMap<String, Message>())
-        controller.onCreate()
+        controller.onResume()
         verify(view).showEmptyConversationsPlaceholder()
     }
 }
