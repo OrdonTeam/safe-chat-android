@@ -55,20 +55,20 @@ class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
     }
 
     class UserItemAdapter(val user: String,
-                          val messsage: Message,
+                          val message: Message,
                           val onRsaSelected: (String) -> Unit) : ItemAdapter<Holder>(R.layout.conversation_item) {
 
         override fun onCreateViewHolder(itemView: View) = Holder(itemView)
 
         override fun onBindViewHolder(holder: Holder) {
             holder.nameView.text = user
-            holder.dateView.text = messsage.timestamp.toString()
+            holder.dateView.text = message.timestamp.toString()
             holder.conversationColorView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
-            holder.lastMessageView.text = messsage.text
+            holder.lastMessageView.text = message.text
             holder.itemView.setOnClickListener {
                 onRsaSelected(user)
             }
-            if (!messsage.isRead) {
+            if (!message.isRead) {
                 holder.nameView.setTypeface(null, Typeface.BOLD)
                 holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.gray_background_color))
             }
