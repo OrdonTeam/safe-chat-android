@@ -32,6 +32,10 @@ class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
         controller.onCreate()
     }
 
+    override fun showEmptyConversationsPlaceholder() {
+        contentFlipper.show(R.id.empty_conversation_placeholder)
+    }
+
     override fun showConversations(conversations: Map<String, Message>) {
         contentFlipper.show(R.id.conversation_select_list)
         val recycler = findViewById(R.id.conversation_select_list) as RecyclerView
@@ -42,52 +46,12 @@ class ConversationsListActivity : AppCompatActivity(), ConversationsListView {
         )
     }
 
-    override fun showEmptyConversationsPlaceholder() {
-        contentFlipper.show(R.id.empty_conversation_placeholder)
-    }
-
     private fun mapToItemAdapter(user: String, message: Message): UserItemAdapter {
         return UserItemAdapter(user, message, onRsaSelected)
     }
 
     private val onRsaSelected: (String) -> Unit = { rsa ->
         onPublicKeySelect(this, rsa)
-    }
-
-    class UserItemAdapter(val user: String,
-                          val message: Message,
-                          val onRsaSelected: (String) -> Unit) : ItemAdapter<Holder>(R.layout.conversation_item) {
-
-        override fun onCreateViewHolder(itemView: View) = Holder(itemView)
-
-        override fun onBindViewHolder(holder: Holder) {
-            holder.nameView.text = user
-            holder.dateView.text = message.timestamp.toString()
-            holder.conversationColorView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
-            holder.lastMessageView.text = message.text
-            holder.itemView.setOnClickListener {
-                onRsaSelected(user)
-            }
-            if (!message.isRead) {
-                holder.nameView.setTypeface(null, Typeface.BOLD)
-                holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.gray_background_color))
-            }
-        }
-    }
-
-    class SeparatorItemAdapter() : ItemAdapter<Holder>(R.layout.separator_item) {
-
-        override fun onCreateViewHolder(itemView: View) = Holder(itemView)
-
-        override fun onBindViewHolder(holder: Holder) {
-        }
-    }
-
-    class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameView by lazy { itemView.findViewById(R.id.conversation_item_name) as TextView }
-        val conversationColorView by lazy { itemView.findViewById(R.id.conversation_item_color) }
-        val dateView by lazy { itemView.findViewById(R.id.conversation_item_date) as TextView }
-        val lastMessageView by lazy { itemView.findViewById(R.id.conversation_item_last_message) as TextView }
     }
 
     companion object {
